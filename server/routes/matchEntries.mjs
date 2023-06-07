@@ -3,7 +3,7 @@ import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 
 const router = express.Router();
-const collectionName =  "match-journal-data"
+const collectionName =  "match-entries"
 
 // This get all match entries
 router.get("/", async (req, res) => {
