@@ -12,6 +12,11 @@ router.get("/", async (req, res) => {
   res.send(results).status(200); // send success response
 });
 
+router.get("/test", async (req, res) => {
+
+  res.send("hello node").status(200); // send success response
+});
+
 
 // retrieve a specific match journal entry given by id as url path param
 router.get("/:id", async (req, res) => {
