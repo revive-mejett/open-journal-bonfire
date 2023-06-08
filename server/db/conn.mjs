@@ -1,15 +1,14 @@
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
 const connectionString = process.env.ATLAS_URI || "";
 
-
-const client = new MongoClient(connectionString);
 
 let conn;
 
 //try to connect to mongodb
 try {
-  conn = await client.connect();
+  conn = await mongoose.connect(connectionString)
 } catch(e) {
   console.error(e);
 }
