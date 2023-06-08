@@ -1,6 +1,7 @@
 import express from "express";
-import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
+import MatchEntry from "../models/MatchEntry.mjs";
 
 const router = express.Router();
 const collectionName =  "match-entries"
@@ -11,12 +12,6 @@ router.get("/", async (req, res) => {
   let results = await collection.find({}).toArray();
   res.send(results).status(200); // send success response
 });
-
-router.get("/test", async (req, res) => {
-
-  res.send("hello node").status(200); // send success response
-});
-
 
 // retrieve a specific match journal entry given by id as url path param
 router.get("/:id", async (req, res) => {
