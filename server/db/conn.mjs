@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 import MatchEntry from "../models/MatchEntry.mjs";
 
-const connectionString = process.env.ATLAS_URI || "";
-
-
+//singleton instance
 let instance = null
 
 class Database {
@@ -22,9 +20,8 @@ class Database {
      * connect to MongoDB
      */
     async connectToDb() {
-        
         console.log("Connecting to MongoDB")
-        await mongoose.connect(connectionString)
+        await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
     }
 
@@ -47,6 +44,7 @@ class Database {
         });
         // insert into mongodb
         await sampleEntry.save();
+        console.log("added test entry to mongodb")
     }
 }
 
