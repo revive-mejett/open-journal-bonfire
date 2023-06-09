@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import MatchEntry from "../models/MatchEntry.mjs";
+import MatchEntry from "../models/MatchEntry.js";
 
 //singleton instance
 let instance = null
