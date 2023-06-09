@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import MatchEntry from "../models/MatchEntry.mjs";
+import MatchEntry from "../models/MatchEntry.js";
 
 //singleton instance
 let instance = null
@@ -45,6 +45,11 @@ class Database {
         // insert into mongodb
         await sampleEntry.save();
         console.log("added test entry to mongodb")
+    }
+
+    async getAllEntries() {
+        const entries = await MatchEntry.find({})
+        console.log(entries)
     }
 }
 

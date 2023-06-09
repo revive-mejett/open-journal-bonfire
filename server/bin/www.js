@@ -1,5 +1,5 @@
-import Database from "../db/conn.mjs";
-import app from "../app.mjs";
+import Database from "../db/conn.js";
+import app from "../app.js";
 const PORT = process.env.PORT || 5050;
 
 

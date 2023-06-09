@@ -1,8 +1,8 @@
 import express from "express";
 // import cors from "cors";
 
-import "./loadEnvironment.mjs";
-import records from "./routes/matchEntries.mjs";
+import "./loadEnvironment.js";
+import records from "./routes/api.js";
 
 const app = express();
 
