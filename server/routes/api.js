@@ -10,8 +10,19 @@ const db = new Database()
 
 // This get all match entries
 router.get("/matchentries", async (req, res) => {
-  let collection = await db.getAllEntries()
-  res.json(collection).status(200); // send success response
+  let matchentries
+
+  try {
+    matchentries = await db.getAllEntries()
+    res.json()
+  } catch (error) {
+    //send server error
+    res.status(500).json({
+      status: "error",
+      payload: "Failed to retrieve all match entries from the database"
+    })
+  }
+ 
 });
 
 // retrieve a specific match journal entry given by id as url path param
