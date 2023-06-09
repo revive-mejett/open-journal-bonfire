@@ -2,15 +2,16 @@ import express from "express";
 import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import MatchEntry from "../models/MatchEntry.js";
+import Database from "../db/conn.js";
 
 const router = express.Router();
 const collectionName =  "match-entries"
+const db = new Database()
 
 // This get all match entries
-router.get("/", async (req, res) => {
-  let collection = await db.collection(collectionName);
-  let results = await collection.find({}).toArray();
-  res.send(results).status(200); // send success response
+router.get("/matchentries", async (req, res) => {
+  let collection = await db.getAllEntries()
+  res.json(collection).status(200); // send success response
 });
 
 // retrieve a specific match journal entry given by id as url path param

@@ -46,6 +46,11 @@ class Database {
         await sampleEntry.save();
         console.log("added test entry to mongodb")
     }
+
+    async getAllEntries() {
+        const entries = await MatchEntry.find({})
+        console.log(entries)
+    }
 }
 
 
