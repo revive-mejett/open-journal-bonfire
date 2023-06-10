@@ -14,7 +14,7 @@ router.get("/matchentries", async (req, res) => {
 
   try {
     matchentries = await db.getAllEntries()
-    res.json()
+    res.json(matchentries).status(200)
   } catch (error) {
     //send server error
     res.status(500).json({

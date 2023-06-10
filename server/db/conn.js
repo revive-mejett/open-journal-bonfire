@@ -54,7 +54,7 @@ class Database {
 
     async getAllEntries() {
         const entries = await MatchEntry.find({})
-        console.log(entries)
+        return entries
     }
 }
 
