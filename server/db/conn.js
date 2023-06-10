@@ -40,7 +40,12 @@ class Database {
         console.log("hello akshan")
         const sampleEntry = new MatchEntry({
             gameTitle: "l4d2",
-            rating: 2.3
+            entryContent: "My team did really well. Our rochelle went down halfway but our coach was our savior",
+            isWon: true,
+            teamReview: ["pro coach", "rochelle a bit new", "everyone survived"],
+            teamPerformance: ["pro coach", "rochelle a bit new", "everyone survived"],
+            events: ["rochelle almost died"],
+            selfRating: 8,
         });
         // insert into mongodb
         await sampleEntry.save();
