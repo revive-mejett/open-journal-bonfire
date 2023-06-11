@@ -9,6 +9,11 @@ const MatchEntriesPage = () => {
         const fetchMatchData = async () => {
             let response = await fetch("/api/matchentries")
             console.log(response)
+            if (!response.ok) {
+                console.log("response not ok")
+            }
+            matchData = await response.json()
+            console.log(matchData)
         }
         fetchMatchData()
     })

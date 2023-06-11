@@ -1,6 +1,5 @@
 {
   "name": "server",
-  "proxy": "localhost:3333",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
