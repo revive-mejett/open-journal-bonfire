@@ -1,7 +1,5 @@
 import express from "express";
 import { ObjectId } from "mongodb";
-import mongoose from "mongoose";
-import MatchEntry from "../models/MatchEntry.js";
 import Database from "../db/conn.js";
 
 const router = express.Router();
