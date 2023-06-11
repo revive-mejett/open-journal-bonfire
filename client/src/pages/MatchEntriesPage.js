@@ -2,21 +2,28 @@ import { useEffect, useState } from "react"
 
 const MatchEntriesPage = () => {
 
-    const [matchData, setMatchData] = useState([])
+    const [matchData, setMatchData] = useState(undefined)
 
     useEffect(()=> {
-        let matchData;
+        
         const fetchMatchData = async () => {
-            let response = await fetch("/api/matchentries")
-            console.log(response)
-            if (!response.ok) {
-                console.log("response not ok")
+            try {
+                let response = await fetch("/api/matchentries")
+                console.log(response)
+                if (!response.ok) {
+                    console.log("response not ok")
+                } else {
+                    let data = await response.json()
+                    setMatchData(data)
+                }
+            } catch(error) {
+                console.error("Error fetching match data --> ", error)
             }
-            matchData = await response.json()
-            console.log(matchData)
         }
-        fetchMatchData()
-    })
+        if (!matchData) {
+            fetchMatchData()
+        }
+    }, [matchData])
 
     return (
         <>
