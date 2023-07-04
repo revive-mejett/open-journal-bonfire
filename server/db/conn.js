@@ -37,7 +37,6 @@ class Database {
      */
     async createTestEntry() {
         // Create a new match entry
-        console.log("hello akshan")
         const sampleEntry = new MatchEntry({
             gameTitle: "l4d2",
             entryContent: "My team did really well. Our rochelle went down halfway but our coach was our savior",
@@ -49,7 +48,6 @@ class Database {
         });
         // insert into mongodb
         await sampleEntry.save();
-        console.log("added test entry to mongodb")
     }
 
     async getAllEntries() {

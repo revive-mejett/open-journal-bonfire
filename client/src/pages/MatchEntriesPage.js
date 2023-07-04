@@ -2,14 +2,13 @@ import { useEffect, useState } from "react"
 
 const MatchEntriesPage = () => {
 
-    const [matchData, setMatchData] = useState(undefined)
+    const [matchEntryData, setMatchData] = useState(undefined)
 
     useEffect(()=> {
         
         const fetchMatchData = async () => {
             try {
                 let response = await fetch("/api/matchentries")
-                console.log(response)
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
@@ -20,14 +19,34 @@ const MatchEntriesPage = () => {
                 console.error("Error fetching match data --> ", error)
             }
         }
-        if (!matchData) {
+        if (!matchEntryData) {
             fetchMatchData()
         }
-    }, [matchData])
+    }, [matchEntryData])
 
     return (
         <>
-            <h1>MatchEntriesPage</h1>
+            {matchEntryData &&
+                matchEntryData.map(entry => {
+                    return (
+                        <div>
+                            <h2>{entry.gameTitle}</h2>
+                            <p>outcome: {entry.isWon ? "WIN" : "LOSS"}</p>
+                            <div>
+                                {entry.teamReview.map(reviewPoint => <p>{reviewPoint}</p>)}
+                            </div>
+                            <div>
+                                {entry.teamPerformance.map(performanceItem => <p>{performanceItem}</p>)}
+                            </div>
+                            <div>
+                                {entry.events.map(eventItem => <p>{eventItem}</p>)}
+                            </div>
+                            entryContent: "My team did really well. Our rochelle went down halfway but our coach was our savior",
+                            <div>Rating: {entry.selfRating}</div>
+                        </div>
+                    )
+                })
+            }
         </>
     )
 }
