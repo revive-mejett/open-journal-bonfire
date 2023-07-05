@@ -41,7 +41,7 @@ const MatchEntriesPage = () => {
                             <div>
                                 {entry.events.map(eventItem => <p>{eventItem}</p>)}
                             </div>
-                            entryContent: "My team did really well. Our rochelle went down halfway but our coach was our savior",
+                            entryContent: {entry.entryContent},
                             <div>Rating: {entry.selfRating}</div>
                         </div>
                     )
