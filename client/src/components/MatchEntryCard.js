@@ -1,6 +1,8 @@
+import "./MatchEntryCard.scss"
+
 const MatchEntryCard = ({entry}) => {
     return (
-        <div>
+        <div className="match-entry-card">
             <h2>{entry.gameTitle}</h2>
             <p>outcome: {entry.isWon ? "WIN" : "LOSS"}</p>
             <div>
