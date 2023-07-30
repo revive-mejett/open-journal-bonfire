@@ -4,7 +4,7 @@ const MatchEntryCard = ({entry}) => {
     return (
         <div className="match-entry-card">
             <h2>{entry.gameTitle}</h2>
-            <p>outcome: {entry.isWon ? "WIN" : "LOSS"}</p>
+            <p className={`label-outcome ${entry.isWon ? "outcome-win" : "outcome-loss"}`}>{entry.isWon ? "WIN" : "LOSS"}</p>
             <div>
                 {entry.teamReview.map(reviewPoint => <p>{reviewPoint}</p>)}
             </div>
