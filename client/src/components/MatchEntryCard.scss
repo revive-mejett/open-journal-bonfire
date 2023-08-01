@@ -1,0 +1,22 @@
+@import "../assets/variables.scss";
+
+.match-entry-card {
+    background-color: $color-entry-card;
+    color: $color-ui-text;
+    width: 300px;
+
+    h2, .label-outcome {
+        text-align: center;
+    }
+
+    
+}
+
+
+.outcome-win {
+    background-color: $color-positive;
+}
+
+.outcome-loss {
+    background-color: $color-negative;
+}

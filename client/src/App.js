@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MatchEntries from "./components/MatchEntries";
+import MatchEntriesPage from "./pages/MatchEntriesPage";
+import "./App.scss"
 
 const App = () => {
  return (
    <div>
      <Routes>
-       <Route exact path="/" element={<MatchEntries/>}/>
+       <Route exact path="/" element={<MatchEntriesPage/>}/>
      </Routes>
    </div>
  );
