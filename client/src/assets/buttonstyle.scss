@@ -1,0 +1,9 @@
+@import "./variables.scss";
+
+//buttonstyles
+.link-button {
+    background-color: $color-accent;
+    border: $color-bright solid 1px;
+    padding: 0.5em;
+    box-shadow: 2px 2px 1px 1px $color-button-shadow;
+}

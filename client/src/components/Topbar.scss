@@ -1,5 +1,10 @@
 @import "../assets/variables.scss";
+@import "../assets/buttonstyle.scss";
 
-.topbar-sample {
+.topbar {
     background-color: $color-base-bright;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: $color-font;
 }

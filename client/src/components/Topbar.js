@@ -3,15 +3,18 @@ import "./Topbar.scss"
 
 const Topbar = () => {
     return (
-        <div className="topbar-sample">
+        <div className="topbar">
             <div>
-                <Link to="/">View All</Link>
+                <Link to="/" className="link-button">View All</Link>
             </div>
             <div>
-                <Link to="/some">Random Entry</Link>
+                <Link to="/some" className="link-button">Random Entry</Link>
             </div>
             <div>
-                <Link to="/new">Create new Anonymous Entry</Link>
+                <Link to="/new" className="link-button">Create new Anonymous Entry</Link>
+            </div>
+            <div>
+                <Link to="/stats" className="link-button">Recent Stats</Link>
             </div>
         </div>
     )
