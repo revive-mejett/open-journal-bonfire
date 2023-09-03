@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import MatchEntry from "../models/MatchEntry.js";
+import JournalEntry from "../models/JournalEntry.js";
 
 //singleton instance
 let instance = null
@@ -52,6 +53,11 @@ class Database {
 
     async getAllEntries() {
         const entries = await MatchEntry.find({})
+        return entries
+    }
+
+    async getAllJournalEntries() {
+        const entries = await JournalEntry.find({})
         return entries
     }
 }
