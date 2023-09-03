@@ -52,6 +52,11 @@ class Database {
     }
 
     async getAllEntries() {
+        const entries = await MatchEntry.find({})
+        return entries
+    }
+
+    async getAllJournalEntries() {
         const entries = await JournalEntry.find({})
         return entries
     }

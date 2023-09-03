@@ -23,6 +23,23 @@ router.get("/matchentries", async (req, res) => {
  
 });
 
+// This get all journal entries
+router.get("/journalentries", async (req, res) => {
+  let journalentries
+
+  try {
+    journalentries = await db.getAllJournalEntries()
+    res.json(journalentries).status(200)
+  } catch (error) {
+    //send server error
+    res.status(500).json({
+      status: "error",
+      payload: "Failed to retrieve all match entries from the database"
+    })
+  }
+ 
+});
+
 // retrieve a specific match journal entry given by id as url path param
 router.get("/:id", async (req, res) => {
   let collection = await db.collection(collectionName);
