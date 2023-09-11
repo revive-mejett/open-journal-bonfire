@@ -38,13 +38,13 @@ class Database {
      */
     async createTestEntry() {
         // Create a new match entry
-        const sampleEntry = new MatchEntry({
-            gameTitle: "l4d2",
-            entryContent: "My team did really well. Our rochelle went down halfway but our coach was our savior",
-            isWon: true,
-            teamReview: ["pro coach", "rochelle a bit new", "everyone survived"],
-            teamPerformance: ["pro coach", "rochelle a bit new", "everyone survived"],
-            events: ["rochelle almost died"],
+        const sampleEntry = new JournalEntry({
+            title: "Another day what do I say",
+            entryContent: "Unfortunately got fi",
+            flairs: "spaghetti and timmies",
+            greatEvents: ["enjoyed spaghetti code", "played left 4 dead 2", "got timmies!"],
+            neutralEvents: ["has some water", "took a walk", "I slept"],
+            badEvents: ["bad day at work"],
             selfRating: 8,
         });
         // insert into mongodb
