@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-//import "./MatchEntryCard.scss"
 
 const JournalEntryCard = ({entry}) => {
 
@@ -15,7 +14,7 @@ const JournalEntryCard = ({entry}) => {
 
     return (
         <div className="match-entry-card">
-            <h2>{entry.title}</h2>
+            <h2>{entry.dateCreated}</h2>
             <p>entry title</p>
             <p className="description-teaser">{teaserDescription}</p>
             <div>Rating: {entry.selfRating}</div>

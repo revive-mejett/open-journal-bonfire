@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MatchEntriesPage from "./pages/MatchEntriesPage";
 import "./App.scss"
 import Topbar from "./components/Topbar";
 import JournalEntriesPage from "./pages/JournalEntriesPage";
