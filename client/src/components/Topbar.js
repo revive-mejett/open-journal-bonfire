@@ -14,7 +14,7 @@ const Topbar = () => {
                 <Link to="/some" className="link-button">Random Entry</Link>
             </div>
             <div className="link-container">
-                <Link to="/new" className="link-button">Create new Anonymous Entry</Link>
+                <Link to="/entries/new" className="link-button">New Anonymous Entry</Link>
             </div>
             <div className="link-container">
                 <Link to="/stats" className="link-button">Recent Stats</Link>
