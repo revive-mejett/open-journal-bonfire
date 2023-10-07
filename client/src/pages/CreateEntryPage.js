@@ -14,15 +14,26 @@ const CreateEntryPage = () => {
         console.log(values)
     }
 
-    const handleGoodEventsChange = (e) => {
-        console.log(e.target.value)
-        goodEvents.push(e.target.value)
-        let updatedPossibleGoodEvents = [...possibleGoodEvents]
-        updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-        setGoodEventBank(updatedPossibleGoodEvents)
-        setGoodEvents(goodEvents)
-        console.log(goodEvents)
+    const handleGoodEventsChange = (e, isRemoving) => {
+        if (isRemoving){
+            goodEvents.push(e.target.value)
+            let updatedPossibleGoodEvents = [...possibleGoodEvents]
+            updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+            setGoodEventBank(updatedPossibleGoodEvents)
+            setGoodEvents(goodEvents)
+        } else {
+            possibleGoodEvents.push(e.target.value)
+            let updatedGoodEvents = [...goodEvents]
+            updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+            setGoodEventBank(possibleGoodEvents)
+            setGoodEvents(updatedGoodEvents)
+        }
+    }
 
+
+    const test = (e) => {
+        console.log("akshan")
+        console.log(e)
     }
 
     const possibleNeutralEvents = ["nothing too special", "normal day at work", "normal day at school"]
@@ -37,20 +48,26 @@ const CreateEntryPage = () => {
                     onSubmit={handleSubmit}
                 >
                     {props => (
-                        <form onSubmit={props.handleSubmit} onChange={handleGoodEventsChange}>
+                        <form onSubmit={props.handleSubmit} >
+
                             <input type="text" name="title" />
-                            {/* <Field as="select" name="goodEventsList" onChange={handleGoodEventsChange} multiple>
-                                {possibleGoodEvents.map((event, index) => <option value={event} onInput={() => alert("fied")} key={index}>{event}</option>)}
-                            </Field> */}
-                            {possibleGoodEvents.map((event, index) => {
+                            <div>What went well today?</div>
+                            {goodEvents.map((event, index) => {
                                 return (
                                     <label key={index}>
-                                        {event}<Field type="checkbox" name="goodEventsList" value={event}></Field>
+                                        {event}<Field type="checkbox" name="goodEventsList" value={event} onChange={(e) => handleGoodEventsChange(e, false)}></Field>
                                     </label>
                                 )
                             })}
 
-
+                            <div>Good Events</div>
+                            {possibleGoodEvents.map((event, index) => {
+                                return (
+                                    <label key={index}>
+                                        {event}<Field type="checkbox" name="goodEventsBank" value={event} onChange={(e) => handleGoodEventsChange(e, true)}></Field>
+                                    </label>
+                                )
+                            })}
                             <button type="submit">test submit</button>
                         </form>
                     )}
