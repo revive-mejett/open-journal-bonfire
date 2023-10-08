@@ -14,27 +14,6 @@ const CreateEntryPage = () => {
         console.log(values)
     }
 
-    const handleGoodEventsChange = (e, isRemoving) => {
-        if (isRemoving){
-            goodEvents.push(e.target.value)
-            let updatedPossibleGoodEvents = [...possibleGoodEvents]
-            updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-            setGoodEventBank(updatedPossibleGoodEvents)
-            setGoodEvents(goodEvents)
-        } else {
-            possibleGoodEvents.push(e.target.value)
-            let updatedGoodEvents = [...goodEvents]
-            updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-            setGoodEventBank(possibleGoodEvents)
-            setGoodEvents(updatedGoodEvents)
-        }
-    }
-
-
-    const test = (e) => {
-        console.log("akshan")
-        console.log(e)
-    }
 
     const possibleNeutralEvents = ["nothing too special", "normal day at work", "normal day at school"]
     const possibleWorseEvents = ["failed a test in school", "thundering", "lost a team sports game", "had a breakup"]
@@ -44,27 +23,55 @@ const CreateEntryPage = () => {
             <div>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
-                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [] }}
+                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], goodEventsBank: possibleGoodEventsInitial }}
                     onSubmit={handleSubmit}
                 >
                     {props => (
-                        <form onSubmit={props.handleSubmit} >
-
-                            <input type="text" name="title" />
-                            <div>What went well today?</div>
-                            {goodEvents.map((event, index) => {
-                                return (
-                                    <label key={index}>
-                                        {event}<Field type="checkbox" name="goodEventsList" value={event} onChange={(e) => handleGoodEventsChange(e, false)}></Field>
-                                    </label>
-                                )
-                            })}
-
-                            <div>Good Events</div>
+                        <form onSubmit={props.handleSubmit}>
+                            <Field name="title"></Field>
+                            <div></div>
+                            <div>What went well today? Select from this list</div>
                             {possibleGoodEvents.map((event, index) => {
                                 return (
                                     <label key={index}>
-                                        {event}<Field type="checkbox" name="goodEventsBank" value={event} onChange={(e) => handleGoodEventsChange(e, true)}></Field>
+                                        {event}<Field type="checkbox" name="goodEventsBank"
+                                            checked={false}
+                                            value={event} 
+                                            onMouseEnter={(e) => e.target.checked = true}
+                                            onMouseLeave={(e) => e.target.checked = false}
+                                            onChange={(e) => {
+                                            goodEvents.push(e.target.value)
+                                            let updatedPossibleGoodEvents = [...possibleGoodEvents]
+                                            updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                            setGoodEventBank(updatedPossibleGoodEvents)
+                                            setGoodEvents(goodEvents)
+                                            props.setFieldValue("goodEventsList", goodEvents)
+                                            props.setFieldValue("goodEventsBank", updatedPossibleGoodEvents)
+                                        }
+                                        }>
+                                        </Field>
+                                    </label>
+                                )
+                            })}
+                            <div>Good Events</div>
+
+                            {goodEvents.map((event, index) => {
+                                return (
+                                    <label key={index}>
+                                        {event}<Field type="checkbox" name="goodEventsList"
+                                        checked={true}
+                                        value={event} 
+                                        onMouseEnter={(e) => e.target.checked = false}
+                                        onMouseLeave={(e) => e.target.checked = true}
+                                        onChange={(e) => {
+                                            possibleGoodEvents.push(e.target.value)
+                                            let updatedGoodEvents = [...goodEvents]
+                                            updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                            setGoodEventBank(possibleGoodEvents)
+                                            setGoodEvents(updatedGoodEvents)
+                                            props.setFieldValue("goodEventsList", updatedGoodEvents)
+                                            props.setFieldValue("goodEventsBank", possibleGoodEvents)
+                                        }}></Field>
                                     </label>
                                 )
                             })}
