@@ -28,9 +28,11 @@ const CreateEntryPage = () => {
                 >
                     {props => (
                         <form onSubmit={props.handleSubmit}>
+                            <label htmlFor="title" placeholder="Another day to day...">Title of your entry:</label>
                             <Field name="title"></Field>
-                            <div></div>
-                            <div>What went well today? Select from this list</div>
+                            <label htmlFor="entryContent">Your entry...</label>
+                            <Field name="entryContent" as="textarea" placeholder="// Write away..."></Field>
+                            <h2>What went well today? Select from this list</h2>
                             {possibleGoodEvents.map((event, index) => {
                                 return (
                                     <label key={index}>
