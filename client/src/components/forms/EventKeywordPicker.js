@@ -36,20 +36,22 @@ const EventKeywordPicker = (props) => {
             {goodEvents.map((event, index) => {
                 return (
                     <label key={index}>
-                        {event}<Field type="checkbox" name="goodEventsList"
+                        {event}<Field type="checkbox" name="goodEventsBank"
                             checked={true}
                             value={event}
                             onMouseEnter={(e) => e.target.checked = false}
                             onMouseLeave={(e) => e.target.checked = true}
                             onChange={(e) => {
-                                props.eventBank.push(e.target.value)
+                                possibleEvents.push(e.target.value)
                                 let updatedGoodEvents = [...goodEvents]
                                 updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-                                setGoodEventBank(props.eventBank)
+                                setGoodEventBank(possibleEvents)
                                 setGoodEvents(updatedGoodEvents)
                                 props.setFieldValue("goodEventsList", updatedGoodEvents)
-                                props.setFieldValue("goodEventsBank", props.eventBank)
-                            }}></Field>
+                                props.setFieldValue("goodEventsBank", possibleEvents)
+                            }
+                            }>
+                        </Field>
                     </label>
                 )
             })}
