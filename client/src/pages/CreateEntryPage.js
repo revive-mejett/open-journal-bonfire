@@ -1,5 +1,6 @@
 import { Field, Formik } from "formik"
 import { useState } from "react"
+import EventKeywordPicker from "../components/forms/EventKeywordPicker"
 
 const CreateEntryPage = () => {
 
@@ -78,6 +79,7 @@ const CreateEntryPage = () => {
                                 )
                             })}
                             {/* using reusable keyword picker component */}
+                            <EventKeywordPicker eventBank={possibleGoodEventsInitial} setFieldValue={props.setFieldValue}></EventKeywordPicker>
                             <button type="submit">test submit</button>
                         </form>
                     )}

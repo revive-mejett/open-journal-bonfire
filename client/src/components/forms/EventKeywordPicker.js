@@ -4,12 +4,12 @@ import { useState } from "react"
 const EventKeywordPicker = (props) => {
 
     const [goodEvents, setGoodEvents] = useState([])
-    const [possibleEvents, setGoodEventBank] = useState(props.possibleEvents)
+    const [possibleEvents, setGoodEventBank] = useState(props.eventBank)
 
     return (
         <>
             <h2>What went well today? Select from this list</h2>
-            {props.eventBank.map((event, index) => {
+            {possibleEvents.map((event, index) => {
                 return (
                     <label key={index}>
                         {event}<Field type="checkbox" name="goodEventsBank"
