@@ -12,7 +12,7 @@ const EventKeywordPicker = (props) => {
             {eventBank.map((event, index) => {
                 return (
                     <label key={index}>
-                        {event}<Field type="checkbox" name="goodEventsBank"
+                        {event}<Field type="checkbox" name={props.formikEventBankName}
                             checked={false}
                             value={event}
                             onMouseEnter={(e) => e.target.checked = true}
@@ -23,8 +23,8 @@ const EventKeywordPicker = (props) => {
                                 updatedEventBank = updatedEventBank.filter(goodEvent => goodEvent !== e.target.value)
                                 setEventBank(updatedEventBank)
                                 setSelectedEvents(selectedEvents)
-                                props.setFieldValue("goodEventsList", selectedEvents)
-                                props.setFieldValue("goodEventsBank", updatedEventBank)
+                                props.setFieldValue(props.formikSelectedListName, selectedEvents)
+                                props.setFieldValue(props.formikEventBankName, updatedEventBank)
                             }
                             }>
                         </Field>
@@ -36,7 +36,7 @@ const EventKeywordPicker = (props) => {
             {selectedEvents.map((event, index) => {
                 return (
                     <label key={index}>
-                        {event}<Field type="checkbox" name="goodEventsBank"
+                        {event}<Field type="checkbox" name={props.formikSelectedListName}
                             checked={true}
                             value={event}
                             onMouseEnter={(e) => e.target.checked = false}
@@ -47,8 +47,8 @@ const EventKeywordPicker = (props) => {
                                 updatedSelectedEvents = updatedSelectedEvents.filter(goodEvent => goodEvent !== e.target.value)
                                 setEventBank(eventBank)
                                 setSelectedEvents(updatedSelectedEvents)
-                                props.setFieldValue("goodEventsList", updatedSelectedEvents)
-                                props.setFieldValue("goodEventsBank", eventBank)
+                                props.setFieldValue(props.formikSelectedListName, updatedSelectedEvents)
+                                props.setFieldValue(props.formikEventBankName, eventBank)
                             }
                             }>
                         </Field>

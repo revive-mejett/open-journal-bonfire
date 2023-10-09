@@ -79,7 +79,14 @@ const CreateEntryPage = () => {
                                 )
                             })}
                             {/* using reusable keyword picker component */}
-                            <EventKeywordPicker eventBank={possibleGoodEventsInitial} setFieldValue={props.setFieldValue} helperText="What went well today?" helperListHeading="Good events"></EventKeywordPicker>
+                            <EventKeywordPicker
+                                eventBank={possibleGoodEventsInitial}
+                                formikEventBankName="goodEventsBank"
+                                formikSelectedListName="goodEventsList"
+                                setFieldValue={props.setFieldValue}
+                                helperText="What went well today?"
+                                helperListHeading="Good events">
+                            </EventKeywordPicker>
                             <button type="submit">test submit</button>
                         </form>
                     )}
