@@ -28,7 +28,7 @@ const CreateEntryPage = () => {
                 >
                     {props => (
                         <form onSubmit={props.handleSubmit}>
-                            <label htmlFor="title" placeholder="Another day to day...">Title of your entry:</label>
+                            <label htmlFor="title" placeholder="Another day to say...">Title of your entry:</label>
                             <Field name="title"></Field>
                             <label htmlFor="entryContent">Your entry...</label>
                             <Field name="entryContent" as="textarea" placeholder="// Write away..."></Field>
