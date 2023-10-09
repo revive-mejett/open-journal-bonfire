@@ -38,19 +38,19 @@ const CreateEntryPage = () => {
                                     <label key={index}>
                                         {event}<Field type="checkbox" name="goodEventsBank"
                                             checked={false}
-                                            value={event} 
+                                            value={event}
                                             onMouseEnter={(e) => e.target.checked = true}
                                             onMouseLeave={(e) => e.target.checked = false}
                                             onChange={(e) => {
-                                            goodEvents.push(e.target.value)
-                                            let updatedPossibleGoodEvents = [...possibleGoodEvents]
-                                            updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-                                            setGoodEventBank(updatedPossibleGoodEvents)
-                                            setGoodEvents(goodEvents)
-                                            props.setFieldValue("goodEventsList", goodEvents)
-                                            props.setFieldValue("goodEventsBank", updatedPossibleGoodEvents)
-                                        }
-                                        }>
+                                                goodEvents.push(e.target.value)
+                                                let updatedPossibleGoodEvents = [...possibleGoodEvents]
+                                                updatedPossibleGoodEvents = updatedPossibleGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                                setGoodEventBank(updatedPossibleGoodEvents)
+                                                setGoodEvents(goodEvents)
+                                                props.setFieldValue("goodEventsList", goodEvents)
+                                                props.setFieldValue("goodEventsBank", updatedPossibleGoodEvents)
+                                            }
+                                            }>
                                         </Field>
                                     </label>
                                 )
@@ -61,22 +61,23 @@ const CreateEntryPage = () => {
                                 return (
                                     <label key={index}>
                                         {event}<Field type="checkbox" name="goodEventsList"
-                                        checked={true}
-                                        value={event} 
-                                        onMouseEnter={(e) => e.target.checked = false}
-                                        onMouseLeave={(e) => e.target.checked = true}
-                                        onChange={(e) => {
-                                            possibleGoodEvents.push(e.target.value)
-                                            let updatedGoodEvents = [...goodEvents]
-                                            updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
-                                            setGoodEventBank(possibleGoodEvents)
-                                            setGoodEvents(updatedGoodEvents)
-                                            props.setFieldValue("goodEventsList", updatedGoodEvents)
-                                            props.setFieldValue("goodEventsBank", possibleGoodEvents)
-                                        }}></Field>
+                                            checked={true}
+                                            value={event}
+                                            onMouseEnter={(e) => e.target.checked = false}
+                                            onMouseLeave={(e) => e.target.checked = true}
+                                            onChange={(e) => {
+                                                possibleGoodEvents.push(e.target.value)
+                                                let updatedGoodEvents = [...goodEvents]
+                                                updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                                setGoodEventBank(possibleGoodEvents)
+                                                setGoodEvents(updatedGoodEvents)
+                                                props.setFieldValue("goodEventsList", updatedGoodEvents)
+                                                props.setFieldValue("goodEventsBank", possibleGoodEvents)
+                                            }}></Field>
                                     </label>
                                 )
                             })}
+                            {/* using reusable keyword picker component */}
                             <button type="submit">test submit</button>
                         </form>
                     )}
