@@ -30,7 +30,7 @@ const CreateEntryPage = () => {
                         <form onSubmit={props.handleSubmit}>
                             <label htmlFor="title" placeholder="Another day to say...">Title of your entry:</label>
                             <Field name="title"></Field>
-                            
+
                             <label htmlFor="entryContent">Your entry...</label>
                             <Field name="entryContent" as="textarea" placeholder="// Write away..."></Field>
 
@@ -42,6 +42,26 @@ const CreateEntryPage = () => {
                                 helperText="What went well today?"
                                 helperListHeading="Good events">
                             </EventKeywordPicker>
+
+                            <EventKeywordPicker
+                                eventBank={possibleNeutralEvents}
+                                formikEventBankName="neutralEventsBank"
+                                formikSelectedListName="neutralEventsList"
+                                setFieldValue={props.setFieldValue}
+                                helperText="What went okay? Things that were just neutral... ?"
+                                helperListHeading="Okay events">
+                            </EventKeywordPicker>
+
+                            <EventKeywordPicker
+                                eventBank={possibleWorseEvents}
+                                formikEventBankName="worseEventsBank"
+                                formikSelectedListName="worseEventsList"
+                                setFieldValue={props.setFieldValue}
+                                helperText="What did not go so well today?"
+                                helperListHeading="Not so great list...">
+                            </EventKeywordPicker>
+
+
                             <button type="submit">test submit</button>
                         </form>
                     )}
