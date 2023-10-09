@@ -8,7 +8,7 @@ const EventKeywordPicker = (props) => {
 
     return (
         <>
-            <h2>What went well today? Select from this list</h2>
+            <h2>{props.helperText}</h2>
             {eventBank.map((event, index) => {
                 return (
                     <label key={index}>
@@ -31,7 +31,7 @@ const EventKeywordPicker = (props) => {
                     </label>
                 )
             })}
-            <div>Good Events</div>
+            <h2>{props.helperListHeading}</h2>
 
             {selectedEvents.map((event, index) => {
                 return (
@@ -43,11 +43,11 @@ const EventKeywordPicker = (props) => {
                             onMouseLeave={(e) => e.target.checked = true}
                             onChange={(e) => {
                                 eventBank.push(e.target.value)
-                                let updatedGoodEvents = [...selectedEvents]
-                                updatedGoodEvents = updatedGoodEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                let updatedSelectedEvents = [...selectedEvents]
+                                updatedSelectedEvents = updatedSelectedEvents.filter(goodEvent => goodEvent !== e.target.value)
                                 setEventBank(eventBank)
-                                setSelectedEvents(updatedGoodEvents)
-                                props.setFieldValue("goodEventsList", updatedGoodEvents)
+                                setSelectedEvents(updatedSelectedEvents)
+                                props.setFieldValue("goodEventsList", updatedSelectedEvents)
                                 props.setFieldValue("goodEventsBank", eventBank)
                             }
                             }>
