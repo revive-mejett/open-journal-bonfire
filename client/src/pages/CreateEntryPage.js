@@ -13,6 +13,8 @@ const CreateEntryPage = () => {
     //initial not so good events
     const possibleWorseEvents = ["failed a test in school", "thundering", "lost a team sports game", "had a breakup"]
 
+    const selfRatingValues = [1,2,3,4,5,6,7,8,9,10]
+
     const handleSubmit = (values) => {
         alert("test form submit")
         console.log(values)
@@ -23,7 +25,7 @@ const CreateEntryPage = () => {
             <div>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
-                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], goodEventsBank: possibleGoodEventsInitial }}
+                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], goodEventsBank: possibleGoodEventsInitial, selfRating: 0}}
                     onSubmit={handleSubmit}
                 >
                     {props => (
@@ -61,6 +63,11 @@ const CreateEntryPage = () => {
                                 helperListHeading="Not so great list...">
                             </EventKeywordPicker>
 
+                            <label htmlFor="selfRating">Out of 10, rate your day:</label>
+                            <Field as="select" name="selfRating">
+                                <option value={0} hidden>--select--</option>
+                                {selfRatingValues.map(ratingValue => <option value={ratingValue} key={ratingValue}>{ratingValue}</option>)}
+                            </Field>
 
                             <button type="submit">test submit</button>
                         </form>
