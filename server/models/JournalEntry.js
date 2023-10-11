@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose; //object destructuring
+const { Schema, model } = mongoose;
+//object destructuring
 
 
 const entrySchema = new Schema({
@@ -9,7 +10,8 @@ const entrySchema = new Schema({
     greatEvents: {type: [String], default: []},
     neutralEvents: {type: [String], default: []},
     badEvents: {type: [String], default: []},
-    flairs: {type: [String], default: []},    // keywords which will be displayed on a card (ex: birthday, passed exam, had breakup)
+    flairs: {type: [String], default: []},   
+    // keywords which will be displayed on a card (ex: birthday, passed exam, had breakup)
     dateCreated: {type: Date, default: Date.now()}
 })
 

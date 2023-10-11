@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose; //object destructuring
-
+const { Schema, model } = mongoose
 
 const matchSchema = new Schema({
     gameTitle: {type: String, required: true},
