@@ -58,11 +58,9 @@ class Database {
         if (entry.greatEvents.length > 0) {
             flairs.push(entry.greatEvents[0])
         }
-
         if (entry.neutralEvents.length > 0) {
             flairs.push(entry.neutralEvents[0])
         }
-
         if (entry.badEvents.length > 0) {
             flairs.push(entry.badEvents[0])
         }

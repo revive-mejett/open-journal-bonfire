@@ -37,7 +37,6 @@ router.get("/journalentries", async (req, res) => {
             payload: "Failed to retrieve all match entries from the database"
         })
     }
-
 });
 
 // retrieve a specific match journal entry given by id as url path param
@@ -54,5 +53,21 @@ router.get("/:id", async (req, res) => {
     
     
 });
+
+router.post("/journalentries/new", async (req, res) => {
+    console.log(req.body)
+    
+    try {
+        await db.createEntry(req.body)
+        res.status(201).json({status: "success", payload:"Successfully added new entry to the database"})
+    } catch (error) {
+        console.log(error)
+        //send server error
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to retrieve all match entries from the database"
+        })
+    }
+})
 
 export default router
