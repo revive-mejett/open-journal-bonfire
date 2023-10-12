@@ -15,9 +15,27 @@ const CreateEntryPage = () => {
 
     const selfRatingValues = [1,2,3,4,5,6,7,8,9,10]
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         alert("test form submit")
         console.log(values)
+        let data = {
+            title: values.title,
+            entryContent: values.entryContent,
+            greatEvents: values.goodEventsList,
+            neutralEvents: values.neutralEventsList,
+            badEvents: values.worseEventsList,
+            selfRating: values.selfRating,
+        }
+
+        await fetch("/api/journalentries/new", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        console.log("akshan has submitted")
+
     }
 
     return (
