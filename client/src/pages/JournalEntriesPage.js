@@ -28,7 +28,7 @@ const JournalEntriesPage = () => {
     return (
         <>
             {entryData &&
-                entryData.map(entry => <JournalEntryCard entry={entry}></JournalEntryCard>)
+                entryData.map((entry,i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
             }
         </>
     )
