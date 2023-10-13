@@ -51,6 +51,34 @@ class Database {
         await sampleEntry.save();
     }
 
+    async createEntry(entry) {
+        let flairs = []
+
+        //for now the flairs for a journal entry will be the first keyword of each event type (great/ok/bad)
+        if (entry.greatEvents.length > 0) {
+            flairs.push(entry.greatEvents[0])
+        }
+        if (entry.neutralEvents.length > 0) {
+            flairs.push(entry.neutralEvents[0])
+        }
+        if (entry.badEvents.length > 0) {
+            flairs.push(entry.badEvents[0])
+        }
+
+        const newEntry = new JournalEntry({
+            title: entry.title,
+            entryContent: entry.entryContent,
+            flairs: flairs,
+            greatEvents: entry.greatEvents,
+            neutralEvents: entry.neutralEvents,
+            badEvents: entry.badEvents,
+            selfRating: entry.selfRating,
+        });
+
+        // insert into mongodb
+        await newEntry.save();
+    }
+
     async getAllEntries() {
         const entries = await MatchEntry.find({})
         return entries

@@ -15,7 +15,7 @@ const JournalEntryCard = ({entry}) => {
     return (
         <div className="match-entry-card">
             <h2>{entry.dateCreated}</h2>
-            <p>entry title</p>
+            <p>{entry.title}</p>
             <p className="description-teaser">{teaserDescription}</p>
             <div>Rating: {entry.selfRating}</div>
         </div>
