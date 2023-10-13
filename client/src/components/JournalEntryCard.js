@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 const JournalEntryCard = ({entry}) => {
 
@@ -13,12 +14,15 @@ const JournalEntryCard = ({entry}) => {
     }, [entry.entryContent])
 
     return (
-        <div className="match-entry-card">
-            <h2>{entry.dateCreated}</h2>
-            <p>{entry.title}</p>
-            <p className="description-teaser">{teaserDescription}</p>
-            <div>Rating: {entry.selfRating}</div>
-        </div>
+        <Link to={{pathname: "/entries/viewing", search:"?id="+entry._id}} >
+            <div className="match-entry-card">
+                <h2>{entry.dateCreated}</h2>
+                <p>{entry.title}</p>
+                <p className="description-teaser">{teaserDescription}</p>
+                <div>Rating: {entry.selfRating}</div>
+            </div>
+        </Link>
+
     )
 }
 
