@@ -4,9 +4,18 @@
     background-color: $color-entry-card;
     color: $color-font;
     width: 300px;
+    all: inherit;
+    text-decoration: none;
+    width: 300px;
+    text-align: center;
 
     h2, .label-outcome {
         text-align: center;
+    }
+
+    .match-entry-card-link {
+        all: inherit;
+        cursor: pointer;
     }
 
     
