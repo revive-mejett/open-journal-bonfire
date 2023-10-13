@@ -62,10 +62,11 @@ router.post("/journalentries/new", async (req, res) => {
         await db.createEntry(req.body)
         res.status(201).json({ status: "success", payload: "Successfully added new entry to the database" })
     } catch (error) {
+        console.error(error)
         //send server error
         res.status(500).json({
             status: "error",
-            payload: "Failed to retrieve all match entries from the database"
+            payload: "Failed to add new entry"
         })
     }
 })
