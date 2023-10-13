@@ -16,8 +16,6 @@ const CreateEntryPage = () => {
     const selfRatingValues = [1,2,3,4,5,6,7,8,9,10]
 
     const handleSubmit = async (values) => {
-        alert("test form submit")
-        console.log(values)
         let data = {
             title: values.title,
             entryContent: values.entryContent,
@@ -26,15 +24,28 @@ const CreateEntryPage = () => {
             badEvents: values.worseEventsList,
             selfRating: values.selfRating,
         }
-        await fetch("/api/journalentries/new", {
+
+        let response
+        response = await fetch("/api/journalentries/new", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         })
-        //todo display on screen this one.
-        console.log("akshan has submitted")
+
+        if (!response.ok) {
+            console.error("A server error occured. Please try again later.")
+            return
+        }
+
+        const responseData = await response.json()
+        console.log(responseData)
+        if (responseData.status === "success") {
+            console.log(responseData.payload)
+        } else {
+            console.error(responseData.error)
+        }
 
     }
 
@@ -43,7 +54,7 @@ const CreateEntryPage = () => {
             <div>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
-                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], goodEventsBank: possibleGoodEventsInitial, selfRating: 0}}
+                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], goodEventsBank: possibleGoodEventsInitial, selfRating: 0}}
                     onSubmit={handleSubmit}
                 >
                     {props => (
