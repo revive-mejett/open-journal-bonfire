@@ -26,7 +26,6 @@ const CreateEntryPage = () => {
             badEvents: values.worseEventsList,
             selfRating: values.selfRating,
         }
-
         await fetch("/api/journalentries/new", {
             method: "POST",
             headers: {
@@ -34,6 +33,7 @@ const CreateEntryPage = () => {
             },
             body: JSON.stringify(data)
         })
+        //todo display on screen this one.
         console.log("akshan has submitted")
 
     }

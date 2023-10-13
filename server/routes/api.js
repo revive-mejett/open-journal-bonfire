@@ -50,18 +50,18 @@ router.get("/:id", async (req, res) => {
     } else {
         res.send(result).status(200);
     }
-    
-    
+
+
 });
 
+
+// route that create a new journal entry
 router.post("/journalentries/new", async (req, res) => {
-    console.log(req.body)
-    
+
     try {
         await db.createEntry(req.body)
-        res.status(201).json({status: "success", payload:"Successfully added new entry to the database"})
+        res.status(201).json({ status: "success", payload: "Successfully added new entry to the database" })
     } catch (error) {
-        console.log(error)
         //send server error
         res.status(500).json({
             status: "error",
