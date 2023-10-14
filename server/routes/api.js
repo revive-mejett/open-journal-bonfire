@@ -43,10 +43,13 @@ router.get("/journalentries", async (req, res) => {
 router.get("/journalentries/:id", async (req, res) => {
     let result = await db.getJournalEntryById(req.params.id)
 
-    if (!result) {
-        res.send("Not found").status(404);
+    if (result) {
+        res.status(200).json(result)
     } else {
-        res.send(result).status(200);
+        res.status(404).json({
+            status: "error",
+            payload: "Entry not found"
+        });
     }
 
 });
@@ -59,7 +62,6 @@ router.post("/journalentries/new", async (req, res) => {
         await db.createEntry(req.body)
         res.status(201).json({ status: "success", payload: "Successfully added new entry to the database" })
     } catch (error) {
-        console.error(error)
         //send server error
         res.status(500).json({
             status: "error",
