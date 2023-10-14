@@ -33,7 +33,24 @@ const JournalEntryDetail = () => {
     })
 
     return (
-        <h2>Journal entry detail</h2>
+        <>
+            <h2>Journal entry detail</h2>
+            {
+            journalEntryData &&
+            <div>
+                <h3>{journalEntryData.entryTitle}</h3>
+                <p>{journalEntryData.entryContent}</p>
+                <h4>Great events:</h4>
+                <div>{journalEntryData.greatEvents.map((event,i) => <p key={i}>{event}</p>)}</div>
+                <h4>Neutral events:</h4>
+                <div>{journalEntryData.greatEvents.map((event,i) => <p key={i}>{event}</p>)}</div>
+                <h4>Not so great events:</h4>
+                <div>{journalEntryData.badEvents.map((event,i) => <p key={i}>{event}</p>)}</div>
+                <p>Their rating: {journalEntryData.selfRating}</p>
+            </div>
+            }
+        </>
+
     )
 }
 
