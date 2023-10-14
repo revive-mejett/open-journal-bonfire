@@ -88,6 +88,11 @@ class Database {
         const entries = await JournalEntry.find({})
         return entries
     }
+
+    async getJournalEntryById(id) {
+        const entry = await JournalEntry.findById(id)
+        return entry
+    }
 }
 
 
