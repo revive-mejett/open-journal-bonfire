@@ -1,9 +1,9 @@
 import express from "express";
-import { ObjectId } from "mongodb";
+//import { ObjectId } from "mongodb";
 import Database from "../db/conn.js";
 
 const router = express.Router();
-const collectionName = "match-entries"
+//const collectionName = "match-entries"
 const db = new Database()
 
 // This get all match entries
@@ -39,18 +39,18 @@ router.get("/journalentries", async (req, res) => {
     }
 });
 
-// retrieve a specific match journal entry given by id as url path param
-router.get("/:id", async (req, res) => {
-    let collection = await db.collection(collectionName);
-    let query = { _id: new ObjectId(req.params.id) };
-    let result = await collection.findOne(query);
+// retrieve a specific journal entry given by id as url path param
+router.get("/journalentries/:id", async (req, res) => {
+    let result = await db.getJournalEntryById(req.params.id)
 
-    if (!result) {
-        res.send("Not found").status(404);
+    if (result) {
+        res.status(200).json(result)
     } else {
-        res.send(result).status(200);
+        res.status(404).json({
+            status: "error",
+            payload: "Entry not found"
+        });
     }
-
 
 });
 
@@ -62,7 +62,6 @@ router.post("/journalentries/new", async (req, res) => {
         await db.createEntry(req.body)
         res.status(201).json({ status: "success", payload: "Successfully added new entry to the database" })
     } catch (error) {
-        console.error(error)
         //send server error
         res.status(500).json({
             status: "error",

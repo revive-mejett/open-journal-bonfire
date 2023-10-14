@@ -79,14 +79,22 @@ class Database {
         await newEntry.save();
     }
 
+    
     async getAllEntries() {
         const entries = await MatchEntry.find({})
         return entries
     }
 
+    //get all journal entries from the db
     async getAllJournalEntries() {
         const entries = await JournalEntry.find({})
         return entries
+    }
+
+    //get a specific journal entry by its id
+    async getJournalEntryById(id) {
+        const entry = await JournalEntry.findById(id)
+        return entry
     }
 }
 

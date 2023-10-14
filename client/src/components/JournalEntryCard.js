@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import "./MatchEntryCard.scss"
 
-const JournalEntryCard = ({entry}) => {
+const JournalEntryCard = ({ entry }) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
 
@@ -14,11 +16,14 @@ const JournalEntryCard = ({entry}) => {
 
     return (
         <div className="match-entry-card">
-            <h2>{entry.dateCreated}</h2>
-            <p>{entry.title}</p>
-            <p className="description-teaser">{teaserDescription}</p>
-            <div>Rating: {entry.selfRating}</div>
+            <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="match-entry-card-link">
+                <h2>{entry.dateCreated}</h2>
+                <p>{entry.title}</p>
+                <p className="description-teaser">{teaserDescription}</p>
+                <div>Rating: {entry.selfRating}</div>
+            </Link>
         </div>
+
     )
 }
 
