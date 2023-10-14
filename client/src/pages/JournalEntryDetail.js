@@ -18,15 +18,15 @@ const JournalEntryDetail = () => {
             if (!journalEntryData) {
                 let response = await fetch("/api/journalentries/" + searchId)
 
+                
                 if (response.ok) {
                     data = await response.json()
                     console.log("response success -- " + response.status)
                     setJournalEntryData(data)
                 } else {
+                    //TODO display error on screen
                     console.error("response not ok -- " + response.status)
                 }
-                
-                
             }
         })();
         console.log(journalEntryData)
