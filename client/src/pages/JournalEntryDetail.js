@@ -13,16 +13,20 @@ const JournalEntryDetail = () => {
             let searchId = urlParams.get("id")
 
             let data
+            
+            //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
                 let response = await fetch("/api/journalentries/" + searchId)
 
                 if (response.ok) {
+                    data = await response.json()
                     console.log("response success -- " + response.status)
+                    setJournalEntryData(data)
                 } else {
                     console.error("response not ok -- " + response.status)
                 }
-                data = await response.json()
-                setJournalEntryData(data)
+                
+                
             }
         })();
         console.log(journalEntryData)
