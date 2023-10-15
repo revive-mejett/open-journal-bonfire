@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 
 const JournalEntryDetail = () => {
@@ -6,6 +6,9 @@ const JournalEntryDetail = () => {
     const location = useLocation()
     
     const [journalEntryData, setJournalEntryData] = useState(undefined)
+
+    let dateCreated = useRef()
+
 
     useEffect(() => {
         (async () => {
@@ -23,13 +26,14 @@ const JournalEntryDetail = () => {
                     data = await response.json()
                     console.log("response success -- " + response.status)
                     setJournalEntryData(data)
+                    dateCreated.current = new Date(data.dateCreated)
                 } else {
                     //TODO display error on screen
                     console.error("response not ok -- " + response.status)
                 }
             }
         })();
-        console.log(journalEntryData)
+
     })
 
     return (
@@ -38,6 +42,9 @@ const JournalEntryDetail = () => {
             {
             journalEntryData &&
             <div>
+                {dateCreated &&
+                <h2>{dateCreated.current.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
+                }
                 <h3>{journalEntryData.entryTitle}</h3>
                 <p>{journalEntryData.entryContent}</p>
                 <h4>Great events:</h4>
