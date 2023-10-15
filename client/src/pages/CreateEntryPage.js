@@ -40,7 +40,7 @@ const CreateEntryPage = () => {
         }
 
         const responseData = await response.json()
-        console.log(responseData)
+        //console.log(new Date())
         if (responseData.status === "success") {
             console.log(responseData.payload)
         } else {

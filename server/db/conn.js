@@ -88,6 +88,19 @@ class Database {
     //get all journal entries from the db
     async getAllJournalEntries() {
         const entries = await JournalEntry.find({})
+
+        // JournalEntry.aggregate([
+        //     {
+        //         "$project": {
+        //             "dateCreated" : {
+        //                 "$dateToString": {
+        //                     "format": "%Y-%m-%d",
+        //                     "date" : 
+        //                 }
+        //             }
+        //         }
+        //     }
+        // ]).exec()
         return entries
     }
 
