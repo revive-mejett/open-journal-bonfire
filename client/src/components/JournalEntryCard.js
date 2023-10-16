@@ -17,8 +17,8 @@ const JournalEntryCard = ({ entry }) => {
     
     date = new Date(entry.dateCreated)
     return (
-        <div className="match-entry-card">
-            <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="match-entry-card-link">
+        <div className="journal-entry-card">
+            <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
                 }

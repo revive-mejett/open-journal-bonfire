@@ -1,19 +1,18 @@
 @import "../assets/variables.scss";
 
-.match-entry-card {
-    background-color: $color-entry-card;
+.journal-entry-card {
+    all: inherit;
+    background-color: $color-pane;
     color: $color-font;
     width: 300px;
-    all: inherit;
     text-decoration: none;
-    width: 300px;
     text-align: center;
 
     h2, .label-outcome {
         text-align: center;
     }
 
-    .match-entry-card-link {
+    .journal-entry-card-link {
         all: inherit;
         cursor: pointer;
     }
