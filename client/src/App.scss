@@ -1,5 +1,10 @@
 @import "assets/variables.scss";
 
+html, body {
+    margin: 0;
+    font-family: "Josefin Sans";
+}
+
 body {
     background-color: $color-base;
     color: $color-font;
