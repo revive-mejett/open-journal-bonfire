@@ -8,6 +8,9 @@
     margin: 2em 5em;
     padding: 0.25em;
     height: 200px;
+
+    // rotate: random($limit: 30);
+
     text-decoration: none;
     text-align: center;
 
@@ -15,9 +18,16 @@
     flex-direction: column;
 
 
-    h2, .label-outcome {
+    h2, h3, .label-outcome {
         text-align: center;
         margin: 0;
+        padding: 0;
+        line-height: 0;
+    }
+
+    p {
+        text-align: left;
+        font-weight: 200;
     }
 
     .journal-entry-card-link {
@@ -26,6 +36,10 @@
         margin: 0;
         padding: 0;
         height: 100%;
+    }
+
+    .rating-header {
+        text-align: right;
     }
 }
 

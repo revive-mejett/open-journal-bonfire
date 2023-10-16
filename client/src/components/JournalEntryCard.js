@@ -9,7 +9,7 @@ const JournalEntryCard = ({ entry }) => {
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
-            setTeaserDescription(entry.entryContent.slice(0, 50) + "...")
+            setTeaserDescription(entry.entryContent.slice(0, 200) + "...")
         } else {
             setTeaserDescription("(No entry description)")
         }
@@ -22,9 +22,9 @@ const JournalEntryCard = ({ entry }) => {
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
                 }
-                <p>{entry.title}</p>
+                <h3>{entry.title}</h3>
                 <p className="description-teaser">{teaserDescription}</p>
-                <div>Rating: {entry.selfRating}</div>
+                <h3 className="rating-header">Their rating: {entry.selfRating}</h3>
             </Link>
         </div>
 
