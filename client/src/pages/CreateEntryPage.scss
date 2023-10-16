@@ -1,0 +1,30 @@
+
+.create-entry-page-main {
+    text-align: center;
+
+    
+
+    .form-section {
+        text-align: left;
+        margin: 0.5em 0;
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0;
+        }
+
+        .entry-title-field {
+            width: 50%;
+        }
+
+        .entry-content-textarea {
+            resize: none;
+            width: 90%;
+            height: 500px;
+            margin: 0;
+            padding: 0.25em;
+        }
+    }
+
+}
+
