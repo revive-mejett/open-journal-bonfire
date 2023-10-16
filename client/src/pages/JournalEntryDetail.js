@@ -37,7 +37,7 @@ const JournalEntryDetail = () => {
     })
 
     return (
-        <>
+        <main className="journal-entry-detail-main">
             <h2>Journal entry detail</h2>
             {
             journalEntryData &&
@@ -56,7 +56,7 @@ const JournalEntryDetail = () => {
                 <p>Their rating: {journalEntryData.selfRating}</p>
             </div>
             }
-        </>
+        </main>
 
     )
 }

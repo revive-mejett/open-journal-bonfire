@@ -26,11 +26,11 @@ const MatchEntriesPage = () => {
     }, [matchEntryData])
 
     return (
-        <>
+        <main>
             {matchEntryData &&
                 matchEntryData.map(entry => <MatchEntryCard entry={entry}></MatchEntryCard>)
             }
-        </>
+        </main>
     )
 }
 

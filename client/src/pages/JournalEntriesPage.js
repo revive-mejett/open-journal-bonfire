@@ -26,11 +26,11 @@ const JournalEntriesPage = () => {
     }, [entryData])
 
     return (
-        <>
+        <main className="jounal-entries-page-main">
             {entryData &&
                 entryData.map((entry,i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
             }
-        </>
+        </main>
     )
 }
 

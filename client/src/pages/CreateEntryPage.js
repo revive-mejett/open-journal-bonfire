@@ -50,7 +50,7 @@ const CreateEntryPage = () => {
     }
 
     return (
-        <>
+        <main className="create-entry-page-main">
             <div>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
@@ -103,7 +103,7 @@ const CreateEntryPage = () => {
                     )}
                 </Formik>
             </div>
-        </>
+        </main>
     )
 
 }
