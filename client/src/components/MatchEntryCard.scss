@@ -5,19 +5,28 @@
     background-color: $color-pane;
     color: $color-font;
     width: 300px;
+    margin: 2em 5em;
+    padding: 0.25em;
+    height: 200px;
     text-decoration: none;
     text-align: center;
 
+    display: flex;
+    flex-direction: column;
+
+
     h2, .label-outcome {
         text-align: center;
+        margin: 0;
     }
 
     .journal-entry-card-link {
         all: inherit;
         cursor: pointer;
+        margin: 0;
+        padding: 0;
+        height: 100%;
     }
-
-    
 }
 
 

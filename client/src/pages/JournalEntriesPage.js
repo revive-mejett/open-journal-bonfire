@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
+import "./JournalEntriesPage.scss"
 
 const JournalEntriesPage = () => {
 
@@ -27,9 +28,12 @@ const JournalEntriesPage = () => {
 
     return (
         <main className="jounal-entries-page-main">
+            <section className="entries-container">
             {entryData &&
                 entryData.map((entry,i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
             }
+            </section>
+            
         </main>
     )
 }
