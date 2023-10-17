@@ -122,13 +122,17 @@ const CreateEntryPage = () => {
                                 </div>
 
                             </fieldset>
-                            <label htmlFor="selfRating">Out of 10, rate your day:</label>
-                            <Field as="select" name="selfRating">
-                                <option value={0} hidden>--select--</option>
-                                {selfRatingValues.map(ratingValue => <option value={ratingValue} key={ratingValue}>{ratingValue}</option>)}
-                            </Field>
 
-                            <button type="submit">test submit</button>
+                            <div className="form-section self-rating-form">
+                                <label htmlFor="selfRating">Out of 10, rate your day:</label>
+                                <Field as="select" name="selfRating" className="input-dropdown">
+                                    <option value={0} hidden>--select--</option>
+                                    {selfRatingValues.map(ratingValue => <option value={ratingValue} key={ratingValue}>{ratingValue}</option>)}
+                                </Field>
+                            </div>
+                            
+
+                            <button type="submit" className="button create-entry-submit-button">Submit to the bonfire!</button>
                         </form>
                     )}
                 </Formik>

@@ -43,5 +43,24 @@
         
     }
 
+    .self-rating-form {
+
+        margin: auto;
+        text-align: center;
+        label {
+            font-size: 150%;
+            text-align: center;
+        }
+
+        
+    }
+
+    .create-entry-submit-button {
+        width: 30vw;
+        font-size: 200%;
+        padding: 0.25em;
+        margin: 1em 0 15em 0;
+    }
+
 }
 
