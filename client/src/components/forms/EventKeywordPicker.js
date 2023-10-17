@@ -13,10 +13,10 @@ const EventKeywordPicker = (props) => {
         <div className="event-tag-picker-subform">
             <h3>{props.helperText}</h3>
 
-            <div className="event-tag-bank-container">
+            <div className="event-tag-container unselected-event-tags">
                 {eventBank.map((event, index) => {
                     return (
-                        <label key={index} className={"event-tag-container " + eventType}>
+                        <label key={index} className={"event-tag " + eventType}>
                             {event}<Field type="checkbox" name={props.formikEventBankName}
                                 checked={false}
                                 value={event}
@@ -39,10 +39,10 @@ const EventKeywordPicker = (props) => {
             </div>
 
             <h4>{props.helperListHeading}</h4>
-            <div className={"event-tag-selected-container " + eventType}>
+            <div className="event-tag-container selected-event-tags">
                 {selectedEvents.map((event, index) => {
                     return (
-                        <label key={index}>
+                        <label key={index} className={"event-tag " + eventType}>
                             {event}<Field type="checkbox" name={props.formikSelectedListName}
                                 checked={true}
                                 value={event}

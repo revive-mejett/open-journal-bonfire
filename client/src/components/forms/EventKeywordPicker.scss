@@ -3,25 +3,35 @@
 
 .event-tag-picker-subform {
     
-    
+    min-height: 300px;
     h3 {
         text-align: left;
         margin:0;
     }
 
-    .event-tag-bank-container {
+    .event-tag-container {
         display: flex;
         flex-flow: row wrap;
         background-color: $color-dark;
         padding: 0.75em;
-    
         
+        align-content: flex-start;
+    }
+
+    .unselected-event-tags {
+        min-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .selected-event-tags {
+        min-height: 100px;
     }
     
-    .event-tag-container {
+    .event-tag {
         background-color: $color-pane;
-        padding: 0.2em;
+        padding: 0.1em;
         margin: 0.25em;
+        height: fit-content;
     }
 
     // colour styles for positve, neutral and negative type of event tags

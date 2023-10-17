@@ -72,38 +72,41 @@ const CreateEntryPage = () => {
                                 <Field name="entryContent" as="textarea" placeholder="// Write away..." className="input-text-field entry-content-textarea"></Field>
                             </div>
 
-                            <fieldset className="event-tags-subforms-container">
+                            <fieldset className="event-tags-subforms-container form-section">
+                                <div className="subform-flex-item">
+                                    <EventKeywordPicker
+                                        eventType="positive"
+                                        eventBank={possibleGoodEventsInitial}
+                                        formikEventBankName="goodEventsBank"
+                                        formikSelectedListName="goodEventsList"
+                                        setFieldValue={props.setFieldValue}
+                                        helperText="What went well today? 👍"
+                                        helperListHeading="Good events">
+                                    </EventKeywordPicker>
+                                </div>
 
-                            
-                            <EventKeywordPicker
-                                eventType="positive"
-                                eventBank={possibleGoodEventsInitial}
-                                formikEventBankName="goodEventsBank"
-                                formikSelectedListName="goodEventsList"
-                                setFieldValue={props.setFieldValue}
-                                helperText="What went well today? 👍"
-                                helperListHeading="Good events">
-                            </EventKeywordPicker>
-
-                            <EventKeywordPicker
-                                eventType="neutral"
-                                eventBank={possibleNeutralEvents}
-                                formikEventBankName="neutralEventsBank"
-                                formikSelectedListName="neutralEventsList"
-                                setFieldValue={props.setFieldValue}
-                                helperText="What went okay? Things that were just neutral... ? 🌳"
-                                helperListHeading="Okay events">
-                            </EventKeywordPicker>
-
-                            <EventKeywordPicker
-                                eventType="negative"
-                                eventBank={possibleWorseEvents}
-                                formikEventBankName="worseEventsBank"
-                                formikSelectedListName="worseEventsList"
-                                setFieldValue={props.setFieldValue}
-                                helperText="What did not go so well today? 👎"
-                                helperListHeading="Not so great list...">
-                            </EventKeywordPicker>
+                                <div className="subform-flex-item">
+                                    <EventKeywordPicker
+                                        eventType="neutral"
+                                        eventBank={possibleNeutralEvents}
+                                        formikEventBankName="neutralEventsBank"
+                                        formikSelectedListName="neutralEventsList"
+                                        setFieldValue={props.setFieldValue}
+                                        helperText="What went okay? Things that were just neutral... ? 🌳"
+                                        helperListHeading="Okay events">
+                                    </EventKeywordPicker>
+                                </div>
+                                <div className="subform-flex-item">
+                                    <EventKeywordPicker
+                                        eventType="negative"
+                                        eventBank={possibleWorseEvents}
+                                        formikEventBankName="worseEventsBank"
+                                        formikSelectedListName="worseEventsList"
+                                        setFieldValue={props.setFieldValue}
+                                        helperText="What did not go so well today? 👎"
+                                        helperListHeading="Not so great list...">
+                                    </EventKeywordPicker>
+                                </div>
 
                             </fieldset>
                             <label htmlFor="selfRating">Out of 10, rate your day:</label>

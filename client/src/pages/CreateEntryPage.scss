@@ -25,5 +25,23 @@
         }
     }
 
+    fieldset {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .event-tags-subforms-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .subform-flex-item {
+        margin: 0.5em;
+        width: 33%;
+        
+    }
+
 }
 
