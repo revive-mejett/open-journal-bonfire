@@ -1,0 +1,37 @@
+@import "../../assets/variables.scss";
+
+
+.event-tag-picker-subform {
+    
+    
+    h3 {
+        text-align: left;
+        margin:0;
+    }
+
+    .event-tag-bank-container {
+        display: flex;
+        flex-flow: row wrap;
+        background-color: $color-dark;
+        padding: 0.75em;
+    
+        
+    }
+    
+    .event-tag-container {
+        background-color: $color-pane;
+        padding: 0.2em;
+        margin: 0.25em;
+    }
+
+    // colour styles for positve, neutral and negative type of event tags
+    .positive {
+        background-color: $color-positive;
+    }
+
+    .negative {
+        background-color: $color-negative;
+    }
+
+}
+

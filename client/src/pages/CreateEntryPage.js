@@ -53,7 +53,7 @@ const CreateEntryPage = () => {
 
     return (
         <main className="create-entry-page-main">
-            <div>
+            <section>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
                     initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], goodEventsBank: possibleGoodEventsInitial, selfRating: 0 }}
@@ -72,34 +72,40 @@ const CreateEntryPage = () => {
                                 <Field name="entryContent" as="textarea" placeholder="// Write away..." className="input-text-field entry-content-textarea"></Field>
                             </div>
 
+                            <fieldset className="event-tags-subforms-container">
 
+                            
                             <EventKeywordPicker
+                                eventType="positive"
                                 eventBank={possibleGoodEventsInitial}
                                 formikEventBankName="goodEventsBank"
                                 formikSelectedListName="goodEventsList"
                                 setFieldValue={props.setFieldValue}
-                                helperText="What went well today?"
+                                helperText="What went well today? 👍"
                                 helperListHeading="Good events">
                             </EventKeywordPicker>
 
                             <EventKeywordPicker
+                                eventType="neutral"
                                 eventBank={possibleNeutralEvents}
                                 formikEventBankName="neutralEventsBank"
                                 formikSelectedListName="neutralEventsList"
                                 setFieldValue={props.setFieldValue}
-                                helperText="What went okay? Things that were just neutral... ?"
+                                helperText="What went okay? Things that were just neutral... ? 🌳"
                                 helperListHeading="Okay events">
                             </EventKeywordPicker>
 
                             <EventKeywordPicker
+                                eventType="negative"
                                 eventBank={possibleWorseEvents}
                                 formikEventBankName="worseEventsBank"
                                 formikSelectedListName="worseEventsList"
                                 setFieldValue={props.setFieldValue}
-                                helperText="What did not go so well today?"
+                                helperText="What did not go so well today? 👎"
                                 helperListHeading="Not so great list...">
                             </EventKeywordPicker>
 
+                            </fieldset>
                             <label htmlFor="selfRating">Out of 10, rate your day:</label>
                             <Field as="select" name="selfRating">
                                 <option value={0} hidden>--select--</option>
@@ -110,7 +116,7 @@ const CreateEntryPage = () => {
                         </form>
                     )}
                 </Formik>
-            </div>
+            </section>
         </main>
     )
 

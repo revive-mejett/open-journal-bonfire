@@ -3,7 +3,7 @@ const { Schema, model } = mongoose
 
 const matchSchema = new Schema({
     gameTitle: {type: String, required: true},
-    entryContent: {type: String, trim: true, maxLength: 500},
+    entryContent: {type: String, trim: true, maxLength: 7000},
     isWon: {type: Boolean, required: true},
     teamReview: {type: [String], default:[]},
     teamPerformance: {type: [String], default: []},
