@@ -84,7 +84,7 @@ const CreateEntryPage = () => {
                                 <label htmlFor="entryContent">Your entry...</label>
                                 <Field name="entryContent" as="textarea" placeholder="// Write away..." className="input-text-field entry-content-textarea"></Field>
                             </div>
-
+                            
                             <fieldset className="event-tags-subforms-container form-section">
                                 <div className="subform-flex-item">
                                     <EventKeywordPicker
