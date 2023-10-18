@@ -1,0 +1,58 @@
+@import "../assets/variables.scss";
+
+.journal-entry-detail-main {
+    width: 50vw;
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    .journal-entry-page {
+        background-color: $color-pane;
+        padding: 0.5em;
+
+        .date-display {
+            line-height: 0.75em;
+            padding: 1em 0.5em;
+            font-size: 140%;
+        }
+
+        .entry-title {
+            text-align: center;
+        }
+
+        .entry-content-text {
+            text-indent: 4em;
+            font-weight: 200;
+            font-size: 140%;
+            text-decoration: underline;
+
+        }
+
+    }
+
+    .event-tag-container {
+        display: flex;
+        flex-flow: row wrap;
+        background-color: $color-dark;
+        padding: 0.75em;
+
+        align-content: flex-start;
+    }
+
+    .event-tag {
+        background-color: $color-pane;
+        padding: 0.5em;
+        margin: 0.75em 0.1em;
+        height: fit-content;
+    }
+
+
+    // colour styles for positve, neutral and negative type of event tags
+    .positive {
+        background-color: $color-positive;
+    }
+
+    .negative {
+        background-color: $color-negative;
+    }
+
+}
