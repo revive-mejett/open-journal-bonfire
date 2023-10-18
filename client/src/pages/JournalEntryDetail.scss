@@ -9,6 +9,9 @@
         background-color: $color-pane;
         padding: 0.5em;
 
+        h4 {
+            margin-bottom: 0;
+        }
         .date-display {
             line-height: 0.75em;
             padding: 1em 0.5em;
@@ -27,32 +30,40 @@
 
         }
 
+        .event-tag-container {
+            display: flex;
+            flex-flow: row wrap;
+            background-color: $color-accent;
+            padding: 0 0.75em;
+            align-content: flex-start;
+
+
+        }
+
+        .event-tag {
+            background-color: $color-pane;
+            padding: 0.5em;
+            margin: 1em 0.5em;
+            height: fit-content;
+            box-shadow: 5px 5px $color-button-shadow;
+        }
+
+
+        // colour styles for positve, neutral and negative type of event tags
+        .positive {
+            background-color: $color-positive;
+        }
+
+        .negative {
+            background-color: $color-negative;
+        }
+
+        .neutral {
+            background-color: $color-neutral;
+        }
+
     }
 
-    .event-tag-container {
-        display: flex;
-        flex-flow: row wrap;
-        background-color: $color-dark;
-        padding: 0.75em;
 
-        align-content: flex-start;
-    }
-
-    .event-tag {
-        background-color: $color-pane;
-        padding: 0.5em;
-        margin: 0.75em 0.1em;
-        height: fit-content;
-    }
-
-
-    // colour styles for positve, neutral and negative type of event tags
-    .positive {
-        background-color: $color-positive;
-    }
-
-    .negative {
-        background-color: $color-negative;
-    }
 
 }
