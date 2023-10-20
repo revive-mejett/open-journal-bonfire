@@ -54,12 +54,11 @@ const JournalEntryDetail = () => {
                     <h3 className="entry-title">{journalEntryData.entryTitle && journalEntryData.entryTitle.Trim() !== "" ? journalEntryData.entryTitle : "No title"}</h3>
                     <p className="entry-content-text">{journalEntryData.entryContent}</p>
                     <h4>Great events:</h4>
-                    <div className="event-tag-container">{journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event}</p>)}</div>
-                    <h4>Neutral events:</h4>
-                    <div className="event-tag-container">{journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event}</p>)}</div>
-                    <h4>Not so great events:</h4>
-                    <div className="event-tag-container">{journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event}</p>)}</div>
-                    <p>Their rating: {journalEntryData.selfRating}</p>
+                    <div className="event-tag-container">
+                        {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event}</p>)}
+                        {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event}</p>)}
+                        {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event}</p>)}
+                    </div>
                 </section>
             }
         </main>

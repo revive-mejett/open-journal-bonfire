@@ -25,6 +25,11 @@ const JournalEntryCard = ({ entry }) => {
                 <h3>{entry.title}</h3>
                 <p className="description-teaser">{teaserDescription}</p>
                 <h3 className="rating-header">Their rating: {entry.selfRating}</h3>
+                <div className="event-tag-container">
+                    {entry.greatEvents.length > 0 && <p className="event-tag positive">{entry.greatEvents[0]}</p>}
+                    {entry.neutralEvents.length > 0 && <p className="event-tag neutral">{entry.neutralEvents[0]}</p>}
+                    {entry.badEvents.length > 0 && <p className="event-tag negative">{entry.badEvents[0]}</p>}
+                </div>
             </Link>
         </div>
 
