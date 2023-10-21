@@ -76,7 +76,8 @@ class Database {
         });
 
         // insert into mongodb
-        await newEntry.save();
+        let newEntryDocument = await newEntry.save();
+        return newEntryDocument
     }
 
     

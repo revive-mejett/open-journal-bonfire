@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 
 const entrySchema = new Schema({
     title: {type: String, required: true},
-    entryContent: {type: String, trim: true, maxLength: 500},
+    entryContent: {type: String, trim: true, maxLength: 7000},
     selfRating: {type: Number, min: 1, max: 10},
     greatEvents: {type: [String], default: []},
     neutralEvents: {type: [String], default: []},

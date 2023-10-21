@@ -2,10 +2,22 @@
 @import "../assets/buttonstyle.scss";
 
 .topbar {
+    img {
+        width: 100px;
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
     background-color: $color-base-bright;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: $color-font;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    h1 {
+        font-size: 3em;
+    }
 }

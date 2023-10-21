@@ -1,0 +1,78 @@
+@import "../assets/variables.scss";
+
+.journal-entry-detail-main {
+    width: 50vw;
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    .journal-entry-page {
+        background-color: $color-pane;
+        padding: 0.5em;
+        min-height: 600px;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px 600px 200px;
+
+        h4 {
+            margin-bottom: 0;
+        }
+        .date-display {
+            line-height: 0.75em;
+            padding: 1em 0.5em;
+            font-size: 140%;
+        }
+
+        .entry-title {
+            text-align: center;
+        }
+
+        .entry-content-text {
+            text-indent: 4em;
+            font-weight: 200;
+            font-size: 140%;
+            text-decoration: underline;
+            text-decoration-color: $color-accent;
+        }
+
+        .event-tag-container {
+            display: flex;
+            flex-flow: row wrap;
+            background-color: $color-accent;
+            padding: 0 0.75em;
+            align-content: flex-start;
+
+
+        }
+
+        .event-tag {
+            background-color: $color-pane;
+            padding: 0.5em;
+            margin: 1em 0.5em;
+            height: fit-content;
+            box-shadow: 5px 5px $color-button-shadow;
+        }
+
+        .event-tag-body {
+            vertical-align: bottom;
+        }
+
+
+        // colour styles for positve, neutral and negative type of event tags
+        .positive {
+            background-color: $color-positive;
+        }
+
+        .negative {
+            background-color: $color-negative;
+        }
+
+        .neutral {
+            background-color: $color-neutral;
+        }
+
+    }
+
+
+
+}

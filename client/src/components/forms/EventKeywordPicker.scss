@@ -1,0 +1,51 @@
+@import "../../assets/variables.scss";
+
+
+.event-tag-picker-subform {
+    
+    min-height: 300px;
+    h3 {
+        text-align: left;
+        margin:0;
+    }
+
+    .event-tag-container {
+        display: flex;
+        flex-flow: row wrap;
+        background-color: $color-dark;
+        padding: 0.75em;
+        
+        align-content: flex-start;
+    }
+
+    .unselected-event-tags {
+        height: 300px;
+        overflow-y: scroll;
+    }
+
+    .selected-event-tags {
+        min-height: 100px;
+    }
+    
+    .event-tag {
+        background-color: $color-pane;
+        padding: 0.1em;
+        margin: 0.75em 0.1em;
+        height: fit-content;
+    }
+
+    // colour styles for positve, neutral and negative type of event tags
+    .positive {
+        background-color: $color-positive;
+    }
+
+    .negative {
+        background-color: $color-negative;
+    }
+
+    .neutral {
+        background-color: $color-neutral;
+    }
+
+}
+

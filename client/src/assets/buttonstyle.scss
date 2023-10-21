@@ -6,9 +6,10 @@
     margin: 1em;
 }
 
-.link-button {
+.link-button, .button {
     background-color: $color-accent;
     padding: 0.5em;
     box-shadow: 2px 2px 1px 1px $color-button-shadow;
     color: $color-font;
+    border: none;
 }
