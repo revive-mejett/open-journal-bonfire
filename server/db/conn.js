@@ -33,24 +33,6 @@ class Database {
         await mongoose.connection.close()
     }
 
-    /**
-     * for testing, delete this later
-     */
-    async createTestEntry() {
-        // Create a new match entry
-        const sampleEntry = new JournalEntry({
-            title: "Another day what do I say",
-            entryContent: "Unfortunately got fi",
-            flairs: "spaghetti and timmies",
-            greatEvents: ["enjoyed spaghetti code", "played left 4 dead 2", "got timmies!"],
-            neutralEvents: ["has some water", "took a walk", "I slept"],
-            badEvents: ["bad day at work"],
-            selfRating: 8,
-        });
-        // insert into mongodb
-        await sampleEntry.save();
-    }
-
     async createEntry(entry) {
         let flairs = []
 
