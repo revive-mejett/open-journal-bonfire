@@ -24,6 +24,7 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
+        this.getRandomJournalEntry()
     }
 
     /**
@@ -31,24 +32,6 @@ class Database {
      */
     async disconnectFromDb() {
         await mongoose.connection.close()
-    }
-
-    /**
-     * for testing, delete this later
-     */
-    async createTestEntry() {
-        // Create a new match entry
-        const sampleEntry = new JournalEntry({
-            title: "Another day what do I say",
-            entryContent: "Unfortunately got fi",
-            flairs: "spaghetti and timmies",
-            greatEvents: ["enjoyed spaghetti code", "played left 4 dead 2", "got timmies!"],
-            neutralEvents: ["has some water", "took a walk", "I slept"],
-            badEvents: ["bad day at work"],
-            selfRating: 8,
-        });
-        // insert into mongodb
-        await sampleEntry.save();
     }
 
     async createEntry(entry) {
@@ -96,6 +79,13 @@ class Database {
     async getJournalEntryById(id) {
         const entry = await JournalEntry.findById(id)
         return entry
+    }
+
+    async getRandomJournalEntry() {
+        const randomEntryArray = await JournalEntry.aggregate([{
+            $sample: {size : 1}
+        }])
+        return randomEntryArray[0]
     }
 }
 

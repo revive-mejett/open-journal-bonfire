@@ -7,21 +7,31 @@ const JournalEntryDetail = () => {
 
     const location = useLocation()
 
+
     const [journalEntryData, setJournalEntryData] = useState(undefined)
 
     let dateCreated = useRef()
 
-
     useEffect(() => {
-        (async () => {
-            let urlParams = new URLSearchParams(location.search)
-            let searchId = urlParams.get("id")
+        let baseUrl = "/api/journalentries/"
 
+        let urlParams = new URLSearchParams(location.search)
+        let searchId = urlParams.get("id")
+
+        const fetchEntry = async () => {
             let data
+            let fetchUrl
 
             //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
-                let response = await fetch("/api/journalentries/" + searchId)
+
+                //call the appropriate api route if user wants to fetch a random journal entry or fetch a specific if of the journal entry
+                if (searchId === "random") {
+                    fetchUrl = "/api/journalentries/random"
+                } else {
+                    fetchUrl = baseUrl + searchId 
+                }
+                let response = await fetch(fetchUrl)
 
 
                 if (response.ok) {
@@ -34,9 +44,12 @@ const JournalEntryDetail = () => {
                     console.error("response not ok -- " + response.status)
                 }
             }
-        })();
+        };
+        fetchEntry()
 
-    })
+        
+
+    }, [location.search, journalEntryData])
 
     return (
         <main className="journal-entry-detail-main">

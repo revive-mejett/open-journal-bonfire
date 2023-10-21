@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5050;
     const db = new Database()
     try {
         await db.connectToDb()
-        await db.createTestEntry()
     } catch(error) {
         console.error("Error connecting to db --> " + error)
         process.exit(1)
