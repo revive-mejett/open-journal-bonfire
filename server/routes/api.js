@@ -39,6 +39,36 @@ router.get("/journalentries", async (req, res) => {
     }
 });
 
+router.get("/journalentries/random", async (req, res) => {
+    let result = await db.getRandomJournalEntry()
+
+    if (result) {
+        res.status(200).json(result)
+    } else {
+        res.status(404).json({
+            status: "error",
+            payload: "Entry not found"
+        });
+    }
+
+});
+
+// route that create a new journal entry
+router.post("/journalentries/new", async (req, res) => {
+
+    try {
+        let newEntry = await db.createEntry(req.body)
+        res.status(201).json({ status: "success", payload: {message: "Successfully added entry to the bonfire!", newEntry : newEntry } })
+    } catch (error) {
+        //send server error
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to add new entry"
+        })
+    }
+})
+
+
 // retrieve a specific journal entry given by id as url path param
 router.get("/journalentries/:id", async (req, res) => {
     let result = await db.getJournalEntryById(req.params.id)
@@ -55,19 +85,8 @@ router.get("/journalentries/:id", async (req, res) => {
 });
 
 
-// route that create a new journal entry
-router.post("/journalentries/new", async (req, res) => {
 
-    try {
-        let newEntry = await db.createEntry(req.body)
-        res.status(201).json({ status: "success", payload: {message: "Successfully added entry to the bonfire!", newEntry : newEntry } })
-    } catch (error) {
-        //send server error
-        res.status(500).json({
-            status: "error",
-            payload: "Failed to add new entry"
-        })
-    }
-})
+
+
 
 export default router
