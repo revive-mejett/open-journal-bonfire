@@ -20,10 +20,18 @@ const JournalEntryDetail = () => {
 
         const fetchEntry = async () => {
             let data
+            let fetchUrl
 
             //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
-                let response = await fetch(baseUrl + searchId)
+
+                //call the appropriate api route if user wants to fetch a random journal entry or fetch a specific if of the journal entry
+                if (searchId === "random") {
+                    fetchUrl = "/api/journalentries/random"
+                } else {
+                    fetchUrl = baseUrl + searchId 
+                }
+                let response = await fetch(fetchUrl)
 
 
                 if (response.ok) {
@@ -37,32 +45,7 @@ const JournalEntryDetail = () => {
                 }
             }
         };
-
-        const fetchRandomEntry = async () => {
-            let data
-
-            //fetch journal entry data if the data has not been fetched yet.
-            if (!journalEntryData) {
-                let response = await fetch("/api/journalentries/random")
-
-
-                if (response.ok) {
-                    data = await response.json()
-                    console.log("response success -- " + response.status)
-                    setJournalEntryData(data)
-                    dateCreated.current = new Date(data.dateCreated)
-                } else {
-                    //TODO display error on screen
-                    console.error("response not ok -- " + response.status)
-                }
-            }
-        }
-
-        if (searchId === "random") {
-            fetchRandomEntry()
-        } else {
-            fetchEntry()
-        }
+        fetchEntry()
 
         
 
