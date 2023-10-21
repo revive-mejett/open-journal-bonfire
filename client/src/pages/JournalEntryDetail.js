@@ -7,10 +7,10 @@ const JournalEntryDetail = () => {
 
     const location = useLocation()
 
+
     const [journalEntryData, setJournalEntryData] = useState(undefined)
 
     let dateCreated = useRef()
-
 
     useEffect(() => {
         let baseUrl = "/api/journalentries/"
@@ -40,7 +40,7 @@ const JournalEntryDetail = () => {
 
         const fetchRandomEntry = async () => {
             let data
-
+            
             //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
                 let response = await fetch("/api/journalentries/random")
@@ -59,14 +59,13 @@ const JournalEntryDetail = () => {
         }
 
         if (searchId === "random") {
+            console.log("akshan random")
             fetchRandomEntry()
         } else {
             fetchEntry()
         }
 
-        
-
-    })
+    }, [location.search, journalEntryData])
 
     return (
         <main className="journal-entry-detail-main">

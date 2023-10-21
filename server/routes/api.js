@@ -58,7 +58,7 @@ router.post("/journalentries/new", async (req, res) => {
 
     try {
         let newEntry = await db.createEntry(req.body)
-        res.status(201).json({ status: "success", payload: {message: "Successfully added entry to the bonfire!", newEntry : newEntry } })
+        res.status(201).json({ status: "success", payload: {message: "akshan success", newEntry : newEntry } })
     } catch (error) {
         //send server error
         res.status(500).json({
