@@ -12,7 +12,7 @@ const Topbar = () => {
                 <Link to="/" className="link-button">View All</Link>
             </div>
             <div className="link-container">
-                <Link to="/some" className="link-button">Random Entry</Link>
+                <Link to="/entries/viewing?id=random" className="link-button">Random Entry</Link>
             </div>
             <div className="link-container">
                 <Link to="/entries/new" className="link-button">New Anonymous Entry</Link>

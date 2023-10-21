@@ -24,6 +24,7 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
+        this.getRandomJournalEntry()
     }
 
     /**
@@ -78,6 +79,13 @@ class Database {
     async getJournalEntryById(id) {
         const entry = await JournalEntry.findById(id)
         return entry
+    }
+
+    async getRandomJournalEntry() {
+        const randomEntryArray = await JournalEntry.aggregate([{
+            $sample: {size : 1}
+        }])
+        return randomEntryArray[0]
     }
 }
 

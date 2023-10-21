@@ -13,15 +13,17 @@ const JournalEntryDetail = () => {
 
 
     useEffect(() => {
-        (async () => {
-            let urlParams = new URLSearchParams(location.search)
-            let searchId = urlParams.get("id")
+        let baseUrl = "/api/journalentries/"
 
+        let urlParams = new URLSearchParams(location.search)
+        let searchId = urlParams.get("id")
+
+        const fetchEntry = async () => {
             let data
 
             //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
-                let response = await fetch("/api/journalentries/" + searchId)
+                let response = await fetch(baseUrl + searchId)
 
 
                 if (response.ok) {
@@ -34,7 +36,35 @@ const JournalEntryDetail = () => {
                     console.error("response not ok -- " + response.status)
                 }
             }
-        })();
+        };
+
+        const fetchRandomEntry = async () => {
+            let data
+
+            //fetch journal entry data if the data has not been fetched yet.
+            if (!journalEntryData) {
+                let response = await fetch("/api/journalentries/random")
+
+
+                if (response.ok) {
+                    data = await response.json()
+                    console.log("response success -- " + response.status)
+                    setJournalEntryData(data)
+                    dateCreated.current = new Date(data.dateCreated)
+                } else {
+                    //TODO display error on screen
+                    console.error("response not ok -- " + response.status)
+                }
+            }
+        }
+
+        if (searchId === "random") {
+            fetchRandomEntry()
+        } else {
+            fetchEntry()
+        }
+
+        
 
     })
 
