@@ -9,7 +9,7 @@ const matchSchema = new Schema({
     teamPerformance: {type: [String], default: []},
     events: {type: [String], default: []},
     selfRating: {type: Number, min: 1, max: 10},
-    dateCreated: {type: Date, default: Date.now()}
+    dateCreated: {type: Date, default: Date.now}
 })
 
 const MatchEntry = model("MatchEntry", matchSchema)
