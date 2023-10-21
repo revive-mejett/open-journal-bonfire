@@ -50,15 +50,21 @@ const JournalEntryDetail = () => {
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
                         </div>
                     }
-
-                    <h3 className="entry-title">{journalEntryData.entryTitle && journalEntryData.entryTitle.Trim() !== "" ? journalEntryData.entryTitle : "No title"}</h3>
-                    <p className="entry-content-text">{journalEntryData.entryContent}</p>
-                    <h4>Great events:</h4>
-                    <div className="event-tag-container">
-                        {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event}</p>)}
-                        {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event}</p>)}
-                        {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event}</p>)}
+                    <div className="entry-body">
+                        <h3 className="entry-title">{journalEntryData.entryTitle && journalEntryData.entryTitle.Trim() !== "" ? journalEntryData.entryTitle : "No title"}</h3>
+                        <p className="entry-content-text">{journalEntryData.entryContent}</p>
                     </div>
+
+                    <div className="event-tag-body">
+                        <h4>Great events:</h4>
+                        <div className="event-tag-container">
+                            {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event}</p>)}
+                            {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event}</p>)}
+                            {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event}</p>)}
+                        </div>
+                    </div>
+
+
                 </section>
             }
         </main>

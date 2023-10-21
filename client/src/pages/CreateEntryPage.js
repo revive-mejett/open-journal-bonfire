@@ -2,6 +2,7 @@ import { Field, Formik } from "formik"
 import EventKeywordPicker from "../components/forms/EventKeywordPicker"
 import "../assets/forminputstyle.scss"
 import "./CreateEntryPage.scss"
+import { useNavigate } from "react-router-dom"
 
 const CreateEntryPage = () => {
 
@@ -30,6 +31,8 @@ const CreateEntryPage = () => {
 
     const selfRatingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+    const navigate = useNavigate()
+
     const handleSubmit = async (values) => {
         let data = {
             title: values.title,
@@ -55,9 +58,10 @@ const CreateEntryPage = () => {
         }
 
         const responseData = await response.json()
-        //console.log(new Date())
+        console.log(responseData);
         if (responseData.status === "success") {
             console.log(responseData.payload)
+            navigate({ pathname: "/entries/viewing", search: "?id=" + responseData.payload.newEntry._id })
         } else {
             console.error(responseData.error)
         }

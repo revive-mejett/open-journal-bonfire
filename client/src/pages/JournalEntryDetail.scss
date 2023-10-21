@@ -8,6 +8,11 @@
     .journal-entry-page {
         background-color: $color-pane;
         padding: 0.5em;
+        min-height: 600px;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px 600px 100px;
 
         h4 {
             margin-bottom: 0;
@@ -27,7 +32,7 @@
             font-weight: 200;
             font-size: 140%;
             text-decoration: underline;
-
+            text-decoration-color: $color-accent;
         }
 
         .event-tag-container {
@@ -46,6 +51,10 @@
             margin: 1em 0.5em;
             height: fit-content;
             box-shadow: 5px 5px $color-button-shadow;
+        }
+
+        .event-tag-body {
+            vertical-align: bottom;
         }
 
 
