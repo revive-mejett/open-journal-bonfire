@@ -27,8 +27,6 @@ router.get("/matchentries", async (req, res) => {
 router.get("/journalentries", async (req, res) => {
     let journalentries
 
-    console.log(req.query)
-
     try {
         journalentries = await db.getAllJournalEntries()
         res.json(journalentries).status(200)

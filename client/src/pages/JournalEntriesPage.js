@@ -6,11 +6,9 @@ import { Field, Formik } from "formik"
 const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
-    const [filterOptions, setFilterOptions] = useState({})
 
     const handleSubmit = values => {
         console.log(values)
-        setEntryData(undefined)
     }
 
 
@@ -50,10 +48,10 @@ const JournalEntriesPage = () => {
 
                         
                         <label htmlFor="minSelfRating">Minimum self-rating:</label>
-                        <Field as="input" type="range" name="minSelfRating" step="1" min="0" max="10"></Field><span>{props.values.minSelfRating !== 0 ? props.values.minSelfRating :"(No min)"}</span>
+                        <Field as="input" type="range" name="minSelfRating" step="1" min="1" max="10"></Field><span>{props.values.minSelfRating}   </span>
 
                         <label htmlFor="maxSelfRating">Maximum self-rating:</label>
-                        <Field as="input" type="range" name="maxSelfRating" step="1" min="0" max="10"></Field><span>{props.values.maxSelfRating !== 0 ? props.values.maxSelfRating :"(No max)"}</span>
+                        <Field as="input" type="range" name="maxSelfRating" step="1" min="1" max="10"></Field><span>{props.values.maxSelfRating}   </span>
 
                         <button type="submit" className="button">Apply Filters</button>
                     </form>)}
