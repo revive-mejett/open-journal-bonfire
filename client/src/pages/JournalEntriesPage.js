@@ -7,8 +7,8 @@ const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
 
-    const handleSubmit = e => {
-        console.log("Apply filter button not implemented yet.")
+    const handleSubmit = values => {
+        console.log(values)
     }
 
 
