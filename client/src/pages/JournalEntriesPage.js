@@ -2,19 +2,19 @@ import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import { Field, Formik } from "formik"
+import { useNavigate } from "react-router-dom"
 
 const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
 
     const baseSearchUrl = "/api/journalentries"
+    const navigate = useNavigate()
 
     const handleSubmit = values => {
-        console.log(values)
 
         const currentLocation = new URL(document.location)
-        let searchParams = new URLSearchParams()
-        const url = new URL(baseSearchUrl, currentLocation) 
+        const url = new URL(document.location) 
         
         if (values.titleFilterMatch.trim() !== "") {
             url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
@@ -25,7 +25,8 @@ const JournalEntriesPage = () => {
         }
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
-
+        console.log(url)
+        navigate({to: "/", search: url.search})
         //todo fetch the url once API route is established
         
     }
