@@ -7,8 +7,27 @@ const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
 
+    const baseSearchUrl = "/api/journalentries"
+
     const handleSubmit = values => {
         console.log(values)
+
+        const currentLocation = new URL(document.location)
+        let searchParams = new URLSearchParams()
+        const url = new URL(baseSearchUrl, currentLocation) 
+        
+        if (values.titleFilterMatch.trim() !== "") {
+            url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
+        }
+
+        if (values.titleFilterMatch.trim() !== "") {
+            url.searchParams.set("entryContentMatch", values.entryContentMatch)
+        }
+        url.searchParams.set("minSelfRating", values.minSelfRating)
+        url.searchParams.set("maxSelfRating", values.maxSelfRating)
+
+        //todo fetch the url once API route is established
+        
     }
 
 
