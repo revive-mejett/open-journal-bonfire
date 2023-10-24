@@ -2,13 +2,20 @@
 
 .filters-container {
     background-color: $color-pane-2;
-    
+    margin: auto;
+    min-width: 600px;
+    width: 70%;
+    min-height: 100px;
 
     .entry-filter-sort-form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2,1fr);
         
+
+        .input-text-field, .input-dropdown {
+            width: 80%;
+        }
 
         .filter-field-container {
             grid-row: 1;
@@ -25,10 +32,31 @@
         .button-container {
             grid-row: 2;
             grid-column: 2;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                width: 50%;
+                height: fit-content;
+                
+            }
         }
 
         fieldset {
             border: none;
+            display: flex;
+            flex-direction: column;
+
+            label {
+                display: block;
+            }
+
+            .rating-slider {
+                width: 80%;
+            }
+
         }
     }
 }

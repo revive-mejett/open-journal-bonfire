@@ -55,23 +55,32 @@ const JournalEntriesPage = () => {
                     {props => (<form onSubmit={props.handleSubmit} className="entry-filter-sort-form">
 
                         <fieldset className="filter-field-container">
-                            <label htmlFor="titleFilterMatch">Filter title containing:</label>
-                            <Field as="input" name="titleFilterMatch" className="input-text-field"></Field>
-
-                            <label htmlFor="entryContentMatch">Filter entry text containing:</label>
-                            <Field as="input" name="entryContentMatch" className="input-text-field"></Field>
+                            <div>
+                                <label htmlFor="titleFilterMatch">Filter title containing:</label>
+                                <Field as="input" name="titleFilterMatch" className="input-text-field"></Field>
+                            </div>
+                            
+                            <div>
+                                <label htmlFor="entryContentMatch">Filter entry text containing:</label>
+                                <Field as="input" name="entryContentMatch" className="input-text-field"></Field>
+                            </div>
+                            
                         </fieldset>
 
                         <fieldset className="self-rating-filter-fields">
-                            <label htmlFor="minSelfRating">Minimum self-rating:</label>
-                            <Field as="input" type="range" name="minSelfRating" step="1" min="1" max="10"></Field><span>{props.values.minSelfRating}   </span>
-
-                            <label htmlFor="maxSelfRating">Maximum self-rating:</label>
-                            <Field as="input" type="range" name="maxSelfRating" step="1" min="1" max="10"></Field><span>{props.values.maxSelfRating}   </span>
+                            <div>
+                                <label htmlFor="minSelfRating">Minimum self-rating:</label>
+                                <Field as="input" type="range" name="minSelfRating" step="1" min="1" max="10" className="rating-slider"></Field><span>{props.values.minSelfRating}   </span>
+                            </div>
+                            
+                            <div>
+                                <label htmlFor="maxSelfRating">Maximum self-rating:</label>
+                                <Field as="input" type="range" name="maxSelfRating" step="1" min="1" max="10" className="rating-slider"></Field><span>{props.values.maxSelfRating}   </span>
+                            </div>
                         </fieldset>
 
                         <fieldset className="sort-order-fields">
-                            <label htmlFor="sortOrder"></label>
+                            <label htmlFor="sortOrder">Sort by:</label>
                             <Field as="select" name="sortOrder" className="input-dropdown">
                                 <option value="newest">Newest to Oldest</option>
                                 <option value="oldest">Oldest to Newest</option>
