@@ -81,7 +81,7 @@ class Database {
         if (sortOption === "oldest") {
             sortOrder = {dateCreated: 1}
         } else if (sortOption === "newest") {
-            sortOrder = {selfRating: -1}
+            sortOrder = {dateCreated: -1}
         } else if (sortOption === "lowSelfRating") {
             sortOrder = {selfRating: 1}
         } else if (sortOption === "highSelfRating") {
