@@ -20,18 +20,16 @@ const JournalEntriesPage = () => {
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
+        setEntryData(undefined)
         navigate({to: "/", search: url.search})
-        //todo fetch the url once API route is established
-        
     }
 
 
     useEffect(() => {
-        let searchParams = new URLSearchParams(location.search)
-        console.log(searchParams)
+        console.log("/api/journalentries" + location.search)
         const fetchEntryData = async () => {
             try {
-                let response = await fetch("/api/journalentries")
+                let response = await fetch("/api/journalentries" + location.search)
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
