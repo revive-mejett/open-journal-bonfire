@@ -23,9 +23,11 @@ router.get("/matchentries", async (req, res) => {
 
 });
 
-// This get all journal entries
+// This get all journal entries (or filtered entries if query params given)
 router.get("/journalentries", async (req, res) => {
     let journalentries
+    console.log(req.query)
+    console.log(Object.keys(req.query).length)
 
     try {
         journalentries = await db.getAllJournalEntries()
