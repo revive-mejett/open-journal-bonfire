@@ -26,11 +26,18 @@ router.get("/matchentries", async (req, res) => {
 // This get all journal entries (or filtered entries if query params given)
 router.get("/journalentries", async (req, res) => {
     let journalentries
-    console.log(req.query)
-    console.log(Object.keys(req.query).length)
-
     try {
-        journalentries = await db.getAllJournalEntries()
+        if (Object.keys(req.query).length !== 0) {
+            let filterOptions = {
+                titleFilterMatch: req.query.titleFilterMatch,
+                entryContentMatch: req.query.entryContentMatch,
+                minSelfRating: Number(req.query.minSelfRating),
+                maxSelfRating: Number(req.query.maxSelfRating)
+            }
+            journalentries = await db.getFilteredJournalEntries(filterOptions)
+        } else {
+            journalentries = await db.getAllJournalEntries()
+        }
         res.json(journalentries).status(200)
     } catch (error) {
         //send server error
