@@ -1,4 +1,5 @@
 # open-journal-bonfire
+<img src="client\src\assets\images\bonfire_site_icon.png">
 Developing an anonymous "open journal" where anyone can freely write journal entries to the web. They can write whatever they want. The app will allow a set of journal entries to be made by anyone and up to a certain amount,
 it will be "launched into the bonfire" where the entries will then be converted to stats.
 
