@@ -24,7 +24,6 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-        this.getRandomJournalEntry()
     }
 
     /**
@@ -71,7 +70,7 @@ class Database {
 
     //get all journal entries from the db
     async getAllJournalEntries() {
-        const entries = await JournalEntry.find({})
+        const entries = JournalEntry.find({})
         return entries
     }
 
@@ -81,6 +80,7 @@ class Database {
             title: { $regex: filterOptions.titleFilterMatch},
             entryContent: { $regex: filterOptions.entryContentMatch},
             selfRating: { $gte : filterOptions.minSelfRating, $lte : filterOptions.maxSelfRating},
+        }).sort({dateCreated: -1
         })
         return entries
     }

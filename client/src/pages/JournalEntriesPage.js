@@ -15,14 +15,13 @@ const JournalEntriesPage = () => {
     const handleSubmit = values => {
 
         const url = new URL(window.location)
-        console.log(values)
 
         url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
         navigate({to: "/", search: url.search})
-        // window.location.reload()
+        window.location.reload()
     }
 
 
