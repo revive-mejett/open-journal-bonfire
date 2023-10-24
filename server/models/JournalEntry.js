@@ -12,7 +12,7 @@ const entrySchema = new Schema({
     badEvents: {type: [String], default: []},
     flairs: {type: [String], default: []},   
     // keywords which will be displayed on a card (ex: birthday, passed exam, had breakup)
-    dateCreated: {type: Date, default: Date.now()}
+    dateCreated: {type: Date, default: Date.now}
 })
 
 const JournalEntry = model("JournalEntry", entrySchema)
