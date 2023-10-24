@@ -75,6 +75,16 @@ class Database {
         return entries
     }
 
+
+    async getFilteredJournalEntries(filterOptions) {
+        const entries = await JournalEntry.find({
+            title: { $regex: filterOptions.titleFilterMatch},
+            entryContent: { $regex: filterOptions.entryContentMatch},
+            selfRating: { $gte : filterOptions.minSelfRating, $lte : filterOptions.maxSelfRating},
+        })
+        return entries
+    }
+
     //get a specific journal entry by its id
     async getJournalEntryById(id) {
         const entry = await JournalEntry.findById(id)

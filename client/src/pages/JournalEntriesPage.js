@@ -2,21 +2,34 @@ import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import { Field, Formik } from "formik"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
 
+    const navigate = useNavigate()
+    const location = useLocation()
+
     const handleSubmit = values => {
-        console.log(values)
+
+        const url = new URL(window.location)
+        
+
+        url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
+        url.searchParams.set("entryContentMatch", values.entryContentMatch)
+        url.searchParams.set("minSelfRating", values.minSelfRating)
+        url.searchParams.set("maxSelfRating", values.maxSelfRating)
+        navigate({to: "/", search: url.search})
+        window.location.reload()
     }
 
 
     useEffect(() => {
-
+        console.log("/api/journalentries" + location.search)
         const fetchEntryData = async () => {
             try {
-                let response = await fetch("/api/journalentries")
+                let response = await fetch("/api/journalentries" + location.search)
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
@@ -30,7 +43,7 @@ const JournalEntriesPage = () => {
         if (!entryData) {
             fetchEntryData()
         }
-    }, [entryData])
+    }, [entryData, location.search])
 
     return (
         <main className="jounal-entries-page-main">
