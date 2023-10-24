@@ -22,6 +22,7 @@ const JournalEntriesPage = () => {
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
         setEntryData(undefined)
         navigate({to: "/", search: url.search})
+        window.location.reload()
     }
 
 
@@ -43,7 +44,7 @@ const JournalEntriesPage = () => {
         if (!entryData) {
             fetchEntryData()
         }
-    }, [entryData])
+    }, [entryData, location.search])
 
     return (
         <main className="jounal-entries-page-main">
