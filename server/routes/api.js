@@ -34,7 +34,8 @@ router.get("/journalentries", async (req, res) => {
                 minSelfRating: Number(req.query.minSelfRating),
                 maxSelfRating: Number(req.query.maxSelfRating)
             }
-            journalentries = await db.getFilteredJournalEntries(filterOptions)
+            let sortOrder = req.query.sortOrder
+            journalentries = await db.getFilteredJournalEntries(filterOptions, sortOrder)
         } else {
             journalentries = await db.getAllJournalEntries()
         }

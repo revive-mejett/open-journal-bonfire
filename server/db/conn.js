@@ -75,13 +75,24 @@ class Database {
     }
 
 
-    async getFilteredJournalEntries(filterOptions) {
+    async getFilteredJournalEntries(filterOptions, sortOption) {
+        let sortOrder = {dateCreated: -1}
+    
+        if (sortOption === "oldest") {
+            sortOrder = {dateCreated: 1}
+        } else if (sortOption === "newest") {
+            sortOrder = {selfRating: -1}
+        } else if (sortOption === "lowSelfRating") {
+            sortOrder = {selfRating: 1}
+        } else if (sortOption === "highSelfRating") {
+            sortOrder = {selfRating: -1}
+        }
+
         const entries = await JournalEntry.find({
             title: { $regex: filterOptions.titleFilterMatch},
             entryContent: { $regex: filterOptions.entryContentMatch},
             selfRating: { $gte : filterOptions.minSelfRating, $lte : filterOptions.maxSelfRating},
-        }).sort({dateCreated: -1
-        })
+        }).sort(sortOrder)
         return entries
     }
 

@@ -20,6 +20,7 @@ const JournalEntriesPage = () => {
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
+        url.searchParams.set("sortOrder", values.sortOrder)
         navigate({to: "/", search: url.search})
         window.location.reload()
     }
@@ -49,7 +50,7 @@ const JournalEntriesPage = () => {
         <main className="jounal-entries-page-main">
             <section className="filters-container">
                 <Formik
-                    initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: 1, maxSelfRating: 10, sortOrder: "Oldest to Newest" }}
+                    initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: 1, maxSelfRating: 10, sortOrder: "newest" }}
                     onSubmit={handleSubmit}
                 >
                     {props => (<form onSubmit={props.handleSubmit}>
@@ -68,12 +69,11 @@ const JournalEntriesPage = () => {
 
                         <label htmlFor="sortOrder"></label>
                         <Field as="select" name="sortOrder" className="input-dropdown">
-                            <option value="Oldest to Newest">Oldest to Newest</option>
-                            <option value="Newest to Oldest">Newest to Oldest</option>
-                            <option value="Highest to Lowest Self-Rating">Highest to Lowest Self-Rating</option>
-                            <option value="Lowest to Highest Self-Rating">Lowest to Highest Self-Rating</option>
+                            <option value="newest">Newest to Oldest</option>
+                            <option value="oldest">Oldest to Newest</option>
+                            <option value="highSelfRating">Highest to Lowest Self-Rating</option>
+                            <option value="lowSelfRating">Lowest to Highest Self-Rating</option>
                         </Field>
-
                         <button type="submit" className="button">Apply Filters</button>
                     </form>)}
                 </Formik>
