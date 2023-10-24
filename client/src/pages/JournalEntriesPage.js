@@ -20,7 +20,6 @@ const JournalEntriesPage = () => {
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
-        setEntryData(undefined)
         navigate({to: "/", search: url.search})
         window.location.reload()
     }
