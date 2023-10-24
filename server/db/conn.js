@@ -98,8 +98,13 @@ class Database {
 
     //get a specific journal entry by its id
     async getJournalEntryById(id) {
-        const entry = await JournalEntry.findById(id)
-        return entry
+        try {
+            const entry = await JournalEntry.findById(id)
+            return entry
+        } catch (error) {
+            return undefined
+        }
+        
     }
 
     async getRandomJournalEntry() {

@@ -83,14 +83,22 @@ router.post("/journalentries/new", async (req, res) => {
 router.get("/journalentries/:id", async (req, res) => {
     let result = await db.getJournalEntryById(req.params.id)
 
-    if (result) {
-        res.status(200).json(result)
-    } else {
-        res.status(404).json({
+    try {
+        if (result) {
+            res.status(200).json(result)
+        } else {
+            res.status(404).json({
+                status: "error",
+                payload: "Entry not found"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
             status: "error",
-            payload: "Entry not found"
-        });
+            payload: "Failed to view entry"
+        })
     }
+    
 
 });
 
