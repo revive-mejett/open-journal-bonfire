@@ -24,7 +24,6 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-        this.getRandomJournalEntry()
     }
 
     /**
@@ -71,24 +70,41 @@ class Database {
 
     //get all journal entries from the db
     async getAllJournalEntries() {
-        const entries = await JournalEntry.find({})
+        const entries = JournalEntry.find({})
         return entries
     }
 
 
-    async getFilteredJournalEntries(filterOptions) {
+    async getFilteredJournalEntries(filterOptions, sortOption) {
+        let sortOrder = {dateCreated: -1}
+    
+        if (sortOption === "oldest") {
+            sortOrder = {dateCreated: 1}
+        } else if (sortOption === "newest") {
+            sortOrder = {selfRating: -1}
+        } else if (sortOption === "lowSelfRating") {
+            sortOrder = {selfRating: 1}
+        } else if (sortOption === "highSelfRating") {
+            sortOrder = {selfRating: -1}
+        }
+
         const entries = await JournalEntry.find({
             title: { $regex: filterOptions.titleFilterMatch},
             entryContent: { $regex: filterOptions.entryContentMatch},
             selfRating: { $gte : filterOptions.minSelfRating, $lte : filterOptions.maxSelfRating},
-        })
+        }).sort(sortOrder)
         return entries
     }
 
     //get a specific journal entry by its id
     async getJournalEntryById(id) {
-        const entry = await JournalEntry.findById(id)
-        return entry
+        try {
+            const entry = await JournalEntry.findById(id)
+            return entry
+        } catch (error) {
+            return undefined
+        }
+        
     }
 
     async getRandomJournalEntry() {

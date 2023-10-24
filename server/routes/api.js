@@ -34,7 +34,8 @@ router.get("/journalentries", async (req, res) => {
                 minSelfRating: Number(req.query.minSelfRating),
                 maxSelfRating: Number(req.query.maxSelfRating)
             }
-            journalentries = await db.getFilteredJournalEntries(filterOptions)
+            let sortOrder = req.query.sortOrder
+            journalentries = await db.getFilteredJournalEntries(filterOptions, sortOrder)
         } else {
             journalentries = await db.getAllJournalEntries()
         }
@@ -81,16 +82,21 @@ router.post("/journalentries/new", async (req, res) => {
 // retrieve a specific journal entry given by id as url path param
 router.get("/journalentries/:id", async (req, res) => {
     let result = await db.getJournalEntryById(req.params.id)
-
-    if (result) {
-        res.status(200).json(result)
-    } else {
-        res.status(404).json({
+    try {
+        if (result) {
+            res.status(200).json(result)
+        } else {
+            res.status(404).json({
+                status: "error",
+                payload: "Entry not found"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
             status: "error",
-            payload: "Entry not found"
-        });
+            payload: "Failed to view entry"
+        })
     }
-
 });
 
 
