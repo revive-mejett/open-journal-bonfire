@@ -82,7 +82,6 @@ router.post("/journalentries/new", async (req, res) => {
 // retrieve a specific journal entry given by id as url path param
 router.get("/journalentries/:id", async (req, res) => {
     let result = await db.getJournalEntryById(req.params.id)
-
     try {
         if (result) {
             res.status(200).json(result)
@@ -98,8 +97,6 @@ router.get("/journalentries/:id", async (req, res) => {
             payload: "Failed to view entry"
         })
     }
-    
-
 });
 
 

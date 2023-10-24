@@ -27,7 +27,6 @@ const JournalEntriesPage = () => {
 
 
     useEffect(() => {
-        console.log("/api/journalentries" + location.search)
         const fetchEntryData = async () => {
             try {
                 let response = await fetch("/api/journalentries" + location.search)
