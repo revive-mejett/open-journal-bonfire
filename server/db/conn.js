@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import MatchEntry from "../models/MatchEntry.js";
 import JournalEntry from "../models/JournalEntry.js";
-
+import FrequentEventTag from "../models/EventTag.js";
 //singleton instance
 let instance = null
 
@@ -24,6 +24,14 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
+
+        const testTag = new FrequentEventTag({
+            keyword: "test event tag",
+            magnitude: 10,
+            permanent: true
+        })
+
+        await testTag.save()
     }
 
     /**
