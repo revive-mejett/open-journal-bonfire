@@ -25,13 +25,24 @@ class Database {
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
 
-        const testTag = new FrequentEventTag({
-            keyword: "test event tag",
-            magnitude: 10,
-            permanent: true
-        })
+        //TODO Remove test code later
+        // const test1 = new FrequentEventTag({
+        //     keyword: "test another positive event tag",
+        //     magnitude: 5,
+        //     permanent: true
+        // })
 
-        await testTag.save()
+        // const test2 = new FrequentEventTag({
+        //     keyword: "test another negative event tag",
+        //     magnitude: -5,
+        //     permanent: true
+        // })
+
+        // test1.save()
+        // test2.save()
+
+        // await testTag.save()
+        await this.getAllEventTags()
     }
 
     /**
@@ -120,6 +131,21 @@ class Database {
             $sample: {size : 1}
         }])
         return randomEntryArray[0]
+    }
+
+
+
+    // operations for event taga
+    async getAllEventTags() {
+        try {
+            let positiveEvents = await FrequentEventTag.find({
+                magnitude: { $gt:0 }
+            })
+            return positiveEvents
+        } catch (error) {
+            return []
+        }
+        
     }
 }
 
