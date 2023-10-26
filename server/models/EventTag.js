@@ -6,7 +6,14 @@ const magnitudeValidator = (value) => {
     return value >= -10 && value <= 10
 }
 
-const calculateWeight = (magnitude) => 5 * 2 ** Math.abs(magnitude) * (magnitude > 0 ? 1 : -1)
+const calculateWeight = (magnitude) => {
+    if (magnitude === 0) {
+        return 0
+    } else {
+        return 5 * 2 ** Math.abs(magnitude) * (magnitude > 0 ? 1 : -1)
+    }
+}
+ 
 
 const frequentEventTagSchema = new Schema({
     keyword: {type: String, required: true, maxLength: 50, immutable: true, unique: true},
