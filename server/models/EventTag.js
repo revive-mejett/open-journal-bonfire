@@ -13,7 +13,7 @@ const frequentEventTagSchema = new Schema({
     magnitude: {type: Number, required: true, default: 0, validate: magnitudeValidator, immutable: true},
     weight: {type: Number, required: true, immutable: true, default: 0},
     lastUsed: {type: Date, default: Date.now},
-    dateCreated: {type: String, immutable: true, default: Date.now},
+    dateCreated: {type: Date, immutable: true, default: Date.now},
     permanent: {type: Boolean, default: false, immutable: true},
     frequency: {type: Number, default: 1}
 })
