@@ -26,15 +26,15 @@ class Database {
         console.log("Connected to MongoDB")
 
         //TODO Remove test code later
-        // const test1 = new FrequentEventTag({
-        //     keyword: "test another positive event tag",
-        //     magnitude: 5,
-        //     permanent: true
-        // })
+        const test1 = new FrequentEventTag({
+            keyword: "test neutral tag 1",
+            magnitude: 0,
+            permanent: true
+        })
 
         // const test2 = new FrequentEventTag({
-        //     keyword: "test another negative event tag",
-        //     magnitude: -5,
+        //     keyword: "test neutral tag 2",
+        //     magnitude: 0,
         //     permanent: true
         // })
 
@@ -42,7 +42,11 @@ class Database {
         // test2.save()
 
         // await testTag.save()
-        await this.getAllEventTags()
+
+
+        //TODO delete this once done
+        // await FrequentEventTag.deleteMany({})
+
     }
 
     /**
@@ -81,7 +85,7 @@ class Database {
         return newEntryDocument
     }
 
-    
+
     async getAllEntries() {
         const entries = await MatchEntry.find({})
         return entries
@@ -95,22 +99,22 @@ class Database {
 
 
     async getFilteredJournalEntries(filterOptions, sortOption) {
-        let sortOrder = {dateCreated: -1}
-    
+        let sortOrder = { dateCreated: -1 }
+
         if (sortOption === "oldest") {
-            sortOrder = {dateCreated: 1}
+            sortOrder = { dateCreated: 1 }
         } else if (sortOption === "newest") {
-            sortOrder = {dateCreated: -1}
+            sortOrder = { dateCreated: -1 }
         } else if (sortOption === "lowSelfRating") {
-            sortOrder = {selfRating: 1}
+            sortOrder = { selfRating: 1 }
         } else if (sortOption === "highSelfRating") {
-            sortOrder = {selfRating: -1}
+            sortOrder = { selfRating: -1 }
         }
 
         const entries = await JournalEntry.find({
-            title: { $regex: filterOptions.titleFilterMatch},
-            entryContent: { $regex: filterOptions.entryContentMatch},
-            selfRating: { $gte : filterOptions.minSelfRating, $lte : filterOptions.maxSelfRating},
+            title: { $regex: filterOptions.titleFilterMatch },
+            entryContent: { $regex: filterOptions.entryContentMatch },
+            selfRating: { $gte: filterOptions.minSelfRating, $lte: filterOptions.maxSelfRating },
         }).sort(sortOrder)
         return entries
     }
@@ -123,29 +127,42 @@ class Database {
         } catch (error) {
             return undefined
         }
-        
+
     }
 
     async getRandomJournalEntry() {
         const randomEntryArray = await JournalEntry.aggregate([{
-            $sample: {size : 1}
+            $sample: { size: 1 }
         }])
         return randomEntryArray[0]
     }
 
 
 
-    // operations for event taga
-    async getAllEventTags() {
+    // operations for event tags
+    async getEventTags(eventType) {
+
+        let matchCondition = { magnitude: { $eq: 0 } }
+        if (eventType === "positive") {
+            matchCondition = { magnitude: { $gt: 0 } }
+        } else if (eventType === "negative") {
+            matchCondition = { magnitude: { $lt: 0 } }
+        }
         try {
-            let positiveEvents = await FrequentEventTag.find({
-                magnitude: { $gt:0 }
-            })
+            let positiveEvents = await FrequentEventTag.aggregate([
+                { $match: matchCondition },
+                {
+                    $sort: {
+                        frequency: -1,
+                        lastUsed: -1
+                    }
+                }
+            ])
             return positiveEvents
         } catch (error) {
             return []
         }
-        
+
     }
 }
 

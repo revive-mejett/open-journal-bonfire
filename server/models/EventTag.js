@@ -30,6 +30,11 @@ frequentEventTagSchema.pre("save", function(next){
     next()
 })
 
+frequentEventTagSchema.pre("insertMany", function(next, docs){
+    docs.forEach((doc) => doc.weight = calculateWeight(doc.magnitude))
+    next()
+})
+
 
 const FrequentEventTag = model("FrequentEventTag", frequentEventTagSchema)
 
