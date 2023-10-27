@@ -17,15 +17,15 @@ const EventKeywordPicker = (props) => {
                 {eventBank.map((event, index) => {
                     return (
                         <label key={index} className={"event-tag " + eventType}>
-                            {event}<Field type="checkbox" name={props.formikEventBankName}
+                            {event.keyword}<Field type="checkbox" name={props.formikEventBankName}
                                 checked={false}
-                                value={event}
+                                value={event.keyword}
                                 onMouseEnter={(e) => e.target.checked = true}
                                 onMouseLeave={(e) => e.target.checked = false}
                                 onChange={(e) => {
-                                    selectedEvents.push(e.target.value)
+                                    selectedEvents.push(event)
                                     let updatedEventBank = [...eventBank]
-                                    updatedEventBank = updatedEventBank.filter(goodEvent => goodEvent !== e.target.value)
+                                    updatedEventBank = updatedEventBank.filter(goodEvent => goodEvent.keyword !== e.target.value)
                                     setEventBank(updatedEventBank)
                                     setSelectedEvents(selectedEvents)
                                     props.setFieldValue(props.formikSelectedListName, selectedEvents)
@@ -43,15 +43,15 @@ const EventKeywordPicker = (props) => {
                 {selectedEvents.map((event, index) => {
                     return (
                         <label key={index} className={"event-tag " + eventType}>
-                            {event}<Field type="checkbox" name={props.formikSelectedListName}
+                            {event.keyword}<Field type="checkbox" name={props.formikSelectedListName}
                                 checked={true}
-                                value={event}
+                                value={event.keyword}
                                 onMouseEnter={(e) => e.target.checked = false}
                                 onMouseLeave={(e) => e.target.checked = true}
                                 onChange={(e) => {
-                                    eventBank.push(e.target.value)
+                                    eventBank.push(event)
                                     let updatedSelectedEvents = [...selectedEvents]
-                                    updatedSelectedEvents = updatedSelectedEvents.filter(goodEvent => goodEvent !== e.target.value)
+                                    updatedSelectedEvents = updatedSelectedEvents.filter(goodEvent => goodEvent.keyword !== e.target.value)
                                     setEventBank(eventBank)
                                     setSelectedEvents(updatedSelectedEvents)
                                     props.setFieldValue(props.formikSelectedListName, updatedSelectedEvents)

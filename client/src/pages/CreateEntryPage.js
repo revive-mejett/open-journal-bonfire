@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 
 const CreateEntryPage = () => {
 
-    const [frequentKeywordData, setFrequentKeywordData] = useState({})
+    const [frequentKeywordData, setFrequentKeywordData] = useState(undefined)
 
     useEffect(() => {
 
@@ -18,6 +18,7 @@ const CreateEntryPage = () => {
                     console.error("response not ok")
                 } else {
                     let data = await response.json()
+                    console.log(data)
                     setFrequentKeywordData(data)
                 }
             }
@@ -86,6 +87,7 @@ const CreateEntryPage = () => {
 
                             <fieldset className="event-tags-subforms-container form-section">
                                 <div className="subform-flex-item">
+                                    {frequentKeywordData &&
                                     <EventKeywordPicker
                                         eventType="positive"
                                         eventBank={frequentKeywordData.positiveTags}
@@ -95,9 +97,11 @@ const CreateEntryPage = () => {
                                         helperText="What went well today? 👍"
                                         helperListHeading="Good events">
                                     </EventKeywordPicker>
+                                    }
                                 </div>
 
                                 <div className="subform-flex-item">
+                                    {frequentKeywordData &&
                                     <EventKeywordPicker
                                         eventType="neutral"
                                         eventBank={frequentKeywordData.neutralTags}
@@ -107,8 +111,10 @@ const CreateEntryPage = () => {
                                         helperText="What went okay? Things that were just neutral... ? 🌳"
                                         helperListHeading="Okay events">
                                     </EventKeywordPicker>
+                                    }
                                 </div>
                                 <div className="subform-flex-item">
+                                    {frequentKeywordData &&
                                     <EventKeywordPicker
                                         eventType="negative"
                                         eventBank={frequentKeywordData.negativeTags}
@@ -118,6 +124,7 @@ const CreateEntryPage = () => {
                                         helperText="What did not go so well today? 👎"
                                         helperListHeading="Not so great list...">
                                     </EventKeywordPicker>
+                                    }
                                 </div>
 
                             </fieldset>
