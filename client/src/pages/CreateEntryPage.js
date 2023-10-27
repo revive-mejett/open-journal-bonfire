@@ -29,6 +29,14 @@ const CreateEntryPage = () => {
 
     const navigate = useNavigate()
 
+    const deleteUnusedEventProperties = (event) => {
+        return {
+            keyword: event.keyword,
+            weight: event.weight,
+            lastUsed: event.lastUsed
+        }
+    }
+
     const handleSubmit = async (values) => {
         let data = {
             title: values.title,
@@ -38,29 +46,36 @@ const CreateEntryPage = () => {
             badEvents: values.worseEventsList,
             selfRating: values.selfRating,
         }
+
+        // console.log("rochelle", data.greatEvents)
+        data.greatEvents = data.greatEvents.map(event => deleteUnusedEventProperties(event))
+        data.neutralEvents = data.neutralEvents.map(event => deleteUnusedEventProperties(event))
+        data.badEvents = data.badEvents.map(event => deleteUnusedEventProperties(event))
         console.log(data)
+        // console.log("ellis", data.greatEvents)
+
         let response
-        // response = await fetch("/api/journalentries/new", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(data)
-        // })
+        response = await fetch("/api/journalentries/new", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
 
-        // if (!response.ok) {
-        //     console.error("A server error occured. Please try again later.")
-        //     return
-        // }
+        if (!response.ok) {
+            console.error("A server error occured. Please try again later.")
+            return
+        }
 
-        // const responseData = await response.json()
-        // console.log(responseData);
-        // if (responseData.status === "success") {
-        //     console.log(responseData.payload)
-        //     navigate({ pathname: "/entries/viewing", search: "?id=" + responseData.payload.newEntry._id })
-        // } else {
-        //     console.error(responseData.error)
-        // }
+        const responseData = await response.json()
+        console.log(responseData);
+        if (responseData.status === "success") {
+            console.log(responseData.payload)
+            navigate({ pathname: "/entries/viewing", search: "?id=" + responseData.payload.newEntry._id })
+        } else {
+            console.error(responseData.error)
+        }
 
 
 

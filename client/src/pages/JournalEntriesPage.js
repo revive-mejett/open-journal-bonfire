@@ -34,6 +34,8 @@ const JournalEntriesPage = () => {
                     console.log("response not ok")
                 } else {
                     let data = await response.json()
+                    console.log("ellis and rochelle")
+                    console.log(data)
                     setEntryData(data)
                 }
             } catch (error) {
