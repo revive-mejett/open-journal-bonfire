@@ -16,6 +16,7 @@ const JournalEntryCard = ({ entry }) => {
     }, [entry.entryContent])
     
     date = new Date(entry.dateCreated)
+    
     return (
         <div className="journal-entry-card">
             <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
@@ -26,9 +27,9 @@ const JournalEntryCard = ({ entry }) => {
                 <p className="description-teaser">{teaserDescription}</p>
                 <h3 className="rating-header">Their rating: {entry.selfRating}</h3>
                 <div className="event-tag-container">
-                    {entry.greatEvents.length > 0 && <p className="event-tag positive">{entry.greatEvents[0]}</p>}
-                    {entry.neutralEvents.length > 0 && <p className="event-tag neutral">{entry.neutralEvents[0]}</p>}
-                    {entry.badEvents.length > 0 && <p className="event-tag negative">{entry.badEvents[0]}</p>}
+                    {entry.greatEvents.length > 0 && <p className="event-tag positive">{entry.greatEvents[0].keyword}</p>}
+                    {entry.neutralEvents.length > 0 && <p className="event-tag neutral">{entry.neutralEvents[0].keyword}</p>}
+                    {entry.badEvents.length > 0 && <p className="event-tag negative">{entry.badEvents[0].keyword}</p>}
                 </div>
             </Link>
         </div>

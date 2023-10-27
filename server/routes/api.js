@@ -99,8 +99,34 @@ router.get("/journalentries/:id", async (req, res) => {
     }
 });
 
+//api routes for getting all frequent event tags
+router.get("/frequent-event-tags", async (req, res) => {
 
+    let eventTagsData = {
+        greatEvents : [],
+        neutralEvents : [],
+        badEvents : []
+    }
 
+    try {
+        let ellis = await Promise.all([db.getEventTags("positive"), db.getEventTags("neutral"), db.getEventTags("negative")])
+
+        eventTagsData = {
+            positiveTags : ellis[0],
+            neutralTags : ellis[1],
+            negativeTags : ellis[2],
+        }
+
+        res.status(200).json(eventTagsData)
+        
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch event tags"
+        })
+    }
+})
 
 
 

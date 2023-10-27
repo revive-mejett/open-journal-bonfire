@@ -69,11 +69,10 @@ const JournalEntryDetail = () => {
                     </div>
 
                     <div className="event-tag-body">
-                        <h4>Great events:</h4>
                         <div className="event-tag-container">
-                            {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event}</p>)}
-                            {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event}</p>)}
-                            {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event}</p>)}
+                            {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event.keyword}</p>)}
+                            {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event.keyword}</p>)}
+                            {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event.keyword}</p>)}
                         </div>
                     </div>
 
