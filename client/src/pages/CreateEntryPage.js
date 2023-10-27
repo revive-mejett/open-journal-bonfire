@@ -11,6 +11,17 @@ const CreateEntryPage = () => {
 
     useEffect(() => {
 
+        (async () => {
+            if (!frequentKeywordData) {
+                let response = await fetch("/api/frequent-event-tags")
+                if (!response.ok) {
+                    console.error("response not ok")
+                } else {
+                    let data = await response.json()
+                    setFrequentKeywordData(data)
+                }
+            }
+        })();
     })
 
     const selfRatingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -57,7 +68,7 @@ const CreateEntryPage = () => {
             <section>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
-                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], goodEventsBank: possibleGoodEventsInitial, selfRating: 0 }}
+                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], selfRating: 0 }}
                     onSubmit={handleSubmit}
                 >
                     {props => (
@@ -72,12 +83,12 @@ const CreateEntryPage = () => {
                                 <label htmlFor="entryContent">Your entry...</label>
                                 <Field name="entryContent" as="textarea" placeholder="// Write away..." className="input-text-field entry-content-textarea"></Field>
                             </div>
-                            
+
                             <fieldset className="event-tags-subforms-container form-section">
                                 <div className="subform-flex-item">
                                     <EventKeywordPicker
                                         eventType="positive"
-                                        eventBank={possibleGoodEventsInitial}
+                                        eventBank={frequentKeywordData.positiveTags}
                                         formikEventBankName="goodEventsBank"
                                         formikSelectedListName="goodEventsList"
                                         setFieldValue={props.setFieldValue}
@@ -89,7 +100,7 @@ const CreateEntryPage = () => {
                                 <div className="subform-flex-item">
                                     <EventKeywordPicker
                                         eventType="neutral"
-                                        eventBank={possibleNeutralEvents}
+                                        eventBank={frequentKeywordData.neutralTags}
                                         formikEventBankName="neutralEventsBank"
                                         formikSelectedListName="neutralEventsList"
                                         setFieldValue={props.setFieldValue}
@@ -100,7 +111,7 @@ const CreateEntryPage = () => {
                                 <div className="subform-flex-item">
                                     <EventKeywordPicker
                                         eventType="negative"
-                                        eventBank={possibleWorseEvents}
+                                        eventBank={frequentKeywordData.negativeTags}
                                         formikEventBankName="worseEventsBank"
                                         formikSelectedListName="worseEventsList"
                                         setFieldValue={props.setFieldValue}
@@ -118,7 +129,7 @@ const CreateEntryPage = () => {
                                     {selfRatingValues.map(ratingValue => <option value={ratingValue} key={ratingValue}>{ratingValue}</option>)}
                                 </Field>
                             </div>
-                            
+
 
                             <button type="submit" className="button create-entry-submit-button">Submit to the bonfire!</button>
                         </form>
