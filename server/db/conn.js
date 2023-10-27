@@ -47,6 +47,49 @@ class Database {
         //TODO delete this once done
         // await FrequentEventTag.deleteMany({})
 
+        const testNewEntry = new JournalEntry({
+            title: "test updated new entry",
+            entryContent: "testing new updating schema",
+            selfRating: 7,
+            greatEvents: [
+                {
+                    keyword: "great event 1",
+                    magnitude: 2,
+                    weight: 10
+                },
+                {
+                    keyword: "great event 2",
+                    magnitude: 4,
+                    weight: 40
+                },
+                {
+                    keyword: "great event 3",
+                    magnitude: 7,
+                    weight: 320
+                }
+            ],
+            neutralEvents: [
+                {
+                    keyword: "neutral event 1",
+                    magnitude: 0,
+                    weight: 0
+                }
+            ],
+            badEvents: [
+                {
+                    keyword: "bad event 1",
+                    magnitude: -2,
+                    weight: -10
+                },
+                {
+                    keyword: "bad event 2",
+                    magnitude: -4,
+                    weight: -40
+                },
+            ]
+        })
+        await testNewEntry.save()
+
     }
 
     /**

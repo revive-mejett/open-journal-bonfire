@@ -9,18 +9,18 @@ const entrySchema = new Schema({
     selfRating: {type: Number, min: 1, max: 10},
     greatEvents: [{
         keyword: {type: String},
-        magnitude: {type: Number},
         weight: {type: Number},
+        lastUsed: {type: Date}
     }],
     neutralEvents: [{
         keyword: {type: String},
-        magnitude: {type: Number},
         weight: {type: Number},
+        lastUsed: {type: Date}
     }],
     badEvents: [{
         keyword: {type: String},
-        magnitude: {type: Number},
         weight: {type: Number},
+        lastUsed: {type: Date}
     }],
     flairs: {type: [String], default: []},   
     // keywords which will be displayed on a card (ex: birthday, passed exam, had breakup)

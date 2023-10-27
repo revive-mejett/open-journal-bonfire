@@ -38,29 +38,31 @@ const CreateEntryPage = () => {
             badEvents: values.worseEventsList,
             selfRating: values.selfRating,
         }
-
+        console.log(data)
         let response
-        response = await fetch("/api/journalentries/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
+        // response = await fetch("/api/journalentries/new", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(data)
+        // })
 
-        if (!response.ok) {
-            console.error("A server error occured. Please try again later.")
-            return
-        }
+        // if (!response.ok) {
+        //     console.error("A server error occured. Please try again later.")
+        //     return
+        // }
 
-        const responseData = await response.json()
-        console.log(responseData);
-        if (responseData.status === "success") {
-            console.log(responseData.payload)
-            navigate({ pathname: "/entries/viewing", search: "?id=" + responseData.payload.newEntry._id })
-        } else {
-            console.error(responseData.error)
-        }
+        // const responseData = await response.json()
+        // console.log(responseData);
+        // if (responseData.status === "success") {
+        //     console.log(responseData.payload)
+        //     navigate({ pathname: "/entries/viewing", search: "?id=" + responseData.payload.newEntry._id })
+        // } else {
+        //     console.error(responseData.error)
+        // }
+
+
 
     }
 
@@ -88,42 +90,42 @@ const CreateEntryPage = () => {
                             <fieldset className="event-tags-subforms-container form-section">
                                 <div className="subform-flex-item">
                                     {frequentKeywordData &&
-                                    <EventKeywordPicker
-                                        eventType="positive"
-                                        eventBank={frequentKeywordData.positiveTags}
-                                        formikEventBankName="goodEventsBank"
-                                        formikSelectedListName="goodEventsList"
-                                        setFieldValue={props.setFieldValue}
-                                        helperText="What went well today? 👍"
-                                        helperListHeading="Good events">
-                                    </EventKeywordPicker>
+                                        <EventKeywordPicker
+                                            eventType="positive"
+                                            eventBank={frequentKeywordData.positiveTags}
+                                            formikEventBankName="goodEventsBank"
+                                            formikSelectedListName="goodEventsList"
+                                            setFieldValue={props.setFieldValue}
+                                            helperText="What went well today? 👍"
+                                            helperListHeading="Good events">
+                                        </EventKeywordPicker>
                                     }
                                 </div>
 
                                 <div className="subform-flex-item">
                                     {frequentKeywordData &&
-                                    <EventKeywordPicker
-                                        eventType="neutral"
-                                        eventBank={frequentKeywordData.neutralTags}
-                                        formikEventBankName="neutralEventsBank"
-                                        formikSelectedListName="neutralEventsList"
-                                        setFieldValue={props.setFieldValue}
-                                        helperText="What went okay? Things that were just neutral... ? 🌳"
-                                        helperListHeading="Okay events">
-                                    </EventKeywordPicker>
+                                        <EventKeywordPicker
+                                            eventType="neutral"
+                                            eventBank={frequentKeywordData.neutralTags}
+                                            formikEventBankName="neutralEventsBank"
+                                            formikSelectedListName="neutralEventsList"
+                                            setFieldValue={props.setFieldValue}
+                                            helperText="What went okay? Things that were just neutral... ? 🌳"
+                                            helperListHeading="Okay events">
+                                        </EventKeywordPicker>
                                     }
                                 </div>
                                 <div className="subform-flex-item">
                                     {frequentKeywordData &&
-                                    <EventKeywordPicker
-                                        eventType="negative"
-                                        eventBank={frequentKeywordData.negativeTags}
-                                        formikEventBankName="worseEventsBank"
-                                        formikSelectedListName="worseEventsList"
-                                        setFieldValue={props.setFieldValue}
-                                        helperText="What did not go so well today? 👎"
-                                        helperListHeading="Not so great list...">
-                                    </EventKeywordPicker>
+                                        <EventKeywordPicker
+                                            eventType="negative"
+                                            eventBank={frequentKeywordData.negativeTags}
+                                            formikEventBankName="worseEventsBank"
+                                            formikSelectedListName="worseEventsList"
+                                            setFieldValue={props.setFieldValue}
+                                            helperText="What did not go so well today? 👎"
+                                            helperListHeading="Not so great list...">
+                                        </EventKeywordPicker>
                                     }
                                 </div>
 
