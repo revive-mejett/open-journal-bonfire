@@ -26,11 +26,11 @@ class Database {
         console.log("Connected to MongoDB")
 
         //TODO Remove test code later
-        const test1 = new FrequentEventTag({
-            keyword: "test neutral tag 1",
-            magnitude: 0,
-            permanent: true
-        })
+        // const test1 = new FrequentEventTag({
+        //     keyword: "test neutral tag 1",
+        //     magnitude: 0,
+        //     permanent: true
+        // })
 
         // const test2 = new FrequentEventTag({
         //     keyword: "test neutral tag 2",
