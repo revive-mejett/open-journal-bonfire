@@ -60,7 +60,27 @@ router.get("/journalentries/random", async (req, res) => {
             payload: "Entry not found"
         });
     }
+});
 
+router.get("/journalentries/sample/:count", async (req, res) => {
+
+    try {
+        let result = await db.getSampleJournalEntries(Number(req.params.count))
+        if (result) {
+            res.status(200).json(result)
+        } else {
+            res.status(404).json({
+                status: "error",
+                payload: "Entry not found"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch sample journal entries"
+        })
+    }
+    
 });
 
 // route that create a new journal entry

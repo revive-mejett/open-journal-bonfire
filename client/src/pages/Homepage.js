@@ -6,7 +6,7 @@ const Homepage = () => {
             </h1>
             <section>
                 <h2>
-                    
+
                 </h2>
             </section>
             <section>
@@ -20,6 +20,11 @@ const Homepage = () => {
                     Take a read of some entries!
                 </h2>
                 <p>Look what people have been saying and experiencing.</p>
+                {/* <div className="entries-container">
+                    {entryData &&
+                        entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+                    }
+                </div> */}
             </section>
         </main>
     )

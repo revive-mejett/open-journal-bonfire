@@ -179,6 +179,13 @@ class Database {
         return randomEntryArray[0]
     }
 
+    async getSampleJournalEntries(count) {
+        const sampleEntries = await JournalEntry.aggregate([{
+            $sample: { size: count }
+        }])
+        return sampleEntries
+    }
+
 
 
     // operations for event tags
