@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import "../assets/forminputstyle.scss"
+import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
 
