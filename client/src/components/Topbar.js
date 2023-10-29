@@ -3,7 +3,7 @@ import "./Topbar.scss"
 import BonfireIcon from "../assets/images/bonfire_site_icon.png"
 const Topbar = () => {
     return (
-        <div className="topbar">
+        <nav className="topbar">
             <img src={BonfireIcon} alt="Icon of a bonfire with paper flying"></img>
             <h1>
                 open journal bonfire
@@ -20,7 +20,7 @@ const Topbar = () => {
             <div className="link-container">
                 <Link to="/stats" className="link-button">Recent Stats</Link>
             </div>
-        </div>
+        </nav>
     )
 }
 
