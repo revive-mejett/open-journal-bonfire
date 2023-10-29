@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import "../assets/forminputstyle.scss"
+import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -21,7 +22,7 @@ const JournalEntriesPage = () => {
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
         url.searchParams.set("sortOrder", values.sortOrder)
-        navigate({to: "/", search: url.search})
+        navigate({to: "/entries/browse", search: url.search})
         window.location.reload()
     }
 
