@@ -1,8 +1,102 @@
 
+$particle-size: 5px;
 
-.sample-entries-container {
-    display: flex;
-    flex-flow: row wrap;
-    background-color: black;
-    justify-content: space-around;
+.homepage-main {
+    width: 60vw;
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    
+
+    .presentation-section {
+        h1 {
+            font-size: 300%;
+        }
+        h2 {
+            font-size: 300%;
+        }
+        p {
+            font-size: 200%;
+        }
+    }
+
+    .introduction-heading {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 30vh 30vh;
+        
+        h1 {
+            grid-row: 1;
+            grid-column-start: 1;
+            grid-column-end: 1;
+        }
+        p {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 1;
+        }
+
+        .fire-container-introsection {
+            overflow: hidden;
+            grid-row-start: 1;
+            grid-row-end: -1;
+            grid-column-start: 2;
+            grid-column-end: 2;
+            background-color: black; //temp
+            .particle {
+                height: $particle-size;
+                width: $particle-size;
+                position: absolute;
+                z-index: 2;
+
+                @for $i from 0 to 400 {
+                    &:nth-child(#{$i + 1}) {
+                      transform: translate(random(100)*1vw, random(100)*100%);
+                      background: hsl(random(360), 100%, 65%);
+                    }
+                  }
+            }
+        }
+
+        
+    }
+
+    .creation-feature-presentation {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: max-content max-content max-content;
+
+        h2 {
+            grid-row: 1;
+            grid-column: 2;
+        }
+        p {
+            grid-row: 2;
+            grid-column: 2;
+        }
+        .link-container {
+            grid-row: 3;
+            grid-column: 2;
+        }
+        .presentation-visual {
+            background-color: black; //temp
+            grid-row-start: 1;
+            grid-row-end: -1;
+            grid-column: 1;
+            height: 100%;
+            width: 100%;
+        }
+
+    }
+
+    .sample-entries-container {
+        display: flex;
+        flex-flow: row wrap;
+        background-color: black;
+        justify-content: space-around;
+    }
 }
+
+
