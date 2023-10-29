@@ -1,4 +1,32 @@
+import { useEffect, useState } from "react"
+import "../components/MatchEntryCard.scss"
+import JournalEntryCard from "../components/JournalEntryCard"
+
 const Homepage = () => {
+
+    const [sampleEntries, setEntryData] = useState(undefined)
+
+    const numberSampleEntries = 3
+
+    useEffect(() => {
+        const fetchSampleEntries = async () => {
+            try {
+                let response = await fetch("/api/journalentries/sample/" + numberSampleEntries)
+                if (!response.ok) {
+                    console.log("response not ok")
+                } else {
+                    let data = await response.json()
+                    setEntryData(data)
+                }
+            } catch (error) {
+                console.error("Error fetching match data --> ", error)
+            }
+        }
+        if (!sampleEntries) {
+            fetchSampleEntries()
+        }
+    }, [sampleEntries])
+
     return (
         <main>
             <h1>
@@ -20,11 +48,15 @@ const Homepage = () => {
                     Take a read of some entries!
                 </h2>
                 <p>Look what people have been saying and experiencing.</p>
-                {/* <div className="entries-container">
-                    {entryData &&
-                        entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+
+                {sampleEntries &&
+                    <div className="entries-container">
+                    {sampleEntries &&
+                        sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
                     }
-                </div> */}
+                </div>
+                }
+                
             </section>
         </main>
     )
