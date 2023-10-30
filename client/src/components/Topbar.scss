@@ -28,6 +28,7 @@
         flex-direction: row;
         li {
             @include link-container;
+            display: inline-block;
         }
     }
 }
