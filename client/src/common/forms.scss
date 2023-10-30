@@ -1,6 +1,7 @@
 @import "../common/variables.scss";
+@import "../common/buttonstyle.scss";
 
-@mixin input-text-field {
+@mixin input-field {
     outline: none;
     background-color: $color-dark;
     border: 1px solid $color-base-bright;
@@ -11,49 +12,30 @@
     margin: 0;
 }
 
-.input-text-field {
-    outline: none;
-    background-color: $color-dark;
-    border: 1px solid $color-base-bright;
-    color: $color-font-greyish;
-    font-size: 150%;
-    font-family: "Josefin Sans";
-    padding: 0.2em;
-    margin: 0;
-}
-
-@mixin input-dropdown {
-    outline: none;
-    background-color: $color-dark;
-    border: 1px solid $color-base-bright;
-    color: $color-font-greyish;
-    font-size: 150%;
-    font-family: "Josefin Sans";
-    padding: 0.2em;
-    margin: 0;
-}
-
-.input-dropdown {
-    outline: none;
-    background-color: $color-dark;
-    border: 1px solid $color-base-bright;
-    color: $color-font-greyish;
-    font-size: 150%;
-    font-family: "Josefin Sans";
-    padding: 0.2em;
-    margin: 0;
-}
-
-.input-slider {
+@mixin input-slider {
     appearance: none;
     background-color: $color-dark;
-    height: 20px;
+    height: 10px;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        background-color: $color-bright;
+        height:20px;
+        width:20px;
+        border: 2px solid;
+    }
 }
 
-.input-slider::-webkit-slider-thumb {
-    appearance: none;
-    background-color: $color-bright;
-    height:20px;
-    width:20px;
-    border: 2px solid;
-}
+// .input-slider {
+//     appearance: none;
+//     background-color: $color-dark;
+//     height: 20px;
+// }
+
+// .input-slider::-webkit-slider-thumb {
+//     appearance: none;
+//     background-color: $color-bright;
+//     height:20px;
+//     width:20px;
+//     border: 2px solid;
+// }

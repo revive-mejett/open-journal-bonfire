@@ -3,21 +3,22 @@
 //buttonstyles
 
 @mixin button-style {
-    background-color: $color-accent;
     padding: 0.5em;
+    background-color: $color-accent;
+    box-shadow: 2px 2px 1px 1px $color-button-shadow;
+    font-family: "Josefin Sans";
     color: $color-font;
     border: none;
+    
 }
 
 @mixin link-container {
+    @include button-style;
     margin: 1em;
 
     a {
-        padding: 0.5em;
-        background-color: $color-accent;
-        box-shadow: 2px 2px 1px 1px $color-button-shadow;
-        color: $color-font;
-        border: none;
+        color: inherit;
         text-decoration: none;
+        background-color: royalblue;
     }
 }

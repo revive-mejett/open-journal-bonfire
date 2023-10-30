@@ -19,10 +19,10 @@
         }
 
         input {
-            @include input-text-field;
+            @include input-field;
         }
         select {
-            @include input-dropdown;
+            @include input-field;
         }
 
         .filter-field-container {
@@ -60,6 +60,7 @@
             }
 
             .input-slider {
+                @include input-slider;
                 width: 80%;
                 display: flex;
             }
@@ -68,6 +69,9 @@
                 font-size: 150%;
             }
 
+        }
+        button {
+            @include button-style;
         }
     }
 }

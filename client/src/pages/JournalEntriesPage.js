@@ -90,8 +90,8 @@ const JournalEntriesPage = () => {
                             </Field>
                         </fieldset>
                         <div className="button-container">
-                            <button type="submit" className="button" onClick={() => console.log("not yet implemented")}>Clear filters</button>
-                            <button type="submit" className="button">Apply Filters</button> 
+                            <button type="submit" onClick={() => console.log("not yet implemented")}>Clear filters</button>
+                            <button type="submit" >Apply Filters</button> 
                         </div>
                     </form>)}
                 </Formik>
