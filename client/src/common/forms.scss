@@ -1,7 +1,28 @@
 @import "../common/variables.scss";
 
+@mixin input-text-field {
+    outline: none;
+    background-color: $color-dark;
+    border: 1px solid $color-base-bright;
+    color: $color-font-greyish;
+    font-size: 150%;
+    font-family: "Josefin Sans";
+    padding: 0.2em;
+    margin: 0;
+}
 
 .input-text-field {
+    outline: none;
+    background-color: $color-dark;
+    border: 1px solid $color-base-bright;
+    color: $color-font-greyish;
+    font-size: 150%;
+    font-family: "Josefin Sans";
+    padding: 0.2em;
+    margin: 0;
+}
+
+@mixin input-dropdown {
     outline: none;
     background-color: $color-dark;
     border: 1px solid $color-base-bright;

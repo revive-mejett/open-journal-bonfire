@@ -1,6 +1,6 @@
 import { Field, Formik } from "formik"
 import EventKeywordPicker from "../components/forms/EventKeywordPicker"
-import "../assets/forminputstyle.scss"
+import "../common/forms.scss"
 import "./CreateEntryPage.scss"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"

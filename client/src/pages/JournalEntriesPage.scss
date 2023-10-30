@@ -1,4 +1,5 @@
 @import "../common/variables.scss";
+@import "../common/forms.scss";
 
 .filters-container {
     background-color: $color-pane-2;
@@ -13,8 +14,15 @@
         grid-template-rows: repeat(2,1fr);
         
 
-        .input-text-field, .input-dropdown {
+        input, select {
             width: 80%;
+        }
+
+        input {
+            @include input-text-field;
+        }
+        select {
+            @include input-dropdown;
         }
 
         .filter-field-container {

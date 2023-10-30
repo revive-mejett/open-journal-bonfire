@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
-import "../assets/forminputstyle.scss"
+import "../common/forms.scss"
 import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -58,12 +58,12 @@ const JournalEntriesPage = () => {
                         <fieldset className="filter-field-container">
                             <div>
                                 <label htmlFor="titleFilterMatch">Filter title containing:</label>
-                                <Field as="input" name="titleFilterMatch" className="input-text-field"></Field>
+                                <Field as="input" name="titleFilterMatch"></Field>
                             </div>
                             
                             <div>
                                 <label htmlFor="entryContentMatch">Filter entry text containing:</label>
-                                <Field as="input" name="entryContentMatch" className="input-text-field"></Field>
+                                <Field as="input" name="entryContentMatch"></Field>
                             </div>
                             
                         </fieldset>
@@ -82,7 +82,7 @@ const JournalEntriesPage = () => {
 
                         <fieldset className="sort-order-fields">
                             <label htmlFor="sortOrder">Sort by:</label>
-                            <Field as="select" name="sortOrder" className="input-dropdown">
+                            <Field as="select" name="sortOrder">
                                 <option value="newest">Newest to Oldest</option>
                                 <option value="oldest">Oldest to Newest</option>
                                 <option value="highSelfRating">Highest to Lowest Self-Rating</option>
