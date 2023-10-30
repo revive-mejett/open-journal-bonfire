@@ -1,0 +1,33 @@
+@import "../assets/variables.scss";
+
+//buttonstyles
+
+@mixin button-style {
+    background-color: $color-accent;
+    padding: 0.5em;
+    color: $color-font;
+    border: none;
+}
+
+@mixin link-container {
+    margin: 1em;
+
+    a {
+        padding: 0.5em;
+        background-color: $color-accent;
+        box-shadow: 2px 2px 1px 1px $color-button-shadow;
+        color: $color-font;
+        border: none;
+        text-decoration: none;
+    }
+}
+
+// @mixin link-style {}
+
+// .link-button, .button {
+//     background-color: $color-accent;
+//     padding: 0.5em;
+//     box-shadow: 2px 2px 1px 1px $color-button-shadow;
+//     color: $color-font;
+//     border: none;
+// }

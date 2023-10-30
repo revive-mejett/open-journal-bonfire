@@ -9,20 +9,22 @@ const Topbar = () => {
                 <img src={BonfireIcon} alt="Icon of a bonfire with paper flying"></img>
             </Link>
             <h1>open journal bonfire</h1>
-            
-            
-            <div className="link-container">
-                <Link to="/entries/browse" className="link-button">View All</Link>
-            </div>
-            <div className="link-container">
-                <Link to="/entries/viewing?id=random" className="link-button">Random Entry</Link>
-            </div>
-            <div className="link-container">
-                <Link to="/entries/new" className="link-button">New Anonymous Entry</Link>
-            </div>
-            <div className="link-container">
-                <Link to="/stats" className="link-button">Recent Stats</Link>
-            </div>
+
+            <ul>
+                <li>
+                    <Link to="/entries/browse">View All</Link>
+                </li>
+                <li>
+                    <Link to="/entries/viewing?id=random">Random Entry</Link>
+                </li>
+                <li>
+                    <Link to="/entries/new">New Anonymous Entry</Link>
+                </li>
+                <li>
+                    <Link to="/stats">Recent Stats</Link>
+                </li>
+            </ul>
+
         </nav>
     )
 }

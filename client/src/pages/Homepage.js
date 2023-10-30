@@ -53,7 +53,7 @@ const Homepage = () => {
                     <Link to="/entries/new" className="link-button">Create now</Link>
                 </div>
             </section>
-            <section>
+            <section className="entry-view-presentation">
                 <h2>
                     Open and anonymous
                 </h2>
