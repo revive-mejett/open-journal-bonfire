@@ -1,20 +1,21 @@
-
-$particle-size: 5px;
-
+@import "../common/buttonstyle.scss";
+@import "../common/variables.scss";
+$particle-size: 120px;
+$particle-size-final: 10px;
 .homepage-main {
     width: 60vw;
     margin-top: 2em;
     margin-bottom: 2em;
 
-    
-
     .presentation-section {
         h1 {
             font-size: 300%;
         }
+
         h2 {
             font-size: 300%;
         }
+
         p {
             font-size: 200%;
         }
@@ -25,12 +26,13 @@ $particle-size: 5px;
 
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 30vh 30vh;
-        
+
         h1 {
             grid-row: 1;
             grid-column-start: 1;
             grid-column-end: 1;
         }
+
         p {
             grid-row-start: 2;
             grid-row-end: 2;
@@ -45,22 +47,82 @@ $particle-size: 5px;
             grid-column-start: 2;
             grid-column-end: 2;
             background-color: black; //temp
+            position: relative;
+            
+            .wood-art {
+                width: 40%;
+                height: 8%;
+                position: absolute;
+                transform: translate(-50%,-50%);
+                background-color: $color-neutral;
+                left: 50%;
+                top: 90%;
+
+                &.wood-1 {
+                    rotate: 10deg;
+                }
+
+                &.wood-2 {
+                    rotate: -10deg;
+                }
+            }
+
+            .paper-piece {
+                position: absolute;
+                background-color: $color-bright;
+            }
+
             .particle {
                 height: $particle-size;
                 width: $particle-size;
                 position: absolute;
                 z-index: 2;
+                border-radius: 50%;
+                
 
                 @for $i from 0 to 400 {
                     &:nth-child(#{$i + 1}) {
-                      transform: translate(random(100)*1vw, random(100)*100%);
-                      background: hsl(random(360), 100%, 65%);
+                        left: (random($limit: 100) - 50) * 0.2% + 50%;
+                        top: (random($limit: 70) * 1%);
+                        animation: flame 2s ease-out infinite;
+                        animation-delay: #{$i / 10}s;
                     }
-                  }
+                }
+
+                @keyframes flame {
+                    0% {
+                        top: 90%;
+                        transform: translate(-50%, -50%);
+                        background-color: $color-positive-5;
+                        box-shadow: 1px 1px 1px 1px $color-positive-4;
+                    }
+                    5% {
+                        box-shadow: 1px 1px 30px 30px $color-positive-4;
+                    }
+                    30% {
+                        background-color: $color-positive-4;
+                        box-shadow: 0px 0px 10px 10px $color-positive;
+                    }
+                    70% {
+                        opacity: 100%;
+                    }
+                    100% {
+                        opacity: 0%;
+                        background-color: $color-neutral;
+                        width: $particle-size-final;
+                        height: $particle-size-final;
+                    }
+                }
+
+                
             }
+
+            
+
+
         }
 
-        
+
     }
 
     .creation-feature-presentation {
@@ -72,14 +134,17 @@ $particle-size: 5px;
             grid-row: 1;
             grid-column: 2;
         }
+
         p {
             grid-row: 2;
             grid-column: 2;
         }
+
         .link-container {
             grid-row: 3;
             grid-column: 2;
         }
+
         .presentation-visual {
             background-color: black; //temp
             grid-row-start: 1;
@@ -97,6 +162,8 @@ $particle-size: 5px;
         background-color: black;
         justify-content: space-around;
     }
+
+    .link-container {
+        @include link-container
+    }
 }
-
-

@@ -10,6 +10,7 @@
     color: $color-font;
     border: none;
     cursor: pointer;
+    width: fit-content;
 }
 
 @mixin link-container {

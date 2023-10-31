@@ -9,7 +9,25 @@ const Homepage = () => {
 
     const numberSampleEntries = 3
 
-    const addParticle = () => <div className="particle"></div>
+    const particles = Array.from({length: 30}, (_,i) => <div className="particle" key={i}></div>)
+
+    const paperPieces = Array.from({length: 5}, (_,i) => {
+        let randomRotation = Math.floor(Math.random()*360)
+        const paperWidth = 18
+        const paperHeight = 30
+
+        let styles = {
+            transform: `rotate(${randomRotation}deg)`,
+            width: `${paperWidth}px`,
+            height: `${paperHeight}px`,
+            left: `${Math.floor(Math.random()*60) + 20}%`,
+            bottom: `${Math.floor(Math.random()*15) + 5}%`
+        }
+        let newPaperDiv = <div className="paper-piece" style={styles} key={i}></div>
+        
+        // newPaperDiv.style.rotation = `${randomRotation}deg`
+        return newPaperDiv
+    })
 
     useEffect(() => {
         const fetchSampleEntries = async () => {
@@ -38,7 +56,10 @@ const Homepage = () => {
                 </h1>
                 <p>A free space for everyone to write and freely share their days what they want. No trees harmed!</p>
                 <div className="presentation-visual fire-container-introsection">
-                    {new Array(15).fill(addParticle())}
+                    {particles}
+                    {paperPieces}
+                    <div className="wood-art wood-1"></div>
+                    <div className="wood-art wood-2"></div>
                 </div>
             </header>
 
@@ -67,7 +88,7 @@ const Homepage = () => {
                             }
                         </div>
                         <div className="link-container">
-                            <Link to="/entries/browse" className="link-button">See what people wrote</Link>
+                            <Link to="/entries/browse">See what people wrote</Link>
                         </div>
                     </>
 
