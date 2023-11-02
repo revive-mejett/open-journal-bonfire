@@ -1,4 +1,5 @@
 @import "../common/variables.scss";
+@import "../common/paperpage.scss";
 
 .journal-entry-detail-main {
     width: 50vw;
@@ -7,49 +8,25 @@
     height: 80vh;
 
     .journal-entry-page {
-        background-color: $color-paper;
-        padding: 0.5em;
-        min-height: 100%;
-        margin: auto;
-        max-width: 700px;
-        width: 60vw;
+        @include journalpagelayout;
 
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 0.2fr auto 0.2fr;
+        grid-template-rows: 200px 600px 200px;
+        align-items: stretch;
 
-        h4 {
-            margin-bottom: 0;
+        .event-tag-body {
+            align-self: end;
+            .event-tag-container {
+                display: flex;
+                flex-flow: row wrap;
+                background-color: $color-accent;
+                padding: 0 0.75em;
+                align-content: flex-start;
+                
+            }
         }
-        .date-display {
-            line-height: 0.75em;
-            padding: 1em 0.5em;
-            font-size: 140%;
-        }
-
-        .entry-title {
-            text-align: center;
-        }
-
-        .entry-body {
-            background-color: blue;
-        }
-
-        .entry-content-text {
-            text-indent: 4em;
-            font-weight: 200;
-            font-size: 140%;
-            text-decoration: underline;
-            text-decoration-color: $color-accent;
-        }
-
-        .event-tag-container {
-            display: flex;
-            flex-flow: row wrap;
-            background-color: $color-accent;
-            padding: 0 0.75em;
-            align-content: flex-start;
-        }
+        
 
         .event-tag {
             background-color: $color-paper;
