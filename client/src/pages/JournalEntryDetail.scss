@@ -4,15 +4,19 @@
     width: 50vw;
     margin-top: 2em;
     margin-bottom: 2em;
+    height: 80vh;
 
     .journal-entry-page {
         background-color: $color-paper;
         padding: 0.5em;
-        min-height: 600px;
+        min-height: 100%;
+        margin: auto;
+        max-width: 700px;
+        width: 60vw;
 
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 200px 600px 200px;
+        grid-template-rows: 0.2fr auto 0.2fr;
 
         h4 {
             margin-bottom: 0;
@@ -25,6 +29,10 @@
 
         .entry-title {
             text-align: center;
+        }
+
+        .entry-body {
+            background-color: blue;
         }
 
         .entry-content-text {
@@ -41,8 +49,6 @@
             background-color: $color-accent;
             padding: 0 0.75em;
             align-content: flex-start;
-
-
         }
 
         .event-tag {
