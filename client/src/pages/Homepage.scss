@@ -1,5 +1,7 @@
 @import "../common/buttonstyle.scss";
 @import "../common/variables.scss";
+@import "../common/paperpage.scss";
+
 $particle-size: 120px;
 $particle-size-final: 10px;
 
@@ -70,7 +72,7 @@ $particle-size-final: 10px;
 
             .paper-piece {
                 position: absolute;
-                background-color: $color-bright;
+                background-color: $color-paper;
                 z-index: 1;
                 left: -10%;
                 bottom: (random($limit: 45) * 1%);
@@ -195,13 +197,49 @@ $particle-size-final: 10px;
         .letter-creation-visual {
             position: relative;
             .large-paper {
+                @include journalpagelayout;
                 width: 60%;
-                height: 60%;
+                height: 80%;
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 background-color: $color-paper;
                 transform: translate(-50%, -50%);
+                animation: unfold 1s ease-out forwards;
+                animation-delay: 2s;
+                animation-iteration-count: 1;
+                clip-path: polygon(54% 41%, 56% 46%, 60% 47%, 61% 58%, 55% 59%, 46% 60%, 38% 55%, 38% 48%, 45% 45%, 45% 39%);
+
+                @keyframes unfold {
+                    0% {
+                        clip-path: polygon(54% 41%, 56% 46%, 60% 47%, 61% 58%, 55% 59%, 46% 60%, 38% 55%, 38% 48%, 45% 45%, 45% 39%);
+                    }
+                    10% { 
+                        clip-path: polygon(51% 30%, 60% 39%, 69% 44%, 63% 50%, 57% 60%, 42% 66%, 36% 55%, 37% 48%, 46% 40%, 31% 35%);
+                    }
+                    20% {
+                        clip-path: polygon(51% 30%, 63% 31%, 69% 44%, 78% 52%, 64% 69%, 46% 74%, 28% 63%, 37% 48%, 39% 40%, 31% 35%);
+                    }
+                    40% {
+                        clip-path: polygon(51% 30%, 63% 31%, 69% 44%, 78% 52%, 64% 69%, 47% 84%, 28% 63%, 24% 48%, 30% 44%, 31% 30%);
+                    }
+                    50% {
+                        clip-path: polygon(50% 17%, 63% 31%, 80% 28%, 85% 53%, 79% 80%, 34% 91%, 11% 74%, 24% 48%, 30% 44%, 31% 30%);
+                    }
+                    60% {
+                        clip-path: polygon(50% 13%, 69% 19%, 82% 15%, 85% 53%, 81% 88%, 45% 94%, 11% 74%, 1% 56%, 12% 31%, 27% 11%);
+                    }
+                    70% {
+                        clip-path: polygon(50% 13%, 69% 19%, 82% 15%, 85% 53%, 81% 88%, 45% 94%, 11% 74%, 1% 56%, 12% 31%, 27% 11%);
+                    }
+                    80% {
+                        clip-path: polygon(59% 0, 83% 4%, 100% 1%, 93% 88%, 100% 100%, 44% 93%, 4% 99%, 7% 56%, 10% 18%, 0 0);
+                    }
+                    100% {
+                        clip-path: polygon(100% 15%, 100% 42%, 100% 60%, 100% 79%, 100% 100%, 63% 100%, 25% 100%, 0 100%, 0 0, 100% 0);
+                    }
+                }
+
                 span {
                     text-decoration: underline;
                     font-weight: 200;
@@ -211,7 +249,6 @@ $particle-size-final: 10px;
                     border-right: white 0.05em solid;
                     margin: 0 auto;
                     animation: blinkcursor 1s ease-in infinite;
-
                     @keyframes blinkcursor {
                         0%, 50% {
                             opacity: 0%;

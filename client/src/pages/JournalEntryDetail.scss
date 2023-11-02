@@ -10,6 +10,7 @@
     .journal-entry-page {
         @include journalpagelayout;
 
+        width: 60vw;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 200px 600px 200px;

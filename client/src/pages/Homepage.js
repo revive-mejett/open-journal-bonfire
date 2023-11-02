@@ -87,7 +87,18 @@ const Homepage = () => {
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
                 <div className="presentation-visual letter-creation-visual">
                     <div className="large-paper">
-                        <span ref={samplePaperText}></span><span className="type-cursor"></span>
+
+                        <div className="date-display">
+                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
+                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { weekday: "long" })}</h2>
+                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
+                        </div>
+
+                        <div className="entry-body">
+                            <h3 className="entry-title">Passed my science test! :D</h3>
+                            <span ref={samplePaperText}></span><span className="type-cursor"></span>
+                        </div>
+                        
                     </div>
                 </div>
                 <div className="link-container">
