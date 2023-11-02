@@ -3,7 +3,7 @@
 
 .journal-entry-card {
     all: inherit;
-    background-color: $color-pane;
+    background-color: $color-paper;
     color: $color-font;
     width: 300px;
     margin: 2em 5em;
@@ -54,7 +54,7 @@
     }
 
     .event-tag {
-        background-color: $color-pane;
+        background-color: $color-paper;
         padding: 0.25em;
         margin: 0.2em 0.5em;
         height: fit-content;

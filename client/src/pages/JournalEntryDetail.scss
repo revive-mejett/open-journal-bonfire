@@ -6,7 +6,7 @@
     margin-bottom: 2em;
 
     .journal-entry-page {
-        background-color: $color-pane;
+        background-color: $color-paper;
         padding: 0.5em;
         min-height: 600px;
 
@@ -46,7 +46,7 @@
         }
 
         .event-tag {
-            background-color: $color-pane;
+            background-color: $color-paper;
             padding: 0.5em;
             margin: 1em 0.5em;
             height: fit-content;

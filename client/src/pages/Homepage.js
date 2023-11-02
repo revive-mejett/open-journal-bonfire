@@ -32,15 +32,20 @@ const Homepage = () => {
     })
 
     const animateType = () => {
-        let isDeleting = false
         let currentTyped = ''
         let typeAnimation = setInterval(() => {
             currentTyped = sampleText.substring(0, currentTyped.length + 1)
-            samplePaperText.current.textContent = currentTyped
+            if (samplePaperText.current) {
+                samplePaperText.current.textContent = currentTyped
+            }
+            
         }, 50);
     }
     useEffect(() => {
+        console.log('animate')
         animateType()
+    }, [])
+    useEffect(() => {
         const fetchSampleEntries = async () => {
             try {
                 let response = await fetch("/api/journalentries/sample/" + numberSampleEntries)
