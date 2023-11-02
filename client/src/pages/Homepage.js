@@ -33,13 +33,16 @@ const Homepage = () => {
 
     const animateType = () => {
         let currentTyped = ''
-        let typeAnimation = setInterval(() => {
-            currentTyped = sampleText.substring(0, currentTyped.length + 1)
-            if (samplePaperText.current) {
-                samplePaperText.current.textContent = currentTyped
-            }
-            
-        }, 50);
+        setTimeout(() => {
+            let typeAnimation = setInterval(() => {
+                currentTyped = sampleText.substring(0, currentTyped.length + 1)
+                if (samplePaperText.current) {
+                    samplePaperText.current.textContent = currentTyped
+                }
+                
+            }, 50);
+        }, 2000);
+        
     }
     useEffect(() => {
         console.log('animate')

@@ -12,12 +12,13 @@
     }
 
     .date-display {
-        line-height: 0.75em;
-        padding: 1em 0.5em;
+        padding: 0 0.5em;
 
         h2 {
             font-size: 150%;
+            margin: 0;
         }
+        height: fit-content;
     }
 
     .entry-title {
