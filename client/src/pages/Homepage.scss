@@ -4,7 +4,7 @@ $particle-size: 120px;
 $particle-size-final: 10px;
 
 .homepage-main {
-    width: 60vw;
+    width: 70vw;
     margin-top: 2em;
     margin-bottom: 2em;
 
@@ -17,7 +17,7 @@ $particle-size-final: 10px;
             font-size: 300%;
         }
 
-        p {
+        p, span {
             font-size: 200%;
         }
     }
@@ -103,6 +103,7 @@ $particle-size-final: 10px;
                     100% {
                         left: 110%;
                         transform: skew(45deg, 45deg);
+                        opacity: 0%;
                     }
                 }
             }
@@ -189,6 +190,32 @@ $particle-size-final: 10px;
             grid-column: 1;
             height: 100%;
             width: 100%;
+        }
+
+        .letter-creation-visual {
+            
+            .large-paper {
+
+                span {
+                    text-decoration: underline;
+                    font-weight: 200;
+                    
+                }
+                .type-cursor {
+                    border-right: white 0.05em solid;
+                    margin: 0 auto;
+                    animation: blinkcursor 0.5s ease-in infinite;
+
+                    @keyframes blinkcursor {
+                        0%, 50% {
+                            opacity: 0%;
+                        }
+                        51%, 100% {
+                            opacity: 100%;
+                        }
+                    }
+                }
+            }
         }
 
     }

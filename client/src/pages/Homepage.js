@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./Homepage.scss"
 import { Link } from "react-router-dom"
@@ -6,10 +6,13 @@ import { Link } from "react-router-dom"
 const Homepage = () => {
 
     const [sampleEntries, setEntryData] = useState(undefined)
+    const samplePaperText = useRef(null)
 
     const numberSampleEntries = 3
 
     const particles = Array.from({length: 30}, (_,i) => <div className="particle" key={i}></div>)
+    
+    const sampleText = "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
 
     const paperPieces = Array.from({length: 5}, (_,i) => {
         let randomRotation = Math.floor(Math.random()*360)
@@ -24,12 +27,20 @@ const Homepage = () => {
             // bottom: `${Math.floor(Math.random()*15) + 5}%`
         }
         let newPaperDiv = <div className="paper-piece" style={styles} key={i}></div>
-        
         // newPaperDiv.style.rotation = `${randomRotation}deg`
         return newPaperDiv
     })
 
+    const animateType = () => {
+        let isDeleting = false
+        let currentTyped = ''
+        let typeAnimation = setInterval(() => {
+            currentTyped = sampleText.substring(0, currentTyped.length + 1)
+            samplePaperText.current.textContent = currentTyped
+        }, 50);
+    }
     useEffect(() => {
+        animateType()
         const fetchSampleEntries = async () => {
             try {
                 let response = await fetch("/api/journalentries/sample/" + numberSampleEntries)
@@ -69,7 +80,10 @@ const Homepage = () => {
                     Take a pencil (your keyboard) and a piece of paper (your screen). Write your day..
                 </h2>
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
-                <div className="presentation-visual">
+                <div className="presentation-visual letter-creation-visual">
+                    <div className="large-paper">
+                        <span ref={samplePaperText}></span><span className="type-cursor"></span>
+                    </div>
                 </div>
                 <div className="link-container">
                     <Link to="/entries/new" className="link-button">Create now</Link>
