@@ -13,15 +13,15 @@ const Homepage = () => {
 
     const paperPieces = Array.from({length: 5}, (_,i) => {
         let randomRotation = Math.floor(Math.random()*360)
-        const paperWidth = 18
-        const paperHeight = 30
+        const paperWidth = 36
+        const paperHeight = 50
 
         let styles = {
             transform: `rotate(${randomRotation}deg)`,
             width: `${paperWidth}px`,
             height: `${paperHeight}px`,
-            left: `${Math.floor(Math.random()*60) + 20}%`,
-            bottom: `${Math.floor(Math.random()*15) + 5}%`
+            // left: `${Math.floor(Math.random()*60) + 20}%`,
+            // bottom: `${Math.floor(Math.random()*15) + 5}%`
         }
         let newPaperDiv = <div className="paper-piece" style={styles} key={i}></div>
         
@@ -56,8 +56,9 @@ const Homepage = () => {
                 </h1>
                 <p>A free space for everyone to write and freely share their days what they want. No trees harmed!</p>
                 <div className="presentation-visual fire-container-introsection">
-                    {particles}
                     {paperPieces}
+                    {particles}
+                    
                     <div className="wood-art wood-1"></div>
                     <div className="wood-art wood-2"></div>
                 </div>

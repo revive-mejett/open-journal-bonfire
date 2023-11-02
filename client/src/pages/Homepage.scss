@@ -2,6 +2,7 @@
 @import "../common/variables.scss";
 $particle-size: 120px;
 $particle-size-final: 10px;
+
 .homepage-main {
     width: 60vw;
     margin-top: 2em;
@@ -24,7 +25,7 @@ $particle-size-final: 10px;
     .introduction-heading {
         display: grid;
 
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 0.4fr 0.6fr;
         grid-template-rows: 30vh 30vh;
 
         h1 {
@@ -46,7 +47,7 @@ $particle-size-final: 10px;
             grid-row-end: -1;
             grid-column-start: 2;
             grid-column-end: 2;
-            background-color: black; //temp
+            // background-color: black; //temp
             position: relative;
             
             .wood-art {
@@ -70,6 +71,40 @@ $particle-size-final: 10px;
             .paper-piece {
                 position: absolute;
                 background-color: $color-bright;
+                z-index: 1;
+                left: -10%;
+                bottom: (random($limit: 45) * 1%);
+                border: black solid 1px;
+
+                @for $i from 0 to 5 {
+                    &:nth-child(#{$i + 1}) {
+                        transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
+                        bottom: (random($limit: 40) * 1% + 10%);
+                        animation: flyingpaper random($limit: 5) * 4s ease-in-out infinite;
+                        animation-delay: calc($i * 4s / 5);
+                    }
+                }
+
+
+                @keyframes flyingpaper {
+                    0% {
+                        transform: skew(-45deg, -45deg);
+                        opacity: 0%;
+                    }
+                    20% {
+                        opacity: 0%;
+                    }
+                    30%, 60% {
+                        opacity: 100%;
+                    }
+                    70% {
+                        opacity: 0%;
+                    }
+                    100% {
+                        left: 110%;
+                        transform: skew(45deg, 45deg);
+                    }
+                }
             }
 
             .particle {
@@ -80,14 +115,16 @@ $particle-size-final: 10px;
                 border-radius: 50%;
                 
 
-                @for $i from 0 to 400 {
+                @for $i from 0 to 30 {
                     &:nth-child(#{$i + 1}) {
                         left: (random($limit: 100) - 50) * 0.2% + 50%;
                         top: (random($limit: 70) * 1%);
                         animation: flame 2s ease-out infinite;
-                        animation-delay: #{$i / 10}s;
+                        animation-delay: calc($i * 1s / 10);
                     }
                 }
+
+
 
                 @keyframes flame {
                     0% {
