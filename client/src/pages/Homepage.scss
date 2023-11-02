@@ -17,7 +17,7 @@ $particle-size-final: 10px;
             font-size: 300%;
         }
 
-        p, span {
+        p {
             font-size: 200%;
         }
     }
@@ -193,18 +193,24 @@ $particle-size-final: 10px;
         }
 
         .letter-creation-visual {
-            
+            position: relative;
             .large-paper {
-
+                width: 60%;
+                height: 60%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                background-color: $color-pane;
+                transform: translate(-50%, -50%);
                 span {
                     text-decoration: underline;
                     font-weight: 200;
-                    
+                    font-size: 150%;
                 }
                 .type-cursor {
                     border-right: white 0.05em solid;
                     margin: 0 auto;
-                    animation: blinkcursor 0.5s ease-in infinite;
+                    animation: blinkcursor 1s ease-in infinite;
 
                     @keyframes blinkcursor {
                         0%, 50% {
