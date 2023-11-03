@@ -10,12 +10,12 @@ const Homepage = () => {
 
     const numberSampleEntries = 3
 
-    const particles = Array.from({length: 30}, (_,i) => <div className="particle" key={i}></div>)
-    
+    const particles = Array.from({ length: 30 }, (_, i) => <div className="particle" key={i}></div>)
+
     const sampleText = "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
 
-    const paperPieces = Array.from({length: 5}, (_,i) => {
-        let randomRotation = Math.floor(Math.random()*360)
+    const paperPieces = Array.from({ length: 5 }, (_, i) => {
+        let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
         const paperHeight = 50
 
@@ -39,10 +39,10 @@ const Homepage = () => {
                 if (samplePaperText.current) {
                     samplePaperText.current.textContent = currentTyped
                 }
-                
+
             }, 50);
         }, 2000);
-        
+
     }
     useEffect(() => {
         console.log('animate')
@@ -77,7 +77,6 @@ const Homepage = () => {
                 <div className="presentation-visual fire-container-introsection">
                     {paperPieces}
                     {particles}
-                    
                     <div className="wood-art wood-1"></div>
                     <div className="wood-art wood-2"></div>
                 </div>
@@ -89,20 +88,25 @@ const Homepage = () => {
                 </h2>
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
                 <div className="presentation-visual letter-creation-visual">
-                    <div className="large-paper">
-
+                    <div className="large-paper crumpled-1">
+                    </div>
+                    <div className="large-paper crumpled-2">
+                    </div>
+                    <div className="large-paper crumpled-3">
+                    </div>
+                    <div className="large-paper uncrumpling">
                         <div className="date-display">
                             <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
                             <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { weekday: "long" })}</h2>
                             <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
                         </div>
-
                         <div className="entry-body">
                             <h3 className="entry-title">Passed my science test! :D</h3>
                             <span ref={samplePaperText}></span><span className="type-cursor"></span>
                         </div>
-                        
+
                     </div>
+
                 </div>
                 <div className="link-container">
                     <Link to="/entries/new" className="link-button">Create now</Link>
