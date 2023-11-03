@@ -11,15 +11,15 @@ $particle-size-final: 10px;
     margin-bottom: 2em;
 
     .presentation-section {
-        h1 {
+        & > h1 {
             font-size: 300%;
         }
 
-        h2 {
+        & > h2 {
             font-size: 300%;
         }
 
-        p {
+        & > p {
             font-size: 200%;
         }
     }
@@ -72,7 +72,7 @@ $particle-size-final: 10px;
 
             .paper-piece {
                 position: absolute;
-                background-color: $color-paper;
+                background-color: $color-paper-light;
                 z-index: 1;
                 left: -10%;
                 bottom: (random($limit: 45) * 1%);
@@ -88,31 +88,7 @@ $particle-size-final: 10px;
                 }
 
 
-                @keyframes flyingpaper {
-                    0% {
-                        transform: skew(-45deg, -45deg);
-                        opacity: 0%;
-                    }
 
-                    20% {
-                        opacity: 0%;
-                    }
-
-                    30%,
-                    60% {
-                        opacity: 100%;
-                    }
-
-                    70% {
-                        opacity: 0%;
-                    }
-
-                    100% {
-                        left: 110%;
-                        transform: skew(45deg, 45deg);
-                        opacity: 0%;
-                    }
-                }
             }
 
             .particle {
@@ -195,7 +171,6 @@ $particle-size-final: 10px;
         }
 
         .presentation-visual {
-            background-color: black; //temp
             grid-row-start: 1;
             grid-row-end: -1;
             grid-column: 1;
@@ -346,14 +321,77 @@ $particle-size-final: 10px;
 
     }
 
-    .sample-entries-container {
-        display: flex;
-        flex-flow: row wrap;
-        background-color: black;
-        justify-content: space-around;
+    .sample-entries-background {
+        transform: skew(10deg, 0);
+        position: relative;
+        overflow: hidden;
+        .paper-piece {
+            opacity: 0;
+            position: absolute;
+            background-color: $color-paper-light;
+            z-index: 0;
+            left: -10%;
+            border: black solid 1px;
+
+            @for $i from 0 to 15 {
+                &:nth-child(#{$i + 1}) {
+                    transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
+                    rotate: random(360) * 1deg;
+                    bottom: ((10 + random($limit: 80)) * 1%);
+                    animation: flyingpaper random($limit: 5) * 2s ease-in-out infinite;
+                    animation-delay: calc($i * 4s / 5);
+                }
+            }
+        }
+        
+        .sample-entries-container {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            z-index: 5;
+
+            .journal-entry-card {
+                box-shadow: 4px 4px 1px 1px $color-button-shadow;
+            }
+        }
     }
+
+    
 
     .link-container {
         @include link-container
     }
+}
+
+@keyframes flyingpaper {
+    0% {
+        transform: skew(-45deg, -45deg);
+        opacity: 0%;
+    }
+
+    20% {
+        opacity: 0%;
+    }
+
+    30%,
+    60% {
+        opacity: 100%;
+    }
+
+    70% {
+        opacity: 0%;
+    }
+
+    100% {
+        left: 110%;
+        transform: skew(45deg, 45deg);
+        opacity: 0%;
+    }
+}
+
+.leaf {
+    background-color: $color-neutral;
+    width: 200px;
+    height: 200px;
+    clip-path: polygon(3% 94%, 23% 80%, 53% 89%, 36% 74%, 70% 81%, 48% 64%, 77% 68%, 60% 57%, 86% 46%, 63% 47%, 71% 34%, 81% 16%, 56% 40%, 50% 20%, 47% 43%, 33% 27%, 37% 52%, 19% 32%, 25% 63%, 9% 46%, 19% 76%);
 }

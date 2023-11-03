@@ -14,7 +14,7 @@ const Homepage = () => {
 
     const sampleText = "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
 
-    const paperPieces = Array.from({ length: 5 }, (_, i) => {
+    const paperPieces = Array.from({ length: 15 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
         const paperHeight = 50
@@ -112,26 +112,34 @@ const Homepage = () => {
                     <Link to="/entries/new" className="link-button">Create now</Link>
                 </div>
             </section>
-            <section className="entry-view-presentation">
+            <section className="presentation-section entry-view-presentation">
                 <h2>
                     Open and anonymous
                 </h2>
                 <p>Take a read of some entries! Hear what people are saying in words. Look what people have been saying and experiencing.</p>
-                {sampleEntries &&
-                    <>
 
-                        <div className="sample-entries-container">
-                            {sampleEntries &&
-                                sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
-                            }
-                        </div>
-                        <div className="link-container">
-                            <Link to="/entries/browse">See what people wrote</Link>
-                        </div>
-                    </>
+                <div className="sample-entries-background">
+                    {paperPieces}
+                    {sampleEntries &&
+                        <>
+                            <div className="sample-entries-container">
+                                {sampleEntries &&
+                                    sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+                                }
+                            </div>
+                            <div className="link-container">
+                                <Link to="/entries/browse">See what people wrote</Link>
+                            </div>
+                        </>
 
-                }
+                    }
+                </div>
+
             </section>
+            {/* temp */}
+            <div className="leaf">
+                    
+            </div>
             <section>
                 <h2>
                     The bonfire... (Coming soon!)
