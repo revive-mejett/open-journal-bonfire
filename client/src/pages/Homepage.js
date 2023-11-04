@@ -12,22 +12,29 @@ const Homepage = () => {
         sampleText: "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
     },
     {
-        sampleTitle: "Lockdown and hurt my thumb",
-        sampleDate: new Date("2020-11-25"),
-        sampleText: "Today my city went on lockdown."
-    }
+        sampleTitle: "city lockdown and hurt my thumb",
+        sampleDate: new Date("2020-12-26"),
+        sampleText: "Today my city went on lockdown. I HATE COVID SO MUCH. I was supposed to go out with my family to dinner the city decided to put a lockdown AND CURFEW. We could not leave our house past 8PM. I hate it so much. I threw a fit and played TF2. In the process I hit my thumb and caused a bruise."
+    },
+    {
+        sampleTitle: "new honda civic",
+        sampleDate: new Date("2022-06-06"),
+        sampleText: "Was a typical day. I went out for a nice walk in the park and had some fresh air. It was a bit cloudy. And guess what!! I GOT A NEW HONDA CIVIC!!!1 YESSSSSSS! I saved up $$$$ for this and IT FINALLY HAPPENED. 2018 Honda Civic!!!!! I took a drive with it for the first time and to celebrate my new Honda Civic I went to Baton Rouge!"
+    },
     ]
     
-    const [previusEntryRef, setPreviewWrite] = useState(1)
+    const [previewEntriesIndex, setPreviewWrite] = useState(0)
     const [sampleEntries, setEntryData] = useState(0)
 
-    
-    useEffect(() => {
-        let x = setInterval(() => {
-            console.log('akshan lux')
+    const refreshPreviewVisual = () => {
+        if (previewEntriesIndex === samplePreviewEntries.length - 1) {
             setPreviewWrite(0)
-        }, 3000);
-    },[])
+        } else {
+            setPreviewWrite(previewEntriesIndex + 1)
+        }
+        
+    }
+
     const numberSampleEntries = 3
 
     const particles = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
@@ -87,7 +94,7 @@ const Homepage = () => {
                     Take a pencil (your keyboard) and a piece of paper (your screen). Write your day..
                 </h2>
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
-                <HomepageLetterVisual sampleTitle={samplePreviewEntries[previusEntryRef].sampleTitle} sampleEntryContent={samplePreviewEntries[previusEntryRef].sampleText} date={samplePreviewEntries[previusEntryRef].sampleDate}></HomepageLetterVisual>
+                <HomepageLetterVisual sampleTitle={samplePreviewEntries[previewEntriesIndex].sampleTitle} sampleEntryContent={samplePreviewEntries[previewEntriesIndex].sampleText} date={samplePreviewEntries[previewEntriesIndex].sampleDate} refreshVisual={refreshPreviewVisual}> </HomepageLetterVisual>
                 <div className="link-container">
                     <Link to="/entries/new" className="link-button">Create now</Link>
                 </div>

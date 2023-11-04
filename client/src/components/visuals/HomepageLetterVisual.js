@@ -8,20 +8,29 @@ const HomepageLetterVisual = (props) => {
     useEffect(() => {
         if (!isAnimating) {
             setIsAnimating(true)
-            let currentTyped = ''
+            let currentTyped = ""
             setTimeout(() => {
                 let typeAnimation = setInterval(() => {
                     currentTyped = props.sampleEntryContent.substring(0, currentTyped.length + 1)
                     if (samplePaperText.current) {
                         samplePaperText.current.textContent = currentTyped
                     }
+
+                    if (currentTyped.length === props.sampleEntryContent.length) {
+                        console.log("finished typing")
+                        clearInterval(typeAnimation)
+                        setTimeout(() => {
+                            setIsAnimating(false)
+                            props.refreshVisual()
+                        }, 20000);
+                    }
                 }, 50);
             }, 2000);
         } 
-    }, [props.sampleEntryContent, isAnimating])
+    }, [props, isAnimating])
 
     return (
-        <div className="presentation-visual letter-creation-visual">
+        <div className="presentation-visual letter-creation-visual" key={props.sampleEntryContent}>
             <div className="large-paper crumpled-1">
             </div>
             <div className="large-paper crumpled-2">
