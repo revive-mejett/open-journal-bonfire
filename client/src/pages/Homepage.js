@@ -2,17 +2,35 @@ import { useEffect, useRef, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./Homepage.scss"
 import { Link } from "react-router-dom"
+import HomepageLetterVisual from "../components/visuals/HomepageLetterVisual"
 
 const Homepage = () => {
 
-    const [sampleEntries, setEntryData] = useState(undefined)
-    const samplePaperText = useRef(null)
+    const samplePreviewEntries = [{
+        sampleTitle: "Passed my science test!",
+        sampleDate: new Date("2023-1-17"),
+        sampleText: "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
+    },
+    {
+        sampleTitle: "Lockdown and hurt my thumb",
+        sampleDate: new Date("2020-11-25"),
+        sampleText: "Today my city went on lockdown."
+    }
+    ]
+    
+    const [previusEntryRef, setPreviewWrite] = useState(1)
+    const [sampleEntries, setEntryData] = useState(0)
 
+    
+    useEffect(() => {
+        let x = setInterval(() => {
+            console.log('akshan lux')
+            setPreviewWrite(0)
+        }, 3000);
+    },[])
     const numberSampleEntries = 3
 
-    const particles = Array.from({ length: 30 }, (_, i) => <div className="particle" key={i}></div>)
-
-    const sampleText = "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
+    const particles = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
 
     const paperPieces = Array.from({ length: 15 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
@@ -23,31 +41,13 @@ const Homepage = () => {
             transform: `rotate(${randomRotation}deg)`,
             width: `${paperWidth}px`,
             height: `${paperHeight}px`,
-            // left: `${Math.floor(Math.random()*60) + 20}%`,
-            // bottom: `${Math.floor(Math.random()*15) + 5}%`
         }
+
         let newPaperDiv = <div className="paper-piece" style={styles} key={i}></div>
         // newPaperDiv.style.rotation = `${randomRotation}deg`
         return newPaperDiv
     })
 
-    const animateType = () => {
-        let currentTyped = ''
-        setTimeout(() => {
-            let typeAnimation = setInterval(() => {
-                currentTyped = sampleText.substring(0, currentTyped.length + 1)
-                if (samplePaperText.current) {
-                    samplePaperText.current.textContent = currentTyped
-                }
-
-            }, 50);
-        }, 2000);
-
-    }
-    useEffect(() => {
-        console.log('animate')
-        animateType()
-    }, [])
     useEffect(() => {
         const fetchSampleEntries = async () => {
             try {
@@ -87,27 +87,7 @@ const Homepage = () => {
                     Take a pencil (your keyboard) and a piece of paper (your screen). Write your day..
                 </h2>
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
-                <div className="presentation-visual letter-creation-visual">
-                    <div className="large-paper crumpled-1">
-                    </div>
-                    <div className="large-paper crumpled-2">
-                    </div>
-                    <div className="large-paper crumpled-3">
-                    </div>
-                    <div className="large-paper uncrumpling">
-                        <div className="date-display">
-                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
-                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { weekday: "long" })}</h2>
-                            <h2 className="entry-date">{new Date("2023-1-17").toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
-                        </div>
-                        <div className="entry-body">
-                            <h3 className="entry-title">Passed my science test! :D</h3>
-                            <span ref={samplePaperText}></span><span className="type-cursor"></span>
-                        </div>
-
-                    </div>
-
-                </div>
+                <HomepageLetterVisual sampleTitle={samplePreviewEntries[previusEntryRef].sampleTitle} sampleEntryContent={samplePreviewEntries[previusEntryRef].sampleText} date={samplePreviewEntries[previusEntryRef].sampleDate}></HomepageLetterVisual>
                 <div className="link-container">
                     <Link to="/entries/new" className="link-button">Create now</Link>
                 </div>
@@ -138,7 +118,7 @@ const Homepage = () => {
             </section>
             {/* temp */}
             <div className="leaf">
-                    
+
             </div>
             <section>
                 <h2>

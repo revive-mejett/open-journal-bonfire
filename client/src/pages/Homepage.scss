@@ -99,7 +99,7 @@ $particle-size-final: 10px;
                 border-radius: 50%;
 
 
-                @for $i from 0 to 30 {
+                @for $i from 0 to 50 {
                     &:nth-child(#{$i + 1}) {
                         left: (random($limit: 100) - 50) * 0.2% + 50%;
                         top: (random($limit: 70) * 1%);
@@ -107,8 +107,6 @@ $particle-size-final: 10px;
                         animation-delay: calc($i * 1s / 10);
                     }
                 }
-
-
 
                 @keyframes flame {
                     0% {
@@ -345,6 +343,7 @@ $particle-size-final: 10px;
         }
         
         .sample-entries-container {
+            z-index: 5;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-around;
