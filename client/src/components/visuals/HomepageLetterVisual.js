@@ -17,7 +17,6 @@ const HomepageLetterVisual = (props) => {
                     }
 
                     if (currentTyped.length === props.sampleEntryContent.length) {
-                        console.log("finished typing")
                         clearInterval(typeAnimation)
                         setTimeout(() => {
                             setIsAnimating(false)
