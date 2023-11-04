@@ -319,36 +319,45 @@ $particle-size-final: 10px;
 
     }
 
-    .sample-entries-background {
-        
-        position: relative;
-        overflow: hidden;
-        .paper-piece {
-            opacity: 0;
-            position: absolute;
-            background-color: $color-paper-light;
-            z-index: 0;
-            left: -10%;
-            border: black solid 1px;
-
-            @for $i from 0 to 15 {
-                &:nth-child(#{$i + 1}) {
-                    transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
-                    rotate: random(360) * 1deg;
-                    bottom: ((10 + random($limit: 80)) * 1%);
-                    animation: flyingpaper random($limit: 5) * 2s ease-in-out infinite;
-                    animation-delay: calc($i * 4s / 5);
+    .entry-view-presentation {
+        .sample-entries-background {
+            position: relative;
+            overflow: hidden;
+            .paper-piece {
+                opacity: 0;
+                position: absolute;
+                background-color: $color-paper-light;
+                z-index: 0;
+                left: -10%;
+                border: black solid 1px;
+    
+                @for $i from 0 to 15 {
+                    &:nth-child(#{$i + 1}) {
+                        transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
+                        rotate: random(360) * 1deg;
+                        bottom: ((10 + random($limit: 80)) * 1%);
+                        animation: flyingpaper random($limit: 5) * 2s ease-in-out infinite;
+                        animation-delay: calc($i * 4s / 5);
+                    }
+                }
+            }
+            
+            & > .sample-entries-container {
+                z-index: 5;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-around;
+                
+                .journal-entry-card {
+                    transform: skewX(10deg);
+                }
+                .journal-entry-card-link {
+                    transform: skewX(0deg);
                 }
             }
         }
-        
-        .sample-entries-container {
-            z-index: 5;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: space-around;
-        }
     }
+    
 
     
 
