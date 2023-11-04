@@ -14,7 +14,7 @@ const Homepage = () => {
     {
         sampleTitle: "city lockdown and hurt my thumb",
         sampleDate: new Date("2020-12-26"),
-        sampleText: "Today my city went on lockdown. I HATE COVID SO MUCH. I was supposed to go out with my family to dinner the city decided to put a lockdown AND CURFEW. We could not leave our house past 8PM. I hate it so much. I threw a fit and played LoL ranked. I ran it down mid and inted. In the process I hit my thumb and caused a bruise."
+        sampleText: "Today my city went on lockdown. I HATE COVID SO MUCH. I was supposed to go out to mcdonalds but the city decided to put a lockdown AND CURFEW. We could not leave our house past 8PM. I hate it so much. I threw a fit and played LoL ranked. I ran it down mid and inted. In the process I hit my thumb and caused a bruise."
     },
     {
         sampleTitle: "new honda civic",
