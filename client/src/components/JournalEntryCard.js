@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import "./MatchEntryCard.scss"
+import "./JournalEntryCard.scss"
 
 const JournalEntryCard = ({ entry }) => {
 

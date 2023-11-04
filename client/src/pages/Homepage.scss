@@ -322,7 +322,7 @@ $particle-size-final: 10px;
     }
 
     .sample-entries-background {
-        transform: skew(10deg, 0);
+        
         position: relative;
         overflow: hidden;
         .paper-piece {
@@ -348,11 +348,6 @@ $particle-size-final: 10px;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-around;
-            z-index: 5;
-
-            .journal-entry-card {
-                box-shadow: 4px 4px 1px 1px $color-button-shadow;
-            }
         }
     }
 
