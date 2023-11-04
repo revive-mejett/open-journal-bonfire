@@ -14,12 +14,17 @@ const Homepage = () => {
     {
         sampleTitle: "city lockdown and hurt my thumb",
         sampleDate: new Date("2020-12-26"),
-        sampleText: "Today my city went on lockdown. I HATE COVID SO MUCH. I was supposed to go out with my family to dinner the city decided to put a lockdown AND CURFEW. We could not leave our house past 8PM. I hate it so much. I threw a fit and played TF2. In the process I hit my thumb and caused a bruise."
+        sampleText: "Today my city went on lockdown. I HATE COVID SO MUCH. I was supposed to go out with my family to dinner the city decided to put a lockdown AND CURFEW. We could not leave our house past 8PM. I hate it so much. I threw a fit and played LoL ranked. I ran it down mid and inted. In the process I hit my thumb and caused a bruise."
     },
     {
         sampleTitle: "new honda civic",
         sampleDate: new Date("2022-06-06"),
         sampleText: "Was a typical day. I went out for a nice walk in the park and had some fresh air. It was a bit cloudy. And guess what!! I GOT A NEW HONDA CIVIC!!!1 YESSSSSSS! I saved up $$$$ for this and IT FINALLY HAPPENED. 2018 Honda Civic!!!!! I took a drive with it for the first time and to celebrate my new Honda Civic I went to Baton Rouge!"
+    },
+    {
+        sampleTitle: "noobs in valorant",
+        sampleDate: new Date("2020-02-13"),
+        sampleText: "Played valorant today. It was subpar on the matches I got. However there was one match I hated. Was playing sova and the enemy team just stomped me constantly. There was this one phoenix who rages constantly telling me to uninstall valorant. Another one told me to refund my vandal skin after missing the enemy reyna. Reyna needs a nerf so baad"
     },
     ]
     
