@@ -185,7 +185,6 @@ $particle-size-final: 10px;
                 width: 30%;
                 height: 40%;
                 position: absolute;
-
                 background-color: $color-paper;
                 transform: translate(-50%, -50%);
                 clip-path: polygon(54% 41%, 56% 46%, 60% 47%, 61% 58%, 55% 59%, 46% 60%, 38% 55%, 38% 48%, 45% 45%, 45% 39%);
@@ -285,7 +284,7 @@ $particle-size-final: 10px;
                         100% {
                             clip-path: polygon(100% 15%, 100% 42%, 100% 60%, 100% 79%, 100% 100%, 63% 100%, 25% 100%, 0 100%, 0 0, 100% 0);
                             width: 60%;
-                            height: 80%;
+                            height: 95%;
                         }
                     }
                 }
