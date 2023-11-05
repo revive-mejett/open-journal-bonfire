@@ -1,0 +1,35 @@
+@import "../common/variables.scss";
+
+@mixin journalpagelayout {
+    background-color: $color-paper;
+    padding: 0.5em;
+    margin: auto;
+    max-width: 700px;
+
+
+    h4 {
+        margin-bottom: 0;
+    }
+
+    .date-display {
+        padding: 0 0.5em;
+
+        h2 {
+            font-size: 150%;
+            margin: 0;
+        }
+        height: fit-content;
+    }
+
+    .entry-title {
+        text-align: center;
+    }
+
+    .entry-content-text {
+        text-indent: 4em;
+        font-weight: 200;
+        font-size: 140%;
+        text-decoration: underline;
+        text-decoration-color: $color-accent;
+    }
+}

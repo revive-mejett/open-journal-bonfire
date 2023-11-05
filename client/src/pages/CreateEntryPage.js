@@ -1,6 +1,6 @@
 import { Field, Formik } from "formik"
 import EventKeywordPicker from "../components/forms/EventKeywordPicker"
-import "../assets/forminputstyle.scss"
+import "../common/forms.scss"
 import "./CreateEntryPage.scss"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -148,7 +148,7 @@ const CreateEntryPage = () => {
 
                             <div className="form-section self-rating-form">
                                 <label htmlFor="selfRating">Out of 10, rate your day:</label>
-                                <Field as="select" name="selfRating" className="input-dropdown">
+                                <Field as="select" name="selfRating">
                                     <option value={0} hidden>--select--</option>
                                     {selfRatingValues.map(ratingValue => <option value={ratingValue} key={ratingValue}>{ratingValue}</option>)}
                                 </Field>

@@ -1,0 +1,28 @@
+@import "../common/variables.scss";
+
+//buttonstyles
+
+@mixin button-style {
+    padding: 0.5em;
+    background-color: $color-accent;
+    box-shadow: 2px 2px 1px 1px $color-button-shadow;
+    font-family: "Josefin Sans";
+    color: $color-font;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+}
+
+@mixin link-container {
+    @include button-style;
+    margin: 1em;
+    padding: 0;
+    a {
+        color: inherit;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: 0.5em;
+    }
+}

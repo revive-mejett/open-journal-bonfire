@@ -1,4 +1,4 @@
-@import "assets/variables.scss";
+@import "common/variables.scss";
 
 html, body {
     margin: 0;
@@ -13,4 +13,5 @@ body {
 main {
     margin: auto;
     width: 80vw;
+    max-width: 1400px;
 }

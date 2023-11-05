@@ -1,5 +1,5 @@
-@import "../assets/variables.scss";
-@import "../assets/buttonstyle.scss";
+@import "../common/variables.scss";
+@import "../common/buttonstyle.scss";
 
 .topbar {
     img {
@@ -8,6 +8,7 @@
         margin: 0;
         padding: 0;
     }
+
     background-color: $color-base-bright;
     display: flex;
     flex-direction: row;
@@ -19,5 +20,15 @@
 
     h1 {
         font-size: 3em;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        li {
+            @include link-container;
+            display: inline-block;
+        }
     }
 }

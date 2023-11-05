@@ -1,3 +1,4 @@
+@import "../common/forms.scss";
 
 .create-entry-page-main {
     text-align: center;
@@ -13,10 +14,12 @@
         }
 
         .entry-title-field {
+            @include input-field;
             width: 50%;
         }
 
         .entry-content-textarea {
+            @include input-field;
             resize: none;
             width: 100%;
             height: 500px;
@@ -44,7 +47,9 @@
     }
 
     .self-rating-form {
-
+        select {
+            @include input-field;
+        }
         margin: auto;
         text-align: center;
         label {
