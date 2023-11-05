@@ -1,34 +1,41 @@
 
 // main colours
-$color-dark: #020103;
-$color-base: #07030E;
-$color-base-brighter: #0E0027;
-$color-base-bright: #16003D;
-$color-entry-card: #160E2F;
+$color-dark: #110023;
+$color-base: #190033;
+$color-base-brighter: #240049;
+$color-base-bright: #48167a;
+$color-border: #d0a1ff;
 
-$color-pane: #5A5650;
-$color-pane-2: #221411;
+$color-entry-card: #A57B90;
 
-$color-paper: #7a7a78;
-$color-paper-light: rgba(216, 216, 216, 0.493);
+$color-pane: #A57B90;
+$color-pane-2: #A57B90;
 
-$color-accent: #736639;
-$color-bright: #DCCA92;
-$color-emphasis: #B89C4F;
+$color-paper: $color-base-bright;
+$color-paper-light: $color-base-bright;
 
-$color-font: #fff0ac;
-$color-font-greyish: rgb(197, 193, 178);
-$color-button-shadow: rgba(66, 64, 41, 0.445);
-$color-shadow: rgba(66, 64, 41, 0.445);
+$color-accent: rgb(255, 153, 0);
+$color-bright: rgb(255, 153, 0);
+$color-emphasis: #A57B90;
 
-$color-positive: #B84A00;
-$color-positive-2: #f33900;
-$color-positive-3: #ff7b00;
-$color-positive-4: #ffaf02;
+$color-font: #64FFDD;
+$color-font-greyish: #ddfff7;
+$color-button-shadow: $color-border;
+$color-shadow: $color-border;
+
+$color-neutral: #48167a;
+$color-positive: #520063;
+$color-positive-2: rgb(145, 0, 73);
+$color-positive-3: rgb(202, 57, 0);
+$color-positive-4: #ff7c02;
 $color-positive-5: #ffd900;
 
-$color-neutral: #3a231d;
+
 $color-negative: #0a1a56;
+$color-negative-2:rgb(2, 40, 177);
+$color-negative-3:rgb(22, 69, 238);
+$color-negative-4:rgb(22, 141, 238);
+$color-negative-5:rgb(105, 212, 255);
 
 $color-leaf: #3a231d;
 

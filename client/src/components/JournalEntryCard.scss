@@ -4,12 +4,13 @@
 .journal-entry-card {
     all: inherit;
     background-color: $color-paper;
-    color: $color-font;
+    color: $color-font-greyish;
     width: 300px;
     margin: 2em 5em;
-    // padding: 0.25em;
     height: 300px;
     box-shadow: 4px 4px 1px 1px $color-button-shadow;
+    font-family: "Calligraffitti";
+
 
     // & > a {
         
