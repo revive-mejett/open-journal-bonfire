@@ -116,7 +116,7 @@ const Homepage = () => {
                         <>
                             <div className="sample-entries-container">
                                 {sampleEntries &&
-                                    sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+                                    sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry} norotate={true}></JournalEntryCard>)
                                 }
                             </div>
                             <div className="link-container">

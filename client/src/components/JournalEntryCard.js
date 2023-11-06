@@ -1,24 +1,33 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import "./JournalEntryCard.scss"
 
-const JournalEntryCard = ({ entry }) => {
+const JournalEntryCard = ({ entry, norotate }) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
+    let cardRef = useRef(null)
     let date
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
-            setTeaserDescription(entry.entryContent.slice(0, 200) + "...")
+            setTeaserDescription(entry.entryContent.slice(0, 80) + "...")
         } else {
             setTeaserDescription("(No entry description)")
         }
-    }, [entry.entryContent])
+        let randomRotation = Math.ceil(Math.random() * 30) - 15
+
+        if (!norotate) {
+            console.log(norotate)
+            cardRef.current.style.rotate = `${randomRotation}deg`
+        }
+        
+        
+    }, [entry.entryContent, norotate])
     
     date = new Date(entry.dateCreated)
     
     return (
-        <div className="journal-entry-card">
+        <div className="journal-entry-card" ref={cardRef}>
             <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
