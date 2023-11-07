@@ -3,6 +3,8 @@
 
 
 .jounal-entries-page-main {
+    overflow-x: clip;
+    
     .filters-container {
         background-color: $color-pane-2;
         margin: auto;
@@ -89,13 +91,29 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-around;
+        position: relative;
 
-        // & > .journal-entry-card:nth-child(n) {
-        //     rotate: (random($limit: 30) * 1deg) - 15deg;
-        // }
+        & > .journal-entry-card:nth-child(n) {
+            visibility: hidden;
+            rotate: (random($limit: 30) * 1deg) - 15deg;
+            animation: spread 1.5s;
+        }
+
+        @keyframes spread {
+            from {
+                transform: translateY(-150vh);
+            } to {
+                transform: translateY(0%);
+            }
+        }
 
         .journal-entry-card-link {
+            visibility: visible;
             rotate: 0deg;
         }
     }
+
+
 }
+
+

@@ -17,7 +17,6 @@ const JournalEntryCard = ({ entry, norotate }) => {
         let randomRotation = Math.ceil(Math.random() * 30) - 15
 
         if (!norotate) {
-            console.log(norotate)
             cardRef.current.style.rotate = `${randomRotation}deg`
         }
         

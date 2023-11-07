@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./Homepage.scss"
 import { Link } from "react-router-dom"
@@ -128,10 +128,7 @@ const Homepage = () => {
                 </div>
 
             </section>
-            {/* temp */}
-            <div className="leaf">
 
-            </div>
             <section>
                 <h2>
                     The bonfire... (Coming soon!)

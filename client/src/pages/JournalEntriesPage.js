@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import "../common/forms.scss"
 import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
+import Background from "../components/visuals/Background"
+
 
 const JournalEntriesPage = () => {
 
@@ -22,7 +24,7 @@ const JournalEntriesPage = () => {
         url.searchParams.set("minSelfRating", values.minSelfRating)
         url.searchParams.set("maxSelfRating", values.maxSelfRating)
         url.searchParams.set("sortOrder", values.sortOrder)
-        navigate({to: "/entries/browse", search: url.search})
+        navigate({ to: "/entries/browse", search: url.search })
         window.location.reload()
     }
 
@@ -48,6 +50,7 @@ const JournalEntriesPage = () => {
 
     return (
         <main className="jounal-entries-page-main">
+            <Background></Background>
             <section className="filters-container">
                 <Formik
                     initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: 1, maxSelfRating: 10, sortOrder: "newest" }}
@@ -60,12 +63,12 @@ const JournalEntriesPage = () => {
                                 <label htmlFor="titleFilterMatch">Filter title containing:</label>
                                 <Field as="input" name="titleFilterMatch"></Field>
                             </div>
-                            
+
                             <div>
                                 <label htmlFor="entryContentMatch">Filter entry text containing:</label>
                                 <Field as="input" name="entryContentMatch"></Field>
                             </div>
-                            
+
                         </fieldset>
 
                         <fieldset className="self-rating-filter-fields">
@@ -73,7 +76,7 @@ const JournalEntriesPage = () => {
                                 <label htmlFor="minSelfRating">Minimum self-rating:</label>
                                 <Field as="input" type="range" name="minSelfRating" step="1" min="1" max="10" className="input-slider"></Field><span>{props.values.minSelfRating}   </span>
                             </div>
-                            
+
                             <div>
                                 <label htmlFor="maxSelfRating">Maximum self-rating:</label>
                                 <Field as="input" type="range" name="maxSelfRating" step="1" min="1" max="10" className="input-slider"></Field><span>{props.values.maxSelfRating}   </span>
@@ -91,7 +94,7 @@ const JournalEntriesPage = () => {
                         </fieldset>
                         <div className="button-container">
                             <button type="submit" onClick={() => console.log("not yet implemented")}>Clear filters</button>
-                            <button type="submit" >Apply Filters</button> 
+                            <button type="submit" >Apply Filters</button>
                         </div>
                     </form>)}
                 </Formik>
@@ -105,5 +108,6 @@ const JournalEntriesPage = () => {
         </main>
     )
 }
+
 
 export default JournalEntriesPage
