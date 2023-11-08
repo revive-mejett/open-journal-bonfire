@@ -1,0 +1,62 @@
+@import "../../common/variables.scss";
+
+.background {
+    width: 100vw;
+    height: 100%;
+    z-index: -999;
+    left: 0;
+    top: 0;
+    position: fixed;
+
+
+    .leaf {
+        position: absolute;
+        background-color: transparent;
+        width: 200px;
+        height: 200px;
+        z-index: 11;
+        left: 0;
+        opacity: 0;
+
+        @for $i from 0 to 8 {
+            &:nth-child(#{$i + 1}) {
+                transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
+                rotate: random(360) * 1deg;
+                bottom: ((10 + random($limit: 80)) * 1%);
+                animation: flyingleaves random($limit: 10) * 2s ease-in-out infinite;
+                animation-delay: calc($i * 4s / 5);
+            }
+        }
+
+        &::before {
+            content: "";
+            background: rgba(0, 0, 255, 0.5);
+        }
+    }
+}
+
+@keyframes flyingleaves {
+    0% {
+        transform: skew(-45deg, -45deg);
+        opacity: 0%;
+    }
+
+    20% {
+        opacity: 0%;
+    }
+
+    30%,
+    60% {
+        opacity: 100%;
+    }
+
+    70% {
+        opacity: 0%;
+    }
+
+    100% {
+        left: 110%;
+        transform: skew(45deg, 45deg);
+        opacity: 0%;
+    }
+}

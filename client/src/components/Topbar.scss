@@ -2,13 +2,6 @@
 @import "../common/buttonstyle.scss";
 
 .topbar {
-    img {
-        width: 100px;
-        height: 100px;
-        margin: 0;
-        padding: 0;
-    }
-
     background-color: $color-base-bright;
     display: flex;
     flex-direction: row;
@@ -17,6 +10,13 @@
     color: $color-font;
     padding-left: 0.5em;
     padding-right: 0.5em;
+    z-index: 999;
+    img {
+        width: 100px;
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
 
     h1 {
         font-size: 3em;

@@ -1,83 +1,119 @@
 @import "../common/variables.scss";
 @import "../common/forms.scss";
 
-.filters-container {
-    background-color: $color-pane-2;
-    margin: auto;
-    min-width: 600px;
-    width: 70%;
-    min-height: 100px;
 
-    .entry-filter-sort-form {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2,1fr);
-        
+.jounal-entries-page-main {
+    overflow-x: clip;
+    
+    .filters-container {
+        background-color: $color-pane-2;
+        margin: auto;
+        min-width: 600px;
+        width: 70%;
+        min-height: 100px;
 
-        input, select {
-            width: 80%;
-        }
+        .entry-filter-sort-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
 
-        input {
-            @include input-field;
-        }
-        select {
-            @include input-field;
-        }
 
-        .filter-field-container {
-            grid-row: 1;
-            grid-column: 1;
-        }
-        .self-rating-filter-fields {
-            grid-row: 1;
-            grid-column: 2;
-        }
-        .sort-order-fields {
-            grid-row: 2;
-            grid-column: 1;
-        }
-        .button-container {
-            grid-row: 2;
-            grid-column: 2;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            button {
-                width: 40%;
-                height: fit-content;
-            }
-        }
-
-        fieldset {
-            border: none;
-            display: flex;
-            flex-direction: column;
-
-            label {
-                display: block;
-            }
-
-            .input-slider {
-                @include input-slider;
+            input,
+            select {
                 width: 80%;
+            }
+
+            input {
+                @include input-field;
+            }
+
+            select {
+                @include input-field;
+            }
+
+            .filter-field-container {
+                grid-row: 1;
+                grid-column: 1;
+            }
+
+            .self-rating-filter-fields {
+                grid-row: 1;
+                grid-column: 2;
+            }
+
+            .sort-order-fields {
+                grid-row: 2;
+                grid-column: 1;
+            }
+
+            .button-container {
+                grid-row: 2;
+                grid-column: 2;
+                text-align: center;
                 display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+                button {
+                    width: 40%;
+                    height: fit-content;
+                }
             }
 
-            span {
-                font-size: 150%;
+            fieldset {
+                border: none;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    display: block;
+                }
+
+                .input-slider {
+                    @include input-slider;
+                    width: 80%;
+                    display: flex;
+                }
+
+                span {
+                    font-size: 150%;
+                }
+
             }
 
-        }
-        button {
-            @include button-style;
+            button {
+                @include button-style;
+            }
         }
     }
+
+    .entries-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        position: relative;
+
+        & > .journal-entry-card:nth-child(n) {
+            visibility: hidden;
+            rotate: (random($limit: 30) * 1deg) - 15deg;
+            animation: spread 1.5s;
+        }
+
+        @keyframes spread {
+            from {
+                transform: translateY(-150vh);
+            } to {
+                transform: translateY(0%);
+            }
+        }
+
+        .journal-entry-card-link {
+            visibility: visible;
+            rotate: 0deg;
+        }
+    }
+
+
 }
 
-.entries-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-}
+

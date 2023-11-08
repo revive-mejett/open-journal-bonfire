@@ -7,7 +7,7 @@
     color: $color-font-greyish;
     width: 300px;
     margin: 2em 5em;
-    height: 300px;
+    height: 400px;
     box-shadow: 4px 4px 1px 1px $color-button-shadow;
     font-family: "Calligraffitti";
 
@@ -30,11 +30,13 @@
         margin: 0;
         padding: 0;
         line-height: 0;
+        height: fit-content;
     }
 
     p {
         text-align: left;
         font-weight: 200;
+        word-break: break-word;
     }
 
     .journal-entry-card-link {
@@ -52,11 +54,12 @@
     .event-tag-container {
         display: flex;
         flex-flow: row wrap;
-        background-color: $color-accent;
+        background-color: $color-base-brighter;
         padding: 0.25em 0.25em;
         align-content: flex-start;
         justify-content: center;
         margin-bottom: 0;
+        min-height: 100px;
     }
 
     .event-tag {
@@ -70,11 +73,11 @@
 
     // colour styles for positve, neutral and negative type of event tags
     .positive {
-        background-color: $color-positive;
+        background-color: $color-positive-4;
     }
 
     .negative {
-        background-color: $color-negative;
+        background-color: $color-negative-3;
     }
 
     .neutral {
