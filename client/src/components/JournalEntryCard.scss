@@ -30,11 +30,13 @@
         margin: 0;
         padding: 0;
         line-height: 0;
+        height: fit-content;
     }
 
     p {
         text-align: left;
         font-weight: 200;
+        word-break: break-word;
     }
 
     .journal-entry-card-link {

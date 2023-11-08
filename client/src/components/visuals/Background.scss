@@ -4,17 +4,16 @@
     width: 100vw;
     height: 100%;
     z-index: -999;
-    position: fixed;
     left: 0;
     top: 0;
+    position: fixed;
 
 
     .leaf {
         position: absolute;
-        background-color: $color-neutral;
+        background-color: transparent;
         width: 200px;
         height: 200px;
-        clip-path: polygon(3% 94%, 23% 80%, 53% 89%, 36% 74%, 70% 81%, 48% 64%, 77% 68%, 60% 57%, 86% 46%, 63% 47%, 71% 34%, 81% 16%, 56% 40%, 50% 20%, 47% 43%, 33% 27%, 37% 52%, 19% 32%, 25% 63%, 9% 46%, 19% 76%);
         z-index: 11;
         left: 0;
         opacity: 0;
@@ -28,8 +27,12 @@
                 animation-delay: calc($i * 4s / 5);
             }
         }
-    }
 
+        &::before {
+            content: "";
+            background: rgba(0, 0, 255, 0.5);
+        }
+    }
 }
 
 @keyframes flyingleaves {
