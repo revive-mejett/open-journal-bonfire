@@ -37,7 +37,7 @@ const CreateEntryPage = () => {
         }
     }
 
-    
+
     const handleSubmit = async (values) => {
         let data = {
             title: values.title,
