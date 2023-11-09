@@ -67,5 +67,8 @@
         margin: 1em 0 15em 0;
     }
 
+    .error {
+        @include invalid;
+    }
 }
 
