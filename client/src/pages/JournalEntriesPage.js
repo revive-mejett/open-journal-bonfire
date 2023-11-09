@@ -5,6 +5,7 @@ import "../common/forms.scss"
 import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
+import Background from "../components/visuals/Background"
 
 
 const JournalEntriesPage = () => {
@@ -50,6 +51,7 @@ const JournalEntriesPage = () => {
 
     return (
         <main className="jounal-entries-page-main">
+            <Background/>
             <section className="filters-container">
                 <Formik
                     initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: 1, maxSelfRating: 10, sortOrder: "newest" }}

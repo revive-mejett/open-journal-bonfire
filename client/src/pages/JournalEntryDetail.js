@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "./JournalEntryDetail.scss"
-
+import Background from "../components/visuals/Background.js" 
 
 const JournalEntryDetail = () => {
 
@@ -36,9 +36,9 @@ const JournalEntryDetail = () => {
 
                 if (response.ok) {
                     data = await response.json()
-                    console.log("response success -- " + response.status)
                     setJournalEntryData(data)
                     dateCreated.current = new Date(data.dateCreated)
+                    
                 } else {
                     //TODO display error on screen
                     console.error("response not ok -- " + response.status)
@@ -47,15 +47,17 @@ const JournalEntryDetail = () => {
         };
         fetchEntry()
 
-        
+        console.log(journalEntryData)
 
     }, [location.search, journalEntryData])
 
     return (
         <main className="journal-entry-detail-main">
+            <Background/>
             {
                 journalEntryData &&
                 <section className="journal-entry-page">
+                    
                     {dateCreated &&
                         <div className="date-display">
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
@@ -64,7 +66,7 @@ const JournalEntryDetail = () => {
                         </div>
                     }
                     <div className="entry-body">
-                        <h3 className="entry-title">{journalEntryData.entryTitle && journalEntryData.entryTitle.Trim() !== "" ? journalEntryData.entryTitle : "No title"}</h3>
+                        <h3 className="entry-title">{journalEntryData.title.trim() !== "" ? journalEntryData.title : "No title"}</h3>
                         <p className="entry-content-text">{journalEntryData.entryContent}</p>
                     </div>
 

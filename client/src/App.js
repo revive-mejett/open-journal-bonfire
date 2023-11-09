@@ -7,13 +7,11 @@ import JournalEntriesPage from "./pages/JournalEntriesPage";
 import CreateEntryPage from "./pages/CreateEntryPage";
 import JournalEntryDetail from "./pages/JournalEntryDetail";
 import Homepage from "./pages/Homepage";
-import Background from "./components/visuals/Background";
 
 const App = () => {
     return (
         <>
             <Topbar />
-            <Background></Background>
             <Routes>
                 <Route exact path="/" element={<Homepage />} />
                 <Route exact path="/entries/browse" element={<JournalEntriesPage />} />
