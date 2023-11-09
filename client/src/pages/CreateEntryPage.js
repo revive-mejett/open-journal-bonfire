@@ -86,7 +86,7 @@ const CreateEntryPage = () => {
             <section>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik
-                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], selfRating: 0 }}
+                    initialValues={{ title: "Untitled", entryContent: "", goodEventsList: [], neutralEventsList: [], worseEventsList: [], selfRating: 0, eventTagTextFilter : "" }}
                     onSubmit={handleSubmit}
                 >
                     {props => (
@@ -102,7 +102,14 @@ const CreateEntryPage = () => {
                                 <Field name="entryContent" as="textarea" placeholder="// Write away..." className="input-text-field entry-content-textarea"></Field>
                             </div>
 
+                            <div className="form-section">
+                                <label htmlFor="eventTagTextFilter">Filter tags:</label>
+                                <Field name="eventTagTextFilter" className="input-text-field filter-tags-field"></Field>
+                            </div>
+                            
+
                             <fieldset className="event-tags-subforms-container form-section">
+                                
                                 <div className="subform-flex-item">
                                     {frequentKeywordData &&
                                         <EventKeywordPicker
@@ -112,7 +119,8 @@ const CreateEntryPage = () => {
                                             formikSelectedListName="goodEventsList"
                                             setFieldValue={props.setFieldValue}
                                             helperText="What went well today? 👍"
-                                            helperListHeading="Good events">
+                                            helperListHeading="Good events"
+                                            tagFilter={props.values.eventTagTextFilter}>
                                         </EventKeywordPicker>
                                     }
                                 </div>
@@ -126,7 +134,8 @@ const CreateEntryPage = () => {
                                             formikSelectedListName="neutralEventsList"
                                             setFieldValue={props.setFieldValue}
                                             helperText="What went okay? Things that were just neutral... ? 🌳"
-                                            helperListHeading="Okay events">
+                                            helperListHeading="Okay events"
+                                            tagFilter={props.values.eventTagTextFilter}>
                                         </EventKeywordPicker>
                                     }
                                 </div>
@@ -139,7 +148,8 @@ const CreateEntryPage = () => {
                                             formikSelectedListName="worseEventsList"
                                             setFieldValue={props.setFieldValue}
                                             helperText="What did not go so well today? 👎"
-                                            helperListHeading="Not so great list...">
+                                            helperListHeading="Not so great list..."
+                                            tagFilter={props.values.eventTagTextFilter}>
                                         </EventKeywordPicker>
                                     }
                                 </div>
