@@ -8,13 +8,14 @@ const EventKeywordPicker = (props) => {
     const [eventBank, setEventBank] = useState(props.eventBank)
 
     let eventType = props.eventType
+    let filteredEventBank = eventBank.filter(event => event.keyword.includes(props.tagFilter))
 
     return (
         <div className="event-tag-picker-subform">
             <h3>{props.helperText}</h3>
 
             <div className="event-tag-container unselected-event-tags">
-                {eventBank.map((event, index) => {
+                {filteredEventBank.map((event, index) => {
                     return (
                         <label key={index} className={"event-tag " + eventType}>
                             {event.keyword}<Field type="checkbox" name={props.formikEventBankName}

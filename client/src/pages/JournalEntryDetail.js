@@ -53,7 +53,7 @@ const JournalEntryDetail = () => {
 
     return (
         <main className="journal-entry-detail-main">
-            <Background></Background>
+            <Background/>
             {
                 journalEntryData &&
                 <section className="journal-entry-page">
