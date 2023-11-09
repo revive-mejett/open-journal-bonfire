@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "./JournalEntryDetail.scss"
-
+import Background from "../components/visuals/Background.js" 
 
 const JournalEntryDetail = () => {
 
@@ -53,9 +53,11 @@ const JournalEntryDetail = () => {
 
     return (
         <main className="journal-entry-detail-main">
+            <Background></Background>
             {
                 journalEntryData &&
                 <section className="journal-entry-page">
+                    
                     {dateCreated &&
                         <div className="date-display">
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
