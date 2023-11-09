@@ -4,6 +4,7 @@ import "../common/forms.scss"
 import "./CreateEntryPage.scss"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
+import Background from "../components/visuals/Background"
 
 const CreateEntryPage = () => {
 
@@ -81,6 +82,7 @@ const CreateEntryPage = () => {
 
     return (
         <main className="create-entry-page-main">
+            <Background/>
             <section>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik

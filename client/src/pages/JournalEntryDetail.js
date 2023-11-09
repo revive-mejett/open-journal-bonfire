@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "./JournalEntryDetail.scss"
+import Background from "../components/visuals/Background"
 
 
 const JournalEntryDetail = () => {
@@ -53,6 +54,7 @@ const JournalEntryDetail = () => {
 
     return (
         <main className="journal-entry-detail-main">
+            <Background/>
             {
                 journalEntryData &&
                 <section className="journal-entry-page">
