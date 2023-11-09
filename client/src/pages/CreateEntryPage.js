@@ -15,7 +15,7 @@ const CreateEntryPage = () => {
         title: Yup.string()
             .max(50, "Title is too long"),
         entryContent: Yup.string()
-            .min(20, "Too short!")
+            .min(20, "Entry is too short!")
             .max(7000, "Entry is too long")
             .required("Journal entries cannot be empty!"),
         goodEventsList: Yup.array().of(Yup.object()).min(0),
@@ -142,7 +142,9 @@ const CreateEntryPage = () => {
                                             setFieldValue={props.setFieldValue}
                                             helperText="What went well today? 👍"
                                             helperListHeading="Good events"
-                                            tagFilter={props.values.eventTagTextFilter}>
+                                            tagFilter={props.values.eventTagTextFilter}
+                                            isDisabled={props.values.goodEventsList.length + props.values.neutralEventsList.length + props.values.worseEventsList.length > 10}
+                                            >
                                         </EventKeywordPicker>
                                     }
                                 </div>
@@ -157,7 +159,9 @@ const CreateEntryPage = () => {
                                             setFieldValue={props.setFieldValue}
                                             helperText="What went okay? Things that were just neutral... ? 🌳"
                                             helperListHeading="Okay events"
-                                            tagFilter={props.values.eventTagTextFilter}>
+                                            tagFilter={props.values.eventTagTextFilter}
+                                            isDisabled={props.values.goodEventsList.length + props.values.neutralEventsList.length + props.values.worseEventsList.length > 10}
+                                            >
                                         </EventKeywordPicker>
                                     }
                                 </div>
@@ -171,7 +175,9 @@ const CreateEntryPage = () => {
                                             setFieldValue={props.setFieldValue}
                                             helperText="What did not go so well today? 👎"
                                             helperListHeading="Not so great list..."
-                                            tagFilter={props.values.eventTagTextFilter}>
+                                            tagFilter={props.values.eventTagTextFilter}
+                                            isDisabled={props.values.goodEventsList.length + props.values.neutralEventsList.length + props.values.worseEventsList.length > 10}
+                                            >
                                         </EventKeywordPicker>
                                     }
                                 </div>
