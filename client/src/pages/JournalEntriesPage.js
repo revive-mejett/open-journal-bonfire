@@ -54,7 +54,7 @@ const JournalEntriesPage = () => {
             <Background/>
             <section className="filters-container">
                 <Formik
-                    initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: 1, maxSelfRating: 10, sortOrder: "newest" }}
+                    initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: -10, maxSelfRating: 10, sortOrder: "newest" }}
                     onSubmit={handleSubmit}
                 >
                     {props => (<form onSubmit={props.handleSubmit} className="entry-filter-sort-form">
@@ -75,12 +75,12 @@ const JournalEntriesPage = () => {
                         <fieldset className="self-rating-filter-fields">
                             <div>
                                 <label htmlFor="minSelfRating">Minimum self-rating:</label>
-                                <Field as="input" type="range" name="minSelfRating" step="1" min="1" max="10" className="input-slider"></Field><span>{props.values.minSelfRating}   </span>
+                                <Field as="input" type="range" name="minSelfRating" step="1" min="-10" max="10" className="input-slider"></Field><span>{props.values.minSelfRating}   </span>
                             </div>
 
                             <div>
                                 <label htmlFor="maxSelfRating">Maximum self-rating:</label>
-                                <Field as="input" type="range" name="maxSelfRating" step="1" min="1" max="10" className="input-slider"></Field><span>{props.values.maxSelfRating}   </span>
+                                <Field as="input" type="range" name="maxSelfRating" step="1" min="-10" max="10" className="input-slider"></Field><span>{props.values.maxSelfRating}   </span>
                             </div>
                         </fieldset>
 

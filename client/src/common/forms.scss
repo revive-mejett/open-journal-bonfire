@@ -26,6 +26,10 @@
     }
 }
 
+@mixin invalid {
+    color: $color-negative-4;
+}
+
 // .input-slider {
 //     appearance: none;
 //     background-color: $color-dark;

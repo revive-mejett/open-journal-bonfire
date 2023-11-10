@@ -20,6 +20,7 @@ const EventKeywordPicker = (props) => {
                         <label key={index} className={"event-tag " + eventType}>
                             {event.keyword}<Field type="checkbox" name={props.formikEventBankName}
                                 checked={false}
+                                disabled={props.isDisabled}
                                 value={event.keyword}
                                 onMouseEnter={(e) => e.target.checked = true}
                                 onMouseLeave={(e) => e.target.checked = false}
