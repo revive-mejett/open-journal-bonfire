@@ -10,11 +10,14 @@ const Loading = () => {
             <div className="paper-piece paper-still"></div>
             <div className="paper-piece paper-still"></div>
             <div className="paper-piece paper-still"></div>
-            <div className="paper-piece paper-flying"></div>
-            <div className="paper-piece paper-flying"></div>
-            <div className="paper-piece paper-flying"></div>
-            <div className="paper-piece paper-flying"></div>
-            <div className="paper-piece paper-flying"></div>
+            <div className="flying-papers">
+                <div className="paper-piece paper-flying"></div>
+                <div className="paper-piece paper-flying"></div>
+                <div className="paper-piece paper-flying"></div>
+                <div className="paper-piece paper-flying"></div>
+                <div className="paper-piece paper-flying"></div>
+            </div>
+            
         </div>
     )
 }
