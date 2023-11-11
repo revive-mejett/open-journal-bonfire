@@ -6,6 +6,7 @@ import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
 import Background from "../components/visuals/Background"
+import Loading from "../components/visuals/Loading"
 
 
 const JournalEntriesPage = () => {
@@ -110,7 +111,7 @@ const JournalEntriesPage = () => {
                     }
                 </section>
                 :
-                <h2>Loading data</h2>
+                <Loading/>
             }
 
 

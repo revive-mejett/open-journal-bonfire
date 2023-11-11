@@ -1,0 +1,57 @@
+@import "../../common/variables.scss";
+
+.loading-visual {
+
+    background-color: black;
+    position: relative;
+
+    width: 50%;
+    height: 500px;
+    margin: auto;
+    .paper-piece {
+        position: absolute;
+        background-color: $color-paper-light;
+        border: $color-border 1px solid;
+        width: 60px;
+        height: 45px;
+        transform: skew(45deg) translate(-40%, -40%);
+        left: 52%;
+    }
+
+    .paper-still {
+        // bottom: 5%;
+        @for $i from 0 through 5 {
+            &:nth-child(#{$i + 1}) {
+                rotate: -20deg + calc((random($limit: 100) - 50) / 100 * 10deg);
+                bottom: percentage(calc($i * 4 / 100 + 0.1));
+            }
+        }
+    }
+
+    .paper-flying {
+        bottom: percentage(calc(5 * 4 / 100 + 0.1));
+        background-color: blue;
+        @for $i from 0 through 5 {
+            &:nth-child(#{$i + 1}) {
+                bottom: percentage(calc(5 * 4 / 100 + 0.1));
+                animation: rise 1s ease-in infinite forwards;
+                // animation-delay: calc($i * 4s / 5);
+                animation-delay: 0s;
+                background-color: blue;
+            }
+        }
+    }
+
+    
+}
+
+@keyframes rise {
+    from {
+        background-color: blue;
+        bottom: 0%;
+    }
+    to {
+        bottom: 100%;
+        background-color: red;
+    }
+}

@@ -45,7 +45,7 @@ const Homepage = () => {
 
     const particles = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
 
-    const paperPieces = Array.from({ length: 15 }, (_, i) => {
+    const paperPieces = Array.from({ length: 5 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
         const paperHeight = 50
@@ -57,7 +57,7 @@ const Homepage = () => {
         }
 
         let newPaperDiv = <div className="paper-piece" style={styles} key={i}></div>
-        // newPaperDiv.style.rotation = `${randomRotation}deg`
+
         return newPaperDiv
     })
 
