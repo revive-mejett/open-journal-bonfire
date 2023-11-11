@@ -15,11 +15,15 @@ const App = () => {
             <Topbar />
             <Routes>
                 <Route exact path="/" element={<Homepage />} />
-                <Route exact path="/entries/browse" element={<JournalEntriesPage />} />
-                <Route exact path="/entries/new" element={<CreateEntryPage />} />
-                <Route exact path="/entries/viewing" element={<JournalEntryDetail />} />
-                <Route exact path="/entries/error" element={<JournalEntryDetail />} />
-                <Route path="*" element={<NotFound/>}/>
+                <Route path="/entries/browse" element={<JournalEntriesPage />} />
+                <Route path="/entries/new" element={<CreateEntryPage />} />
+                <Route path="/entries/viewing" element={<JournalEntryDetail />} />
+                <Route path="/entries/error" element={<JournalEntryDetail />} />
+
+                {/* Display 404 page not found if no routes match the above */}
+                <Route path="*" element={<NotFound
+                    primaryMessage="Whoops. You tried to venture off to a route that leads to nowhere and therefore does not exist!"
+                    secondaryMessage="Double check your URL. Perhaps somebody gave you the wrong directions! " />} />
             </Routes>
         </>
     );
