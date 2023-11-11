@@ -18,7 +18,9 @@ const App = () => {
                 <Route path="/entries/browse" element={<JournalEntriesPage />} />
                 <Route path="/entries/new" element={<CreateEntryPage />} />
                 <Route path="/entries/viewing" element={<JournalEntryDetail />} />
-                <Route path="/entries/error" element={<JournalEntryDetail />} />
+                <Route path="/entries/error" element={<NotFound
+                    primaryMessage="It seems that the journal entry page you're looking for is not found. It might already got thrown into the bonfire."
+                    secondaryMessage="Entries can't stay hanging here. We need to burn them eventually." />} />
 
                 {/* Display 404 page not found if no routes match the above */}
                 <Route path="*" element={<NotFound

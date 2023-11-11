@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import "./JournalEntryDetail.scss"
 import Background from "../components/visuals/Background"
 
@@ -7,6 +7,7 @@ import Background from "../components/visuals/Background"
 const JournalEntryDetail = () => {
 
     const location = useLocation()
+    const navigate = useNavigate()
 
 
     const [journalEntryData, setJournalEntryData] = useState(undefined)
@@ -41,14 +42,15 @@ const JournalEntryDetail = () => {
                     dateCreated.current = new Date(data.dateCreated)
                     
                 } else {
-                    //TODO display error on screen
-                    console.error("response not ok -- " + response.status)
+                    
+                    if (response.status === 404) {
+                        navigate("/entries/error")
+                    }
+                    
                 }
             }
         };
         fetchEntry()
-
-        console.log(journalEntryData)
 
     }, [location.search, journalEntryData])
 
