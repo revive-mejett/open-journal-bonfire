@@ -41,7 +41,10 @@ const JournalEntriesPage = () => {
                 } else {
                     let data = await response.json()
                     setEntryData(data)
+
                     setIsFetching(false)
+
+
                 }
             } catch (error) {
                 console.error("Error fetching match data --> ", error)
@@ -104,14 +107,14 @@ const JournalEntriesPage = () => {
                 </Formik>
             </section>
 
-            {isFetching ?
+            {!isFetching ?
                 <section className="entries-container">
                     {entryData &&
                         entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
                     }
                 </section>
                 :
-                <Loading/>
+                <Loading />
             }
 
 
