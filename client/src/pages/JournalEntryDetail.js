@@ -52,7 +52,7 @@ const JournalEntryDetail = () => {
         };
         fetchEntry()
 
-    }, [location.search, journalEntryData])
+    }, [location.search, journalEntryData, navigate])
 
     return (
         <main className="journal-entry-detail-main">
