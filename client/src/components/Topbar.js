@@ -21,7 +21,7 @@ const Topbar = () => {
                     <Link to="/entries/new">New Anonymous Entry</Link>
                 </li>
                 <li>
-                    <Link to="/stats">Recent Stats</Link>
+                    <Link to="/bonfire-statistics">Bonfire Statistics</Link>
                 </li>
             </ul>
 
