@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import "./JournalEntryDetail.scss"
 import Background from "../components/visuals/Background"
+import Loading from "../components/visuals/Loading"
 
 
 const JournalEntryDetail = () => {
@@ -11,6 +12,7 @@ const JournalEntryDetail = () => {
 
 
     const [journalEntryData, setJournalEntryData] = useState(undefined)
+    const [isFetching, setIsFetching] = useState(true)
 
     let dateCreated = useRef()
 
@@ -29,6 +31,7 @@ const JournalEntryDetail = () => {
 
                 //call the appropriate api route if user wants to fetch a random journal entry or fetch a specific if of the journal entry
                 if (searchId === "random") {
+                    setIsFetching(true)
                     fetchUrl = "/api/journalentries/random"
                 } else {
                     fetchUrl = baseUrl + searchId 
@@ -39,6 +42,8 @@ const JournalEntryDetail = () => {
                 if (response.ok) {
                     data = await response.json()
                     setJournalEntryData(data)
+                    console.log("fetched")
+                    setIsFetching(false)
                     dateCreated.current = new Date(data.dateCreated)
                     
                 } else {
@@ -58,7 +63,7 @@ const JournalEntryDetail = () => {
         <main className="journal-entry-detail-main">
             <Background/>
             {
-                journalEntryData &&
+                journalEntryData && !isFetching ?
                 <section className="journal-entry-page">
                     
                     {dateCreated &&
@@ -80,10 +85,11 @@ const JournalEntryDetail = () => {
                             {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event.keyword}</p>)}
                         </div>
                     </div>
-
-
+                    <Loading/>
                 </section>
-            }
+                :
+                <Loading/>
+                }
         </main>
 
     )
