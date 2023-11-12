@@ -11,7 +11,7 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     z-index: 999;
-    height: 80px;
+    min-height: 80px;
     img {
         width: 80px;
         height: 80px;
@@ -23,17 +23,22 @@
         font-size: 3em;
         font-family: "Calligraffitti";
         color: $color-positive-5;
+        margin: 0;
     }
 
     ul {
         list-style: none;
         display: flex;
-        flex-direction: row;
+        flex-flow: row wrap;
         margin: 0;
         padding: 0;
         li {
             @include link-container;
-            display: inline-block;
+            width: fit-content;
+            min-width: 200px;
+            height: 100%;
+            padding: 0;
+            display: block;
         }
     }
 }

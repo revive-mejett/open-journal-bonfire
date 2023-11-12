@@ -23,8 +23,9 @@
     a {
         color: inherit;
         text-decoration: none;
-        display: inline-block;
-        width: 100%;
+        display: block;
+        width: fit-content;
         height: 100%;
+        padding: 0.5em;
     }
 }
