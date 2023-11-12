@@ -13,6 +13,7 @@
 
     &:hover {
         cursor: pointer;
+        animation: hoveranimation 0.25s ease-in-out forwards;
     }
     
 }
@@ -25,5 +26,12 @@
         display: block;
         height: 100%;
         padding: 0.5em;
+    }
+}
+
+@keyframes hoveranimation {
+    100% {
+        background-color: $color-positive-5;
+        color: $color-base;
     }
 }
