@@ -19,12 +19,10 @@
 
 @mixin link-container {
     @include button-style;
-    margin: 1em;
     a {
         color: inherit;
         text-decoration: none;
         display: block;
-        width: fit-content;
         height: 100%;
         padding: 0.5em;
     }
