@@ -6,11 +6,13 @@ import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
 import Background from "../components/visuals/Background"
+import Loading from "../components/visuals/Loading"
 
 
 const JournalEntriesPage = () => {
 
     const [entryData, setEntryData] = useState(undefined)
+    const [isFetching, setIsFetching] = useState(true)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -39,6 +41,10 @@ const JournalEntriesPage = () => {
                 } else {
                     let data = await response.json()
                     setEntryData(data)
+
+                    setIsFetching(false)
+
+
                 }
             } catch (error) {
                 console.error("Error fetching match data --> ", error)
@@ -51,7 +57,7 @@ const JournalEntriesPage = () => {
 
     return (
         <main className="jounal-entries-page-main">
-            <Background/>
+            <Background />
             <section className="filters-container">
                 <Formik
                     initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: -10, maxSelfRating: 10, sortOrder: "newest" }}
@@ -100,11 +106,17 @@ const JournalEntriesPage = () => {
                     </form>)}
                 </Formik>
             </section>
-            <section className="entries-container">
-                {entryData &&
-                    entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
-                }
-            </section>
+
+            {!isFetching ?
+                <section className="entries-container">
+                    {entryData &&
+                        entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+                    }
+                </section>
+                :
+                <Loading />
+            }
+
 
         </main>
     )

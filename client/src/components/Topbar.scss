@@ -29,6 +29,8 @@
         list-style: none;
         display: flex;
         flex-direction: row;
+        margin: 0;
+        padding: 0;
         li {
             @include link-container;
             display: inline-block;

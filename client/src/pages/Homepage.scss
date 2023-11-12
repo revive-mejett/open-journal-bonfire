@@ -44,7 +44,6 @@ $particle-size-final: 10px;
         }
 
         .fire-container-introsection {
-            overflow: hidden;
             grid-row-start: 1;
             grid-row-end: -1;
             grid-column-start: 2;
@@ -77,8 +76,9 @@ $particle-size-final: 10px;
                 left: -10%;
                 bottom: (random($limit: 45) * 1%);
                 border: black solid 1px;
+                opacity: 0;
 
-                @for $i from 0 to 5 {
+                @for $i from 0 to 2 {
                     &:nth-child(#{$i + 1}) {
                         transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
                         bottom: (random($limit: 40) * 1% + 10%);

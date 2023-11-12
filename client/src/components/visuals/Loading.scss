@@ -1,0 +1,62 @@
+@import "../../common/variables.scss";
+
+.loading-visual {
+    position: relative;
+
+    width: 50%;
+    height: 500px;
+    margin: auto;
+    h2 {
+        text-align: center;
+    }
+    .paper-piece {
+        position: absolute;
+        background-color: $color-paper-light;
+        border: $color-border 1px solid;
+        width: 60px;
+        height: 45px;
+        transform: skew(45deg) translate(-40%, -40%);
+        left: 52%;
+    }
+
+    .paper-still {
+        @for $i from 0 through 5 {
+            &:nth-child(#{$i + 1}) {
+                rotate: -20deg + calc((random($limit: 100) - 50) / 100 * 10deg);
+                bottom: percentage(calc($i * 4 / 100 + 0.1));
+            }
+        }
+    }
+
+    .flying-papers {
+        .paper-flying {
+            bottom: 0%;
+            opacity: 0%;
+            @for $i from 0 through 5 {
+                &:nth-child(#{$i + 1}) {
+                    rotate: -20deg + calc((random($limit: 100) - 50) / 100 * 10deg);
+                    bottom: percentage(calc($i * 4 / 100 + 0.1));
+                    animation: loading calc($i * 0.25s) ease-in infinite;
+                    animation-delay: 0s;
+                }
+            }
+        }
+    }
+
+    
+    
+    
+    @keyframes loading {
+        from {
+            bottom: percentage(calc(5 * 4 / 100 + 0.1));
+            opacity: 100%;
+        }
+        to {
+            bottom: 100%;
+            background-color: $color-base-bright;
+            opacity: 0%;
+        }
+    }
+    
+}
+
