@@ -1,11 +1,9 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, BarChart, Bar } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, BarChart, Bar, Label } from 'recharts';
 
 
 const BonfireStatistics = () => {
 
-    const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page B', uv: 300, pv: 1398, amt: 2210 },
-    { name: 'Page C', uv: 200, pv: 9800, amt: 2290 },]
+
 
     let selfRatings = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10]
 
@@ -18,12 +16,18 @@ const BonfireStatistics = () => {
 
 
     const testgraph = (
-        <BarChart width={400} height={400} data={data2}>
+        <BarChart width={1200} height={600} data={data2} margin={{top: 20, right: 20, left: 20, bottom: 40}}>
             {selfRatings.map(r => {
                 return (
                     <Bar dataKey="count"></Bar>
                 )
             })}
+            <XAxis dataKey={"name"} axisLine={{stroke: "#d0a1ff"}} tick={{fill: "#64FFDD"}}>
+                <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill="#d0a1ff"></Label> 
+            </XAxis>
+            <YAxis dataKey={"count"} axisLine={{stroke: "#d0a1ff"}} tick={{fill: "#64FFDD"}}>
+                <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill="#d0a1ff"></Label> 
+            </YAxis>
         </BarChart>
     )
     return (
