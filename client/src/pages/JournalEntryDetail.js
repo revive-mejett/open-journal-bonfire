@@ -42,7 +42,6 @@ const JournalEntryDetail = () => {
                 if (response.ok) {
                     data = await response.json()
                     setJournalEntryData(data)
-                    console.log("fetched")
                     setIsFetching(false)
                     dateCreated.current = new Date(data.dateCreated)
                     
