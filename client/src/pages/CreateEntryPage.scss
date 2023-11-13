@@ -61,6 +61,7 @@
     }
 
     .create-entry-submit-button {
+        @include button-style;
         width: 30vw;
         font-size: 200%;
         padding: 0.25em;
