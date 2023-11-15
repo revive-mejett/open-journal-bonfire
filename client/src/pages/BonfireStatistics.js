@@ -28,10 +28,12 @@ let colorMap = new Map([
 ])
 
 // test data to use in charts
-const testColor1 = 'rgba(255,0,0,0.1)'
-const testColor2 = 'rgba(255,255,0,0.1)'
-const testColor3 = 'rgba(0,255,0,0.1)'
-const testColor4 = 'rgba(0,255,255,0.1)'
+const positiveColor = 'rgba(255,124,2, 0.1)'
+const neutralColor = 'rgba(72,22,122, 0.1)'
+const negativeColor = 'rgba(22, 141, 238, 0.1)'
+
+const positiveColorText = colorMap.get(10)
+const negativeColorText = colorMap.get(-10)
 
 const selfRatingTestData = selfRatings.map(rating => {
     return {
@@ -43,99 +45,81 @@ const selfRatingTestData = selfRatings.map(rating => {
 const keywordTestData = [
     {
         name: "Amazing day",
-        color: testColor1,
+        color: positiveColor,
         children: [
             {
                 name: "Sunny day",
-                color: testColor1,
+                color: positiveColor,
                 size: 340
             },
             {
                 name: "Passed test",
-                color: testColor1,
+                color: positiveColor,
                 size: 640
             },
             {
                 name: "New car",
-                color: testColor1,
+                color: positiveColor,
                 size: 1000
             },
             {
                 name: "Ate peperroni",
-                color: testColor1,
+                color: positiveColor,
                 size: 920
             },
             {
                 name: "Drank a nice iced capp",
-                color: testColor1,
+                color: positiveColor,
                 size: 920
             },
         ]
     },
     {
         name: "okay day",
-        color: testColor2,
+        color: neutralColor,
         children: [
             {
                 name: "Cloudy day",
-                color: testColor2,
+                color: neutralColor,
                 size: 100
             },
             {
                 name: "did laundry",
-                color: testColor2,
+                color: neutralColor,
                 size: 100
             },
             {
                 name: "nothing too special",
-                color: testColor2,
+                color: neutralColor,
                 size: 100
             },
         ]
     },
     {
         name: "bad day",
-        color: testColor3,
+        color: negativeColor,
         children: [
             {
                 name: "rainy day",
-                color: testColor3,
+                color: negativeColor,
                 size: 200
             },
             {
                 name: "failed my semester",
-                color: testColor3,
+                color: negativeColor,
                 size: 700
             },
             {
                 name: "had breakup",
-                color: testColor3,
+                color: negativeColor,
                 size: 1600
             },
         ]
     },
-    {
-        name: "best day ever",
-        color: testColor4,
-        children: [
-            {
-                name: "bought house",
-                color: testColor4,
-                size: 2100
-            },
-            {
-                name: "got married",
-                color: testColor4,
-                size: 2500
-            },
-        ]
-    }
 ]
 
 
 const BonfireStatistics = () => {
-
-
     const selfRatingBar = (
         <BarChart width={1000} height={600} data={selfRatingTestData} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
             <Bar dataKey="count" fill="white" label={{ position: "top" }}>
@@ -157,54 +141,57 @@ const BonfireStatistics = () => {
     )
 
     const CustomKeywordCloud = (props) => {
+        //will work with the payload in the future
         const { x, y, width, height, index, payload, depth, name, color } = props;
 
         return (
             <g>
-                {/* <circle
-                    x={x}
-                    y={y}
-                    cx={width}
-                    cy={height}
-                    r={width / 8}
-                    style={{
-                        fill: color, // Use the color specified in your data
-                        stroke: '#fff',
-                        strokeWidth: 2,
-                    }}
-                ></circle> */}
                 <rect
                     x={x}
                     y={y}
                     width={width}
                     height={height}
-                    style={{
-                        fill: color, // Use the color specified in your data
-                        stroke: '#fff',
-                        strokeWidth: 2,
-                        zIndex: 13
-                    }}
+                    fill="transparent"
+                    stroke='red'
                 ></rect>
-                <text
-                    x={x + width / 2}
-                    y={y  + width / 2}
-                    width={width}
-                    height={height}
-                    textAnchor="middle"
-                    alignmentBaseline='middle'
-                    fill="#000"
-                    fontSize={14}
-                    style={{ width: `100%` }}
-                >
-                    {name}
-                </text>
+                {
+                    width >= 100 ?
+                        <text
+                            x={x + width / 2}
+                            y={y + height / 2}
+                            width={width}
+                            height={height}
+                            textAnchor="middle"
+                            alignmentBaseline='middle'
+                            fill={positiveColorText}
+                            fontSize={width / 10}>
+                        {name}
+                        </text> : null
+                }
+                {
+                    depth !== 0 ?
+                        <circle
+                            cx={x + width / 2}
+                            cy={y + height / 2}
+                            r={width > height ? height / 2 : width / 2}
+                            style={{
+                                fill: color, // Use the color specified in your data
+                                stroke: '#fff',
+                                strokeWidth: 2,
+                            }}
+                        >
+                        </circle>
+                        :
+                        null
+                }
+
 
             </g>
         )
     }
 
     const keywordCloud = (
-        <ResponsiveContainer width="100%" height={500}>
+        <ResponsiveContainer width="100%" height={1200}>
             <Treemap width={200} height={500} data={keywordTestData} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
 
             </Treemap>
@@ -225,8 +212,6 @@ const BonfireStatistics = () => {
 
                 <div className="chart-container">
                     <h2>Frequently used event tags</h2>
-                    {keywordCloud}
-                    <h2>eeewww</h2>
                     {keywordCloud}
                 </div>
             </section>
