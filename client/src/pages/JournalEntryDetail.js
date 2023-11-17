@@ -84,7 +84,6 @@ const JournalEntryDetail = () => {
                             {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event.keyword}</p>)}
                         </div>
                     </div>
-                    <Loading/>
                 </section>
                 :
                 <Loading/>
