@@ -28,9 +28,7 @@ let colorMap = new Map([
 ])
 
 // test data to use in charts
-const positiveColor = 'rgba(255,124,2, 0.1)'
-const neutralColor = 'rgba(72,22,122, 0.1)'
-const negativeColor = 'rgba(22, 141, 238, 0.1)'
+
 
 const borderColor = "#d0a1ff"
 
