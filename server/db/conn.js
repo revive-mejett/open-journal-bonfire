@@ -157,7 +157,7 @@ class Database {
             {
                 $group : {
                     _id: "$selfRating",
-                    numberEntries: { $count : {} }
+                    numberEntries: { $sum: 1 }
                 },
     
             },
