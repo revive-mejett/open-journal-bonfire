@@ -1,5 +1,5 @@
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, BarChart, Bar, Label, Cell, Legend, ResponsiveContainer, Treemap } from 'recharts';
-
+import { keywordTestData } from '../assets/dummyStats';
 
 let selfRatings = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -32,6 +32,8 @@ const positiveColor = 'rgba(255,124,2, 0.1)'
 const neutralColor = 'rgba(72,22,122, 0.1)'
 const negativeColor = 'rgba(22, 141, 238, 0.1)'
 
+const borderColor = "#d0a1ff"
+
 const positiveColorText = colorMap.get(10)
 const negativeColorText = colorMap.get(-10)
 
@@ -42,81 +44,7 @@ const selfRatingTestData = selfRatings.map(rating => {
     }
 })
 
-const keywordTestData = [
-    {
-        name: "Amazing day",
-        color: positiveColor,
-        children: [
-            {
-                name: "Sunny day",
-                color: positiveColor,
-                size: 340
-            },
-            {
-                name: "Passed test",
-                color: positiveColor,
-                size: 640
-            },
-            {
-                name: "New car",
-                color: positiveColor,
-                size: 1000
-            },
-            {
-                name: "Ate peperroni",
-                color: positiveColor,
-                size: 920
-            },
-            {
-                name: "Drank a nice iced capp",
-                color: positiveColor,
-                size: 920
-            },
-        ]
-    },
-    {
-        name: "okay day",
-        color: neutralColor,
-        children: [
-            {
-                name: "Cloudy day",
-                color: neutralColor,
-                size: 100
-            },
-            {
-                name: "did laundry",
-                color: neutralColor,
-                size: 100
-            },
-            {
-                name: "nothing too special",
-                color: neutralColor,
-                size: 100
-            },
-        ]
-    },
-    {
-        name: "bad day",
-        color: negativeColor,
-        children: [
-            {
-                name: "rainy day",
-                color: negativeColor,
-                size: 200
-            },
-            {
-                name: "failed my semester",
-                color: negativeColor,
-                size: 700
-            },
-            {
-                name: "had breakup",
-                color: negativeColor,
-                size: 1600
-            },
-        ]
-    },
-]
+
 
 
 const BonfireStatistics = () => {
@@ -131,11 +59,11 @@ const BonfireStatistics = () => {
 
             </Bar>
 
-            <XAxis dataKey={"name"} axisLine={{ stroke: "#d0a1ff" }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill="#d0a1ff"></Label>
+            <XAxis dataKey={"name"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
+                <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill={borderColor}></Label>
             </XAxis>
-            <YAxis dataKey={"count"} axisLine={{ stroke: "#d0a1ff" }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill="#d0a1ff"></Label>
+            <YAxis dataKey={"count"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
+                <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill={borderColor}></Label>
             </YAxis>
         </BarChart>
     )
