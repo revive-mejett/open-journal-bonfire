@@ -148,6 +148,36 @@ router.get("/frequent-event-tags", async (req, res) => {
     }
 })
 
+//statistics bonfire data api routes
+router.get("/stats/self-rating-distribution", async (req, res) => {
 
+    try {
+        let rawDistribution = await db.getSelfRatingDistribution()
+
+        //include ratings values where the number of entries are 0
+        //since the db aggregation only finds and groups each self-rating if it has at least 1 entry with that rating
+        //ex: if no entries in the sample are rated 7, it's not listed part of the distribution after aggregation
+        //here I manually include them.
+
+        let distribution = [
+            ...rawDistribution
+        ]
+
+        //finds any self-rating value from -10 to 10 (possible range of self rating values) if it's not listed in the raw distribution
+        //adds any missing, setting numberEntries to 0
+        for (let i = -10; i <= 10; i++) {
+            if (!rawDistribution.find(selfRating => selfRating.rating === i)) {
+                distribution.push({rating: i, numberEntries: 0})
+            }
+        }
+        res.status(200).json(distribution)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch statistics (self-rating distribution stats)"
+        })
+    }
+})
 
 export default router

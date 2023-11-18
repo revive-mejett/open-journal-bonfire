@@ -24,71 +24,6 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-
-        //TODO Remove test code later
-        // const test1 = new FrequentEventTag({
-        //     keyword: "test neutral tag 1",
-        //     magnitude: 0,
-        //     permanent: true
-        // })
-
-        // const test2 = new FrequentEventTag({
-        //     keyword: "test neutral tag 2",
-        //     magnitude: 0,
-        //     permanent: true
-        // })
-
-        // test1.save()
-        // test2.save()
-
-        // await testTag.save()
-
-
-        //TODO delete this once done
-        // await FrequentEventTag.deleteMany({})
-
-        // const testNewEntry = new JournalEntry({
-        //     title: "test updated new entry",
-        //     entryContent: "testing new updating schema",
-        //     selfRating: 7,
-        //     greatEvents: [
-        //         {
-        //             keyword: "great event 1",
-        //             magnitude: 2,
-        //             weight: 10
-        //         },
-        //         {
-        //             keyword: "great event 2",
-        //             magnitude: 4,
-        //             weight: 40
-        //         },
-        //         {
-        //             keyword: "great event 3",
-        //             magnitude: 7,
-        //             weight: 320
-        //         }
-        //     ],
-        //     neutralEvents: [
-        //         {
-        //             keyword: "neutral event 1",
-        //             magnitude: 0,
-        //             weight: 0
-        //         }
-        //     ],
-        //     badEvents: [
-        //         {
-        //             keyword: "bad event 1",
-        //             magnitude: -2,
-        //             weight: -10
-        //         },
-        //         {
-        //             keyword: "bad event 2",
-        //             magnitude: -4,
-        //             weight: -40
-        //         },
-        //     ]
-        // })
-        // await testNewEntry.save()
     }
 
     /**
@@ -211,8 +146,39 @@ class Database {
         } catch (error) {
             return []
         }
-
     }
+
+
+    // statistics operations===
+
+
+    async getSelfRatingDistribution() {
+        const collectedSelfRatings = await JournalEntry.aggregate([
+            {
+                $group : {
+                    _id: "$selfRating",
+                    numberEntries: { $sum: 1 }
+                },
+    
+            },
+            {
+                $project : {
+                    rating: "$_id",
+                    numberEntries: "$numberEntries",
+                    _id: 0,
+                },
+            },
+            {
+                $sort : {
+                    rating: 1
+                },
+            }
+        ])
+
+
+        return collectedSelfRatings
+    }
+
 }
 
 
