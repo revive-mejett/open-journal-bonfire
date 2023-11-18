@@ -31,7 +31,6 @@ let colorMap = new Map([
 // test data to use in charts
 
 
-const borderColor = "#d0a1ff"
 
 
 const positiveColorText = colorMap.get(10)

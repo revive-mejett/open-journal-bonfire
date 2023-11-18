@@ -29,13 +29,6 @@ let colorMap = new Map([
 const borderColor = "#d0a1ff"
 const fontColor = "#64FFDD"
 
-let selfRatings = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const selfRatingTestData = selfRatings.map(rating => {
-    return {
-        name: rating,
-        count: Math.floor(Math.random() * 100)
-    }
-})
 
 const SelfRatingDistribution = () => {
 
@@ -50,17 +43,19 @@ const SelfRatingDistribution = () => {
                     console.log("response not ok")
                 } else {
                     let data = await response.json()
-                    data = data.sort((a,b) => a.rating-b.rating)
+                    data = data.sort((a,b) => a.rating - b.rating)
                     setData(data)
+
+                    
                 }
             } catch (error) {
                 console.error("Error fetching match data --> ", error)
             }
         }
-        if (!data) {
+        if (data === undefined) {
             fetchData()
         }
-    }, [])
+    }, [data])
 
     return (
         <>
