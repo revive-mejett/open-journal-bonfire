@@ -184,12 +184,36 @@ class Database {
         const eventTagFrequency = await JournalEntry.aggregate([
 
             {
+                //merge all good, neutral and bad events into all event tags for each entry
                 $project: {
                     allEventTags : {
                         $concatArrays : ["$greatEvents", "$neutralEvents", "$badEvents"]
                     }
                 }
-            }
+            },
+            {
+                //group all event tag uses from all the entries
+                $group: {
+                    _id : {
+                        day : new Date()
+                    },
+                    combinedEventTags : {
+                        $push : "$allEventTags"
+                    }
+                }
+            },
+            {
+                // flattens resulting 2d array of event tage, each subarray belonging to an entry into a 1d array of all event tag uses from
+                $project: {
+                    combinedEventTags : {
+                        $reduce : {
+                            input: "$combinedEventTags",
+                            initialValue: [],
+                            in: {$concatArrays : ["$$value", "$$this"] }
+                        }
+                    }
+                }
+            },
         ])
 
         console.log(eventTagFrequency)
