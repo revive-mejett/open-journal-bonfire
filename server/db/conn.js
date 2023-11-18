@@ -24,6 +24,7 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
+        await this.getEventTagUsageFrequency()
     }
 
     /**
@@ -177,6 +178,22 @@ class Database {
 
 
         return collectedSelfRatings
+    }
+
+    async getEventTagUsageFrequency() {
+        const eventTagFrequency = await JournalEntry.aggregate([
+
+            {
+                $project: {
+                    allEventTags : {
+                        $concatArrays : ["$greatEvents", "$neutralEvents", "$badEvents"]
+                    }
+                }
+            }
+        ])
+
+        console.log(eventTagFrequency)
+        return eventTagFrequency
     }
 
 }
