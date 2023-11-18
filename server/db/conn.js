@@ -24,7 +24,6 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-        await this.getSelfRatingDistribution()
     }
 
     /**
@@ -152,6 +151,7 @@ class Database {
 
     // statistics operations===
 
+
     async getSelfRatingDistribution() {
         const collectedSelfRatings = await JournalEntry.aggregate([
             {
@@ -175,8 +175,8 @@ class Database {
             }
         ])
 
-        console.log(collectedSelfRatings)
-        return
+
+        return collectedSelfRatings
     }
 
 }
