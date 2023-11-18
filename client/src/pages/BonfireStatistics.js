@@ -1,4 +1,4 @@
-import { XAxis, YAxis, BarChart, Bar, Label, Cell, ResponsiveContainer, Treemap } from 'recharts';
+import { ResponsiveContainer, Treemap } from 'recharts';
 import { keywordTestData } from '../assets/dummyStats';
 import SelfRatingDistribution from '../components/charts/SelfRatingDistribution';
 
@@ -32,6 +32,7 @@ let colorMap = new Map([
 
 
 const borderColor = "#d0a1ff"
+
 
 const positiveColorText = colorMap.get(10)
 const negativeColorText = colorMap.get(-10)

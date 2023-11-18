@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react"
 import { Bar, BarChart, Label, Cell, XAxis, YAxis } from "recharts"
+import Loading from "../visuals/Loading"
 
 let colorMap = new Map([
     [-10, "rgb(105, 212, 255)"],
@@ -25,6 +27,7 @@ let colorMap = new Map([
 ])
 
 const borderColor = "#d0a1ff"
+const fontColor = "#64FFDD"
 
 let selfRatings = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const selfRatingTestData = selfRatings.map(rating => {
@@ -35,25 +38,56 @@ const selfRatingTestData = selfRatings.map(rating => {
 })
 
 const SelfRatingDistribution = () => {
-    
+
+    let [data, setData] = useState(undefined)
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            try {
+                let response = await fetch("/api/stats/self-rating-distribution")
+                if (!response.ok) {
+                    console.log("response not ok")
+                } else {
+                    let data = await response.json()
+                    data = data.sort((a,b) => a.rating-b.rating)
+                    setData(data)
+                }
+            } catch (error) {
+                console.error("Error fetching match data --> ", error)
+            }
+        }
+        if (!data) {
+            fetchData()
+        }
+    }, [])
+
     return (
-        <BarChart width={1000} height={600} data={selfRatingTestData} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
-            <Bar dataKey="count" fill="white" label={{ position: "top" }}>
-                {selfRatingTestData.map((data, i) => {
-                    return (
-                        <Cell key={`cell-${i}`} fill={colorMap.get(data.name)}></Cell>
-                    )
-                })}
+        <>
+            {
+                data ?
+                    <BarChart width={1000} height={600} data={data} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
+                        <Bar dataKey="numberEntries" fill="white" label={{ position: "top" }}>
+                            {data.map((selfRating, index) => {
+                                return (
+                                    <Cell key={`cell-${index}`} fill={colorMap.get(selfRating.rating)}></Cell>
+                                )
+                            })}
 
-            </Bar>
+                        </Bar>
 
-            <XAxis dataKey={"name"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill={borderColor}></Label>
-            </XAxis>
-            <YAxis dataKey={"count"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill={borderColor}></Label>
-            </YAxis>
-        </BarChart>
+                        <XAxis dataKey={"rating"} axisLine={{ stroke: borderColor }} tick={{ fill: fontColor }}>
+                            <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill={borderColor}></Label>
+                        </XAxis>
+                        <YAxis dataKey={"numberEntries"} axisLine={{ stroke: borderColor }} tick={{ fill: fontColor }}>
+                            <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill={borderColor}></Label>
+                        </YAxis>
+                    </BarChart>
+                    :
+                    <Loading/>
+            }
+        </>
+
     )
 }
 
