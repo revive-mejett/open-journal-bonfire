@@ -180,4 +180,20 @@ router.get("/stats/self-rating-distribution", async (req, res) => {
     }
 })
 
+
+router.get("/stats/event-tag-usage-frequency", async (req, res) => {
+
+    try {
+        let rawData = await db.getEventTagUsageFrequency()
+
+        res.status(200).json(rawData)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch statistics (self-rating distribution stats)"
+        })
+    }
+})
+
 export default router
