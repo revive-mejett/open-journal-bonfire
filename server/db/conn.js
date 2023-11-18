@@ -155,21 +155,21 @@ class Database {
     async getSelfRatingDistribution() {
         const collectedSelfRatings = await JournalEntry.aggregate([
             {
-                $group : {
+                $group: {
                     _id: "$selfRating",
                     numberEntries: { $sum: 1 }
                 },
-    
+
             },
             {
-                $project : {
+                $project: {
                     rating: "$_id",
                     numberEntries: "$numberEntries",
                     _id: 0,
                 },
             },
             {
-                $sort : {
+                $sort: {
                     rating: 1
                 },
             }
