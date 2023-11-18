@@ -1,7 +1,8 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, BarChart, Bar, Label, Cell, Legend, ResponsiveContainer, Treemap } from 'recharts';
+import { XAxis, YAxis, BarChart, Bar, Label, Cell, ResponsiveContainer, Treemap } from 'recharts';
 import { keywordTestData } from '../assets/dummyStats';
+import SelfRatingDistribution from '../components/charts/SelfRatingDistribution';
 
-let selfRatings = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 
 let colorMap = new Map([
     [-10, "rgb(105, 212, 255)"],
@@ -35,36 +36,8 @@ const borderColor = "#d0a1ff"
 const positiveColorText = colorMap.get(10)
 const negativeColorText = colorMap.get(-10)
 
-const selfRatingTestData = selfRatings.map(rating => {
-    return {
-        name: rating,
-        count: Math.floor(Math.random() * 100)
-    }
-})
-
-
-
 
 const BonfireStatistics = () => {
-    const selfRatingBar = (
-        <BarChart width={1000} height={600} data={selfRatingTestData} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
-            <Bar dataKey="count" fill="white" label={{ position: "top" }}>
-                {selfRatingTestData.map((data, i) => {
-                    return (
-                        <Cell key={`cell-${i}`} fill={colorMap.get(data.name)}></Cell>
-                    )
-                })}
-
-            </Bar>
-
-            <XAxis dataKey={"name"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Self-rating"} position={"insideTopRight"} offset={30} fill={borderColor}></Label>
-            </XAxis>
-            <YAxis dataKey={"count"} axisLine={{ stroke: borderColor }} tick={{ fill: "#64FFDD" }}>
-                <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill={borderColor}></Label>
-            </YAxis>
-        </BarChart>
-    )
 
     const CustomKeywordCloud = (props) => {
         //will work with the payload in the future
@@ -130,7 +103,7 @@ const BonfireStatistics = () => {
             <section className="self-rating-count-stats">
                 <h2>Distribution of Self-rating</h2>
                 <div className="chart-container">
-                    {selfRatingBar}
+                    <SelfRatingDistribution/>
                 </div>
             </section>
 
