@@ -1,4 +1,4 @@
-import express, { raw } from "express";
+import express from "express";
 //import { ObjectId } from "mongodb";
 import Database from "../db/conn.js";
 
@@ -175,7 +175,7 @@ router.get("/stats/self-rating-distribution", async (req, res) => {
         console.log(error.message)
         res.status(500).json({
             status: "error",
-            payload: "Failed to fetch statistics - self-rating distribution"
+            payload: "Failed to fetch statistics (self-rating distribution stats)"
         })
     }
 })
