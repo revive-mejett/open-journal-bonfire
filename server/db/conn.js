@@ -24,7 +24,14 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-        await this.getEventTagUsageFrequency()
+
+        // await JournalEntry.updateMany(
+        //     {
+        //         _id : {
+        //             $in : ["653af5761be39a6b95c2023f", "653af5761be39a6b95c2023f"]
+        //         }
+        //     }
+        // )
     }
 
     /**
@@ -150,6 +157,12 @@ class Database {
     }
 
 
+    //TODO increment the frequency of existing event tags when posting an entry
+    // this will pass an array of existing objectids and usee $in operator for updataMany
+    async updateEventTags() {
+        console.log("to be implemented")
+    }
+        
     // statistics operations===
 
 
@@ -180,6 +193,10 @@ class Database {
         return collectedSelfRatings
     }
 
+
+
+
+    // Might cause performance issues; may have to remove it. 
     async getEventTagUsageFrequency() {
         const eventTagFrequency = await JournalEntry.aggregate([
 
@@ -192,7 +209,7 @@ class Database {
                 }
             },
             {
-                //group all event tag uses from all the entries
+                //group all event tag uses from all the entries86
                 $group: {
                     _id : {
                         day : new Date()
@@ -216,9 +233,10 @@ class Database {
             },
         ])
 
-        console.log(eventTagFrequency)
         return eventTagFrequency
     }
+
+
 
 }
 
