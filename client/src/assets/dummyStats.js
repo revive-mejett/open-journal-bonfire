@@ -1,4 +1,3 @@
-"#d0a1ff"
 
 const keywordTestData = [
     {

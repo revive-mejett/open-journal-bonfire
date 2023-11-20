@@ -205,7 +205,7 @@ class Database {
                 $project: {
                     allEventTags : {
                         $concatArrays : ["$greatEvents", "$neutralEvents", "$badEvents"]
-                    }
+                    },
                 }
             },
             {
@@ -232,7 +232,7 @@ class Database {
                 }
             },
         ])
-
+        
         return eventTagFrequency
     }
 

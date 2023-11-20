@@ -190,20 +190,21 @@ router.get("/stats/event-tag-usage-frequency", async (req, res) => {
         let eventTagMap = new Map()
         rawData[0].combinedEventTags.forEach(eventTag => {
             if (eventTagMap.get(eventTag.keyword) !== undefined) {
-                eventTagMap.set(eventTag.keyword, eventTagMap.get(eventTag.keyword) + 1)
+                eventTagMap.set(eventTag.keyword, {frequency: eventTagMap.get(eventTag.keyword).frequency + 1, weight: eventTag.weight})
             } else {
-                eventTagMap.set(eventTag.keyword, 1)
+                eventTagMap.set(eventTag.keyword, {frequency: 1, weight: eventTag.weight})
             }
         })
 
         //convert map to array and sort keywords alphabetically
         let eventTagArray = Array.from(eventTagMap)
-        eventTagArray = eventTagMap.sort((a, b) => a[0].localeCompare(b[0]))
+        eventTagArray = eventTagArray.sort((a, b) => a[0].localeCompare(b[0]))
 
         res.status(200).json({
             date: rawData[0].date,
             eventTagFrequency: eventTagArray
         })
+
     } catch (error) {
         console.log(error.message)
         res.status(500).json({
