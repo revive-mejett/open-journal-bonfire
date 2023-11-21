@@ -1,5 +1,3 @@
-import { ResponsiveContainer, Treemap } from 'recharts';
-import { keywordTestData } from '../assets/dummyStats';
 import SelfRatingDistribution from '../components/charts/SelfRatingDistribution';
 import KeywordCloud from '../components/charts/KeywordCloud';
 
