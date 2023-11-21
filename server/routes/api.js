@@ -201,7 +201,7 @@ router.get("/stats/event-tag-usage-frequency", async (req, res) => {
         eventTagArray = eventTagArray.sort((a, b) => a[0].localeCompare(b[0]))
 
         res.status(200).json({
-            date: rawData[0].date,
+            date: rawData[0]._id,
             eventTagFrequency: eventTagArray
         })
 

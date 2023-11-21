@@ -32,7 +32,7 @@ const fontColor = "#64FFDD"
 
 const SelfRatingDistribution = () => {
 
-    let [data, setData] = useState(undefined)
+    const [data, setData] = useState(undefined)
 
     useEffect(() => {
 
@@ -57,6 +57,7 @@ const SelfRatingDistribution = () => {
         }
     }, [data])
 
+    
     return (
         <>
             {

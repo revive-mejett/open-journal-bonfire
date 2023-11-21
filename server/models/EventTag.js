@@ -10,7 +10,7 @@ const calculateWeight = (magnitude) => {
     if (magnitude === 0) {
         return 0
     } else {
-        return 5 * 2 ** Math.abs(magnitude) * (magnitude > 0 ? 1 : -1)
+        return 5 * 2 ** Math.abs(magnitude) * (magnitude >= 0 ? 1 : -1)
     }
 }
  
