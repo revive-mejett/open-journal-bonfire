@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Loading from "../visuals/Loading";
 
 const positiveColorText = colorMap.get(10)
-const negativeColorText = colorMap.get(-10)
 
 const KeywordCloud = () => {
 
