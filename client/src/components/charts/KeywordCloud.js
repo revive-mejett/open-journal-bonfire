@@ -36,6 +36,7 @@ const KeywordCloud = () => {
                         children: []
                     }
                     ]
+
                     data.eventTagFrequency.forEach(eventTag => {
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral
@@ -56,15 +57,13 @@ const KeywordCloud = () => {
                         magnitude *= (eventTag[1].weight >= 0 ? 1 : -1)
 
 
-                        // 5 * 2 ** Math.abs(magnitude) * (magnitude > 0 ? 1 : -1)
                         processedData[processedDataIndex].children.push({
                             name: eventTag[0],
                             color: transparentColorMap.get(magnitude),
-                            size:  1 * Math.random()
+                            size:  eventTag[1].frequency * 100
                         })
 
                     })
-                    console.log(processedData)
                     setData(processedData)
 
                 }
@@ -77,8 +76,6 @@ const KeywordCloud = () => {
             fetchData()
         }
     }, [data])
-
-
 
 
     const CustomKeywordCloud = (props) => {
