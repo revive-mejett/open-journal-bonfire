@@ -2,6 +2,7 @@ import { ResponsiveContainer, Treemap } from "recharts";
 import { colorMap, transparentColorMap } from "../../assets/constants";
 import { useEffect, useState } from "react";
 import Loading from "../visuals/Loading";
+import "./KeywordCloud.scss"
 
 const positiveColorText = colorMap.get(10)
 
@@ -59,6 +60,7 @@ const KeywordCloud = () => {
                         processedData[processedDataIndex].children.push({
                             name: eventTag[0],
                             color: transparentColorMap.get(magnitude),
+                            opaqueColor: colorMap.get(magnitude),
                             size:  eventTag[1].frequency * 100
                         })
 
@@ -79,8 +81,7 @@ const KeywordCloud = () => {
 
     const CustomKeywordCloud = (props) => {
         //will work with the payload in the future
-        const { x, y, width, height, index, payload, depth, name, color } = props;
-
+        const { x, y, width, height, index, payload, depth, name, color, opaqueColor } = props;
         return (
             <g>
                 <rect
@@ -92,7 +93,7 @@ const KeywordCloud = () => {
                     // stroke='red'
                 ></rect>
                 {
-                    width >= 100 ?
+                    width >= 50 ?
                         <text
                             x={x + width / 2}
                             y={y + height / 2}
@@ -101,22 +102,23 @@ const KeywordCloud = () => {
                             textAnchor="middle"
                             alignmentBaseline='middle'
                             fill={positiveColorText}
-                            fontSize={width / 10}>
+                            fontSize={width / 10}
+                        >
                             {name}
                         </text> : null
                 }
                 {
                     depth !== 0 ?
-                        <circle
+                        <circle className="circle-point"
                             cx={x + width / 2}
                             cy={y + height / 2}
                             r={width > height ? height / 2 : width / 2}
                             style={{
                                 fill: color, // Use the color specified in your data
-                                stroke: '#fff',
+                                stroke: opaqueColor,
                                 strokeWidth: 2,
                             }}
-                        >
+                            >
                         </circle>
                         :
                         null
