@@ -180,4 +180,38 @@ router.get("/stats/self-rating-distribution", async (req, res) => {
     }
 })
 
+
+router.get("/stats/event-tag-usage-frequency", async (req, res) => {
+
+    try {
+        let rawData = await db.getEventTagUsageFrequency()
+
+        //fill a frequency map of event tag keywords, how many occurences of each keyword
+        let eventTagMap = new Map()
+        rawData[0].combinedEventTags.forEach(eventTag => {
+            if (eventTagMap.get(eventTag.keyword) !== undefined) {
+                eventTagMap.set(eventTag.keyword, {frequency: eventTagMap.get(eventTag.keyword).frequency + 1, weight: eventTag.weight})
+            } else {
+                eventTagMap.set(eventTag.keyword, {frequency: 1, weight: eventTag.weight})
+            }
+        })
+
+        //convert map to array and sort keywords alphabetically
+        let eventTagArray = Array.from(eventTagMap)
+        eventTagArray = eventTagArray.sort((a, b) => a[0].localeCompare(b[0]))
+
+        res.status(200).json({
+            date: rawData[0]._id,
+            eventTagFrequency: eventTagArray
+        })
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch statistics (self-rating distribution stats)"
+        })
+    }
+})
+
 export default router
