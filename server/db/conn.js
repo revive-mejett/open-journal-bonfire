@@ -25,13 +25,8 @@ class Database {
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
 
-        // await JournalEntry.updateMany(
-        //     {
-        //         _id : {
-        //             $in : ["653af5761be39a6b95c2023f", "653af5761be39a6b95c2023f"]
-        //         }
-        //     }
-        // )
+        let positive = await this.getSelfRatedCountByType(-1)
+        console.log(positive)
     }
 
     /**
@@ -162,9 +157,45 @@ class Database {
     async updateEventTags() {
         console.log("to be implemented")
     }
-        
-    // statistics operations===
 
+    // statistics operations===
+    async getSelfRatedCountByType(choice) {
+        let filterCondition
+
+        let entryCount
+
+
+        switch (choice) {
+        case 1:
+            filterCondition = { $gt: 0 }
+            break;
+        case 0:
+            filterCondition = { $eq: 0 }
+            break;
+        case -1:
+            filterCondition = { $lt: 0 }
+            break;
+        default:
+            filterCondition = { $gt: 0 }
+            break;
+        }
+        
+        entryCount = await JournalEntry.aggregate([
+            {
+                $match: {
+                    selfRating: filterCondition
+                }
+            },
+            {
+                $group: {
+                    _id: new Date(),
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+        return entryCount
+
+    }
 
     async getSelfRatingDistribution() {
         const collectedSelfRatings = await JournalEntry.aggregate([
@@ -203,36 +234,34 @@ class Database {
             {
                 //merge all good, neutral and bad events into all event tags for each entry
                 $project: {
-                    allEventTags : {
-                        $concatArrays : ["$greatEvents", "$neutralEvents", "$badEvents"]
+                    allEventTags: {
+                        $concatArrays: ["$greatEvents", "$neutralEvents", "$badEvents"]
                     },
                 }
             },
             {
                 //group all event tag uses from all the entries86
                 $group: {
-                    _id : {
-                        day : new Date()
-                    },
-                    combinedEventTags : {
-                        $push : "$allEventTags"
+                    _id: new Date(),
+                    combinedEventTags: {
+                        $push: "$allEventTags"
                     }
                 }
             },
             {
                 // flattens resulting 2d array of event tage, each subarray belonging to an entry into a 1d array of all event tag uses from
                 $project: {
-                    combinedEventTags : {
-                        $reduce : {
+                    combinedEventTags: {
+                        $reduce: {
                             input: "$combinedEventTags",
                             initialValue: [],
-                            in: {$concatArrays : ["$$value", "$$this"] }
+                            in: { $concatArrays: ["$$value", "$$this"] }
                         }
                     }
                 }
             },
         ])
-        
+
         return eventTagFrequency
     }
 
