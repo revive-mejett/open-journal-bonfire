@@ -155,10 +155,12 @@ router.get("/stats/general", async (req, res) => {
         let positiveSelfRatedCount = await db.getSelfRatedCountByType(1)
         let neutralSelfRatedCount = await db.getSelfRatedCountByType(0)
         let negativeSelfRatedCount = await db.getSelfRatedCountByType(-1)
+
         positiveSelfRatedCount = positiveSelfRatedCount.count
         neutralSelfRatedCount = neutralSelfRatedCount.count
         negativeSelfRatedCount = negativeSelfRatedCount.count
-        console.log(positiveSelfRatedCount)
+
+
         let totalEntries = positiveSelfRatedCount + neutralSelfRatedCount + negativeSelfRatedCount
         let percentagePositive = Math.round(positiveSelfRatedCount / totalEntries * 100)
         let percentageNegative  = Math.round(negativeSelfRatedCount / totalEntries * 100)
