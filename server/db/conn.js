@@ -227,7 +227,7 @@ class Database {
                 }
             }
         ])
-        return entryCount
+        return entryCount[0]
 
     }
 
