@@ -25,8 +25,8 @@ class Database {
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
 
-        let positive = await this.getSelfRatedCountByType(-1)
-        console.log(positive)
+        let testdata = await this.getAverageWordCount()
+        console.log(testdata)
     }
 
     /**
@@ -159,6 +159,43 @@ class Database {
     }
 
     // statistics operations===
+    async getAverageWordCount() {
+        const averageWordCount = await JournalEntry.aggregate([
+            {
+                $project: {
+                    entryContentWords: {
+                        $split: ["$entryContent", " "]
+                    }
+                }
+            },
+            {
+                $project: {
+                    wordCount: {
+                        $size: "$entryContentWords"
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: new Date(),
+                    averageWordCount: {
+                        $avg: "$wordCount",
+                    }
+                }
+            },
+            {
+                $project: {
+                    averageWordCount: {
+                        $avg: {
+                            $round: ["$averageWordCount", 0]
+                        },
+                    }
+                }
+            }
+        ])
+        return averageWordCount
+    }
+
     async getSelfRatedCountByType(choice) {
         let filterCondition
 
