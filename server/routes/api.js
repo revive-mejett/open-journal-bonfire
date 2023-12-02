@@ -149,6 +149,36 @@ router.get("/frequent-event-tags", async (req, res) => {
 })
 
 //statistics bonfire data api routes
+
+router.get("/stats/general", async (req, res) => {
+    try {
+        let positiveSelfRatedCount = await db.getSelfRatedCountByType(1)
+        let neutralSelfRatedCount = await db.getSelfRatedCountByType(0)
+        let negativeSelfRatedCount = await db.getSelfRatedCountByType(-1)
+        let totalEntries = positiveSelfRatedCount + neutralSelfRatedCount + negativeSelfRatedCount
+        let percentagePositive = Math.round(positiveSelfRatedCount / totalEntries * 100)
+        let percentageNegative  = Math.round(negativeSelfRatedCount / totalEntries * 100)
+        let percentageNeutral = 100 - percentagePositive - percentageNegative
+
+        res.status(200).json({
+            totalEntries: totalEntries,
+            positiveSelfRatedCount : positiveSelfRatedCount,
+            neutralSelfRatedCount: neutralSelfRatedCount,
+            negativeSelfRatedCount: negativeSelfRatedCount,
+            percentagePositive: percentagePositive,
+            percentageNeutral: percentageNeutral,
+            percentageNegative: percentageNegative
+        })
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: "error",
+            payload: "Failed to fetch statistics (general stats)"
+        })
+    }
+})
+
 router.get("/stats/self-rating-distribution", async (req, res) => {
 
     try {
