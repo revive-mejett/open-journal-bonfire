@@ -166,6 +166,10 @@ router.get("/stats/general", async (req, res) => {
         let percentageNegative  = Math.round(negativeSelfRatedCount / totalEntries * 100)
         let percentageNeutral = 100 - percentagePositive - percentageNegative
 
+        let averageWordCount = await db.getAverageWordCount()
+        averageWordCount = averageWordCount[0].averageWordCount
+
+
         res.status(200).json({
             totalEntries: totalEntries,
             positiveSelfRatedCount : positiveSelfRatedCount,
@@ -173,7 +177,8 @@ router.get("/stats/general", async (req, res) => {
             negativeSelfRatedCount: negativeSelfRatedCount,
             percentagePositive: percentagePositive,
             percentageNeutral: percentageNeutral,
-            percentageNegative: percentageNegative
+            percentageNegative: percentageNegative,
+            averageWordCount: averageWordCount
         })
 
     } catch (error) {
