@@ -1,8 +1,7 @@
 import SelfRatingDistribution from '../components/charts/SelfRatingDistribution';
 import KeywordCloud from '../components/charts/KeywordCloud';
+import GeneralStatistics from '../components/GeneralStatistics';
 
-
-// test data to use in charts
 
 
 const BonfireStatistics = () => {
@@ -11,6 +10,9 @@ const BonfireStatistics = () => {
     return (
         <main className="bonfire-stats-page-main">
             <h1>Bonfire statistics page</h1>
+            <section className="general-stats">
+                <GeneralStatistics/>
+            </section>
             <section className="self-rating-count-stats">
                 <h2>Distribution of Self-rating</h2>
                 <div className="chart-container">
