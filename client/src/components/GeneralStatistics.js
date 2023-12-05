@@ -113,6 +113,18 @@ const GeneralStatistics = () => {
                                 </h3>
                                 <p>{data.averageWordCount}</p>
                             </div>
+                            <div className="stat-item neutral">
+                                <h3>
+                                    Number of entries containing "hot words"
+                                </h3>
+                                <p>0*</p>
+                            </div>
+                            <div className="stat-item neutral">
+                                <h3>
+                                    Number of explicit entries
+                                </h3>
+                                <p>0*</p>
+                            </div>
                         </div>
                     </div>
                     :
