@@ -24,7 +24,13 @@ const entrySchema = new Schema({
     }],
     flairs: {type: [String], default: []},   
     // keywords which will be displayed on a card (ex: birthday, passed exam, had breakup)
-    dateCreated: {type: Date, default: Date.now}
+    numberHotWords: {type: Number, immutable: true, default: 0},
+    numberRedHotWords: {type: Number, immutable: true, default: 0},
+    numberBlacklistedWords: {type: Number, immutable: true, default: 0},
+    isExplicit: {type: Boolean, immutable: true, default: false},
+    isTooExplicit: {type: Boolean, immutable: true, default: false},
+    averageKeywordMagnitude: {type: Number, immutable: true, default: 0},
+    dateCreated: {type: Date, default: Date.now},
 })
 
 const JournalEntry = model("JournalEntry", entrySchema)
