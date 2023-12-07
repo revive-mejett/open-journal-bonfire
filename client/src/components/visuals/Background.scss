@@ -2,7 +2,7 @@
 
 .background {
     width: 100vw;
-    height: 100%;
+    height: 70%;
     z-index: -999;
     left: 0;
     top: 0;
@@ -24,7 +24,7 @@
                 rotate: random(360) * 1deg;
                 bottom: ((10 + random($limit: 80)) * 1%);
                 animation: flyingleaves random($limit: 10) * 2s ease-in-out infinite;
-                animation-delay: calc($i * 4s / 5);
+                animation-delay: calc(2s + $i * 4s / 5);
             }
         }
 
