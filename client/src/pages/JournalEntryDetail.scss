@@ -5,7 +5,7 @@
     width: 50vw;
     margin-top: 2em;
     margin-bottom: 2em;
-    height: 80vh;
+    height: fit-content;
 
     .journal-entry-page {
         @include journalpagelayout;

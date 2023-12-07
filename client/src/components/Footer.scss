@@ -1,3 +1,28 @@
+@import "../common/variables.scss";
+
+
 footer {
-    
+    background-color: $color-base-brighter;
+    min-height: 100px;
+
+    .footer-content {
+        text-align: center;
+        padding: 1em;
+        .mini-app-title {
+            font-family: "Calligraffitti";
+            color: $color-positive-5;
+            font-size: 200%;
+            margin: 0;
+        }
+
+        .slogan {
+            margin-top: 0;
+            margin-bottom: 2.25em;
+        }
+
+        .copyright {
+            color: $color-font-greyish;
+        }
+    }
+
 }

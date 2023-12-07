@@ -9,6 +9,7 @@ import JournalEntryDetail from "./pages/JournalEntryDetail";
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
 import BonfireStatistics from "./pages/BonfireStatistics";
+import Footer from "./components/Footer";
 
 const App = () => {
     return (
@@ -30,6 +31,7 @@ const App = () => {
                     primaryMessage="Whoops. You tried to venture off to a route that leads to nowhere and therefore does not exist!"
                     secondaryMessage="Double check your URL. Perhaps somebody gave you the wrong directions! " />} />
             </Routes>
+            <Footer/>
         </>
     );
 };
