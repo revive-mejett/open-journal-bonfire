@@ -46,7 +46,7 @@ const blacklistedWords = [
     /n[il|\u0131\u00CF\u00ED\u00EC]+gg+er/g
 ]
 
-/**Filters all
+/**Filters all swear words and profanity (redhot level)
  * 
  * @param {*} sentence - the sentence to scan for trigger words
  * @returns - a sentence with trigger words filtered, sensored
