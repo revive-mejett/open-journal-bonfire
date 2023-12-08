@@ -43,7 +43,6 @@ const GeneralStatistics = () => {
                     console.log("response not ok")
                 } else {
                     let data = await response.json()
-                    console.log(data)
                     setData(data)
                 }
             } catch (error) {
