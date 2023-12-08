@@ -46,8 +46,32 @@ const blacklistedWords = [
     /n[il|\u0131\u00CF\u00ED\u00EC]+gg+er/g
 ]
 
+/**Filters all
+ * 
+ * @param {*} sentence - the sentence to scan for trigger words
+ * @returns - a sentence with trigger words filtered, sensored
+ */
+const filterRedhotWords = (sentence) => {
+    const replacementCharacter = "🔥"
+    sentence = sentence.toLowerCase()
 
-// console.log(akshan.toLowerCase().replaceAll(x, x => new Array(x.length).fill("🔥").join("")))
+    const replacer = filteredWord => new Array(filteredWord.length).fill("🔥").join("")
+    
+    //scans for each redhotword matcher
+    redHotWords.forEach(redhotWord => {
+        sentence = sentence.replaceAll(redhotWord, replacer)
+    })
+
+    //scans for each blacklisted matcher
+    blacklistedWords.forEach(redhotWord => {
+        sentence = sentence.replaceAll(redhotWord, replacer)
+    })
+
+    return sentence
+}
+
+
+
 
 
 
