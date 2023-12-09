@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import "./JournalEntryCard.scss"
+import { filterRedhotWords } from "../utils/WordFilter"
 
 const JournalEntryCard = ({ entry, norotate }) => {
 
@@ -10,7 +11,7 @@ const JournalEntryCard = ({ entry, norotate }) => {
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
-            setTeaserDescription(entry.entryContent.slice(0, 80) + "...")
+            setTeaserDescription(filterRedhotWords(entry.entryContent).slice(0, 80) + "...")
         } else {
             setTeaserDescription("(No entry description)")
         }
@@ -31,8 +32,8 @@ const JournalEntryCard = ({ entry, norotate }) => {
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
                 }
-                <h3>{entry.title}</h3>
-                <p className="description-teaser">{teaserDescription}</p>
+                <h3>{filterRedhotWords(entry.title)}</h3>
+                <p className="description-teaser">{filterRedhotWords(teaserDescription)}</p>
                 <h3 className="rating-header">Their rating: {entry.selfRating}</h3>
                 <div className="event-tag-container">
                     {entry.greatEvents.length > 0 && <p className="event-tag positive">{entry.greatEvents[0].keyword}</p>}

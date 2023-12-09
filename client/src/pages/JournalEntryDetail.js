@@ -3,13 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom"
 import "./JournalEntryDetail.scss"
 import Background from "../components/visuals/Background"
 import Loading from "../components/visuals/Loading"
-
+import { filterRedhotWords } from "../utils/WordFilter"
 
 const JournalEntryDetail = () => {
 
     const location = useLocation()
     const navigate = useNavigate()
-
 
     const [journalEntryData, setJournalEntryData] = useState(undefined)
     const [isFetching, setIsFetching] = useState(true)
@@ -73,8 +72,8 @@ const JournalEntryDetail = () => {
                         </div>
                     }
                     <div className="entry-body">
-                        <h3 className="entry-title">{journalEntryData.title.trim() !== "" ? journalEntryData.title : "No title"}</h3>
-                        <p className="entry-content-text">{journalEntryData.entryContent}</p>
+                        <h3 className="entry-title">{journalEntryData.title.trim() !== "" ? filterRedhotWords(journalEntryData.title) : "No title"}</h3>
+                        <p className="entry-content-text">{filterRedhotWords(journalEntryData.entryContent)}</p>
                     </div>
 
                     <div className="event-tag-body">

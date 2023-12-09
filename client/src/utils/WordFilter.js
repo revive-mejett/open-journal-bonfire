@@ -15,13 +15,14 @@ Use of these words are marked as "redhot words", another level of "hot word" and
 */
 const redHotWords = [
     //shit
-    /s\s*h\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*t/g,
+    /s\s*h\s*[il1|\u0131\u00CF\u00ED\u00EC]+\s*t/g,
     //fuck
     /f\s*u\s*c\s*k/g,
     //bitch
     /b\s*i\s*t\s*c\s*h/g,
     //asshole
-    /\ba\s*s\s*s(h\s*o\s*l\s*e?)?(h\s*e\s*a\s*d)?\b/g,
+    /\ba\s*[$s]\s*[$s](h\s*o\s*l\s*e?)?(h\s*e\s*a\s*d)?(\s*s)?\b/g,
+    /a[$s][$s]hole/g,
     //gay
     /g\s*a\s*y/g,
     //wtf
@@ -55,7 +56,7 @@ const filterRedhotWords = (sentence) => {
     const replacementCharacter = "🔥"
     sentence = sentence.toLowerCase()
 
-    const replacer = filteredWord => new Array(filteredWord.length).fill("🔥").join("")
+    const replacer = filteredWord => new Array(filteredWord.length).fill(replacementCharacter).join("")
     
     //scans for each redhotword matcher
     redHotWords.forEach(redhotWord => {
@@ -63,12 +64,14 @@ const filterRedhotWords = (sentence) => {
     })
 
     //scans for each blacklisted matcher
-    blacklistedWords.forEach(redhotWord => {
-        sentence = sentence.replaceAll(redhotWord, replacer)
+    blacklistedWords.forEach(blacklistedWord => {
+        sentence = sentence.replaceAll(blacklistedWord, replacer)
     })
 
     return sentence
 }
+
+export { filterRedhotWords }
 
 
 
