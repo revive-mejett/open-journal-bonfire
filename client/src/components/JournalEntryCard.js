@@ -11,7 +11,7 @@ const JournalEntryCard = ({ entry, norotate }) => {
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
-            setTeaserDescription(entry.entryContent.slice(0, 80) + "...")
+            setTeaserDescription(filterRedhotWords(entry.entryContent).slice(0, 80) + "...")
         } else {
             setTeaserDescription("(No entry description)")
         }
