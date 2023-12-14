@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import Background from "../components/visuals/Background"
 import * as Yup from "yup"
+import { countBlacklistedWords, countHotWords, countRedHotWords } from "../utils/WordFilter"
 
 const CreateEntryPage = () => {
 
@@ -23,7 +24,7 @@ const CreateEntryPage = () => {
         worseEventsList: Yup.array().of(Yup.object()).min(0)
         .test({
             name: "maxTags",
-            test: function(value) {
+            test: function() {
                 return (this.parent.goodEventsList.length + this.parent.neutralEventsList.length + this.parent.worseEventsList.length) <= 10
             },
             message: "Maximum limit of 10 tags reached"
@@ -57,7 +58,19 @@ const CreateEntryPage = () => {
     }
 
 
+
     const handleSubmit = async (values) => {
+
+        const numberHotWords = countHotWords(values.title) + countHotWords(values.entryContent)
+        const numberRedHotWords = countRedHotWords(values.title) + countRedHotWords(values.entryContent)
+        const numberBlacklistedWords = countBlacklistedWords(values.title) + countBlacklistedWords(values.entryContent)
+
+        const numberEventTags = values.goodEventsList.length + values.neutralEventsList.length + values.worseEventsList.length
+        const sumPositiveEventMagnitude = values.goodEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
+        const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
+        const averageKeywordMagnitude = Math.round((sumPositiveEventMagnitude + sumNegativeMagnitude)/numberEventTags * 10) / 10
+
+
         let data = {
             title: values.title,
             entryContent: values.entryContent,
@@ -65,8 +78,13 @@ const CreateEntryPage = () => {
             neutralEvents: values.neutralEventsList,
             badEvents: values.worseEventsList,
             selfRating: values.selfRating,
+            numberHotWords: numberHotWords,
+            numberRedHotWords: numberRedHotWords,
+            numberBlacklistedWords: numberBlacklistedWords,
+            isExplicit: numberRedHotWords > 0,
+            isTooExplicit: numberBlacklistedWords > 0,
+            averageKeywordMagnitude: averageKeywordMagnitude
         }
-
 
         data.greatEvents = data.greatEvents.map(event => deleteUnusedEventProperties(event))
         data.neutralEvents = data.neutralEvents.map(event => deleteUnusedEventProperties(event))
@@ -74,6 +92,7 @@ const CreateEntryPage = () => {
 
 
         let response
+
         response = await fetch("/api/journalentries/new", {
             method: "POST",
             headers: {
@@ -93,8 +112,6 @@ const CreateEntryPage = () => {
         } else {
             console.error(responseData.error)
         }
-
-
 
     }
 
@@ -181,7 +198,6 @@ const CreateEntryPage = () => {
                                         </EventKeywordPicker>
                                     }
                                 </div>
-
                             </fieldset>
 
                             <div className="form-section self-rating-form">

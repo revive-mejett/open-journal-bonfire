@@ -5,8 +5,25 @@ Using them is allowed, however, it will be marked as a "hot word" which is plann
 */
 const hotWords = [
     /hotword1/g,
-    /damn/g, /stupid/g, /crap/g, /bastard/g, /idiot/g, /crapload/g, /loser/, /dayum/g, /noob/g, /noobs/g, /crapload/g, /poop/g, /pee/, /hate/, /suck/g, /sucks/g, /semen/g,
-    /rubbish/g, /noobhead/g, 
+    /damn/g,
+    /stupid/g,
+    /crap/g,
+    /bastard/g,
+    /idiot/g,
+    /crapload/g,
+    /loser/,
+    /dayum/g,
+    /noob/g,
+    /noobs/g,
+    /crapload/g,
+    /poop/g,
+    /pee/,
+    /hate/,
+    /suck/g,
+    /sucks/g,
+    /semen/g,
+    /rubbish/g,
+    /noobhead/g,
 ]
 
 /*
@@ -47,13 +64,16 @@ const blacklistedWords = [
     /n[il|\u0131\u00CF\u00ED\u00EC]+gg+er/g
 ]
 
+const replacementCharacter = "🔥"
+
+
 /**Filters all swear words and profanity (redhot level)
  * 
- * @param {*} sentence - the sentence to scan for trigger words
+ * @param {*} sentence - the sentence to scan against the filter
  * @returns - a sentence with trigger words filtered, sensored
  */
-const filterRedhotWords = (sentence) => {
-    const replacementCharacter = "🔥"
+function filterRedhotWords(sentence) {
+
     sentence = sentence.toLowerCase()
 
     const replacer = filteredWord => new Array(filteredWord.length).fill(replacementCharacter).join("")
@@ -71,7 +91,66 @@ const filterRedhotWords = (sentence) => {
     return sentence
 }
 
-export { filterRedhotWords }
+
+/**Counts how many hot words in a sentence
+ * 
+ * @param {string} sentence -- the sentence to scan against the filter
+ * @returns --how many hot words are there
+ */
+function countHotWords(sentence) {
+    let hotList = []
+
+    hotWords.forEach(hotWordRegex => {
+        const found = sentence.match(hotWordRegex)
+        
+        if (found) {
+            hotList = hotList.concat(found)
+        }
+    })
+
+    return hotList.length
+}
+
+/**Counts how many red hot words in a sentence
+ * 
+ * @param {string} sentence -- the sentence to scan against the filter
+ * @returns --how many red hot words are there
+ */
+function countRedHotWords(sentence) {
+    let redHotList = []
+
+    redHotWords.forEach(redHotRegex => {
+        const found = sentence.match(redHotRegex)
+        
+        if (found) {
+            redHotList = redHotList.concat(found)
+        }
+    })
+
+    return redHotList.length
+}
+
+/**Counts how many blacklisted words in a sentence
+ * 
+ * @param {string} sentence -- the sentence to scan against the filter
+ * @returns --how many blacklisted words are there
+ */
+function countBlacklistedWords(sentence) {
+    let blacklistList = []
+
+    blacklistList.forEach(blacklistRegex => {
+        const found = sentence.match(blacklistRegex)
+        
+        if (found) {
+            blacklistList = blacklistList.concat(found)
+        }
+    })
+
+    return blacklistList.length
+}
+
+
+export { filterRedhotWords, countHotWords, countRedHotWords, countBlacklistedWords }
 
 
 

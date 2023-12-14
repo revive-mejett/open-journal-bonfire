@@ -76,6 +76,7 @@ const JournalEntriesPage = () => {
                                 <Field as="input" name="entryContentMatch"></Field>
                             </div>
 
+
                         </fieldset>
 
                         <fieldset className="self-rating-filter-fields">
