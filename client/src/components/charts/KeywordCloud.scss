@@ -1,4 +1,10 @@
+@import "../../common/variables.scss";
+
 .circle-point:hover {
     fill: blue;
 }
 
+.no-data-message {
+    text-align: center;
+    color: $color-negative-4;
+}

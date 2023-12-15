@@ -142,7 +142,7 @@ const KeywordCloud = () => {
                             </Treemap>
                         </ResponsiveContainer>
                         :
-                        <h2>No data available</h2>
+                        <h3 className="no-data-message">No data available. No entries to collect for this metric.</h3>
                     }
                 </>
                 :
