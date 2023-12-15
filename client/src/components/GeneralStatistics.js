@@ -54,6 +54,8 @@ const GeneralStatistics = () => {
         }
     })
 
+    console.log(data);
+
     return (
         <>
             {
