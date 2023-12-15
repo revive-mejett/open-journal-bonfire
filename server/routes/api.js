@@ -170,9 +170,9 @@ router.get("/stats/general", async (req, res) => {
             let neutralSelfRatedCount = await db.getSelfRatedCountByType(0)
             let negativeSelfRatedCount = await db.getSelfRatedCountByType(-1)
 
-            positiveSelfRatedCount = positiveSelfRatedCount.count
-            neutralSelfRatedCount = neutralSelfRatedCount.count
-            negativeSelfRatedCount = negativeSelfRatedCount.count
+            positiveSelfRatedCount = positiveSelfRatedCount ? positiveSelfRatedCount.count : 0
+            neutralSelfRatedCount = neutralSelfRatedCount ? neutralSelfRatedCount.count : 0
+            negativeSelfRatedCount = negativeSelfRatedCount ? negativeSelfRatedCount.count : 0
 
 
             let totalEntries = positiveSelfRatedCount + neutralSelfRatedCount + negativeSelfRatedCount

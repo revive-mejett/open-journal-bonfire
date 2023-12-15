@@ -81,8 +81,8 @@ const KeywordCloud = () => {
     console.log(data);
 
     const CustomKeywordCloud = (props) => {
-        //will work with the payload in the future
-        const { x, y, width, height, index, payload, depth, name, color, opaqueColor } = props;
+        //may work with index and payload in the future
+        const { x, y, width, height, depth, name, color, opaqueColor } = props;
         return (
             <g>
                 <rect
@@ -136,7 +136,7 @@ const KeywordCloud = () => {
                 data ?
                 <>
                     {
-                        data.eventTagFrequency ?
+                        (data[0].children.length !== 0 || data[1].children.length !== 0 || data[2].children.length !== 0) ?
                         <ResponsiveContainer width="100%" height={1200}>
                             <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
                             </Treemap>
