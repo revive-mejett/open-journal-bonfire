@@ -78,6 +78,7 @@ const KeywordCloud = () => {
         }
     }, [data])
 
+    console.log(data);
 
     const CustomKeywordCloud = (props) => {
         //will work with the payload in the future
@@ -133,12 +134,19 @@ const KeywordCloud = () => {
         <>
             {
                 data ?
-                    <ResponsiveContainer width="100%" height={1200}>
-                        <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
-                        </Treemap>
-                    </ResponsiveContainer>
-                    :
-                    <Loading />
+                <>
+                    {
+                        data.eventTagFrequency ?
+                        <ResponsiveContainer width="100%" height={1200}>
+                            <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
+                            </Treemap>
+                        </ResponsiveContainer>
+                        :
+                        <h2>No data available</h2>
+                    }
+                </>
+                :
+                <Loading />
             }
         </>
 

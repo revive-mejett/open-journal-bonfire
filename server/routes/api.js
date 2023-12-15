@@ -152,34 +152,48 @@ router.get("/frequent-event-tags", async (req, res) => {
 
 router.get("/stats/general", async (req, res) => {
     try {
-        let positiveSelfRatedCount = await db.getSelfRatedCountByType(1)
-        let neutralSelfRatedCount = await db.getSelfRatedCountByType(0)
-        let negativeSelfRatedCount = await db.getSelfRatedCountByType(-1)
+        let allEntries = await db.getAllJournalEntries()
 
-        positiveSelfRatedCount = positiveSelfRatedCount.count
-        neutralSelfRatedCount = neutralSelfRatedCount.count
-        negativeSelfRatedCount = negativeSelfRatedCount.count
+        if (allEntries.length === 0) {
+            res.status(200).json({
+                totalEntries: 0,
+                positiveSelfRatedCount : 0,
+                neutralSelfRatedCount: 0,
+                negativeSelfRatedCount: 0,
+                percentagePositive: 0,
+                percentageNeutral: 0,
+                percentageNegative: 0,
+                averageWordCount: 0
+            })
+        } else {
+            let positiveSelfRatedCount = await db.getSelfRatedCountByType(1)
+            let neutralSelfRatedCount = await db.getSelfRatedCountByType(0)
+            let negativeSelfRatedCount = await db.getSelfRatedCountByType(-1)
+
+            positiveSelfRatedCount = positiveSelfRatedCount.count
+            neutralSelfRatedCount = neutralSelfRatedCount.count
+            negativeSelfRatedCount = negativeSelfRatedCount.count
 
 
-        let totalEntries = positiveSelfRatedCount + neutralSelfRatedCount + negativeSelfRatedCount
-        let percentagePositive = Math.round(positiveSelfRatedCount / totalEntries * 100)
-        let percentageNegative  = Math.round(negativeSelfRatedCount / totalEntries * 100)
-        let percentageNeutral = 100 - percentagePositive - percentageNegative
+            let totalEntries = positiveSelfRatedCount + neutralSelfRatedCount + negativeSelfRatedCount
+            let percentagePositive = Math.round(positiveSelfRatedCount / totalEntries * 100)
+            let percentageNegative  = Math.round(negativeSelfRatedCount / totalEntries * 100)
+            let percentageNeutral = 100 - percentagePositive - percentageNegative
 
-        let averageWordCount = await db.getAverageWordCount()
-        averageWordCount = averageWordCount[0].averageWordCount
+            let averageWordCount = await db.getAverageWordCount()
+            averageWordCount = averageWordCount[0].averageWordCount
 
-
-        res.status(200).json({
-            totalEntries: totalEntries,
-            positiveSelfRatedCount : positiveSelfRatedCount,
-            neutralSelfRatedCount: neutralSelfRatedCount,
-            negativeSelfRatedCount: negativeSelfRatedCount,
-            percentagePositive: percentagePositive,
-            percentageNeutral: percentageNeutral,
-            percentageNegative: percentageNegative,
-            averageWordCount: averageWordCount
-        })
+            res.status(200).json({
+                totalEntries: totalEntries,
+                positiveSelfRatedCount : positiveSelfRatedCount,
+                neutralSelfRatedCount: neutralSelfRatedCount,
+                negativeSelfRatedCount: negativeSelfRatedCount,
+                percentagePositive: percentagePositive,
+                percentageNeutral: percentageNeutral,
+                percentageNegative: percentageNegative,
+                averageWordCount: averageWordCount
+            })
+        }
 
     } catch (error) {
         console.log(error.message)
@@ -227,24 +241,31 @@ router.get("/stats/event-tag-usage-frequency", async (req, res) => {
     try {
         let rawData = await db.getEventTagUsageFrequency()
 
-        //fill a frequency map of event tag keywords, how many occurences of each keyword
-        let eventTagMap = new Map()
-        rawData[0].combinedEventTags.forEach(eventTag => {
-            if (eventTagMap.get(eventTag.keyword) !== undefined) {
-                eventTagMap.set(eventTag.keyword, {frequency: eventTagMap.get(eventTag.keyword).frequency + 1, weight: eventTag.weight})
-            } else {
-                eventTagMap.set(eventTag.keyword, {frequency: 1, weight: eventTag.weight})
-            }
-        })
+        if (rawData.length === 0) {
+            res.status(200).json({
+                eventTagFrequency: rawData
+            })
+        } else {
 
-        //convert map to array and sort keywords alphabetically
-        let eventTagArray = Array.from(eventTagMap)
-        eventTagArray = eventTagArray.sort((a, b) => a[0].localeCompare(b[0]))
+            //fill a frequency map of event tag keywords, how many occurences of each keyword
+            let eventTagMap = new Map()
+            rawData[0].combinedEventTags.forEach(eventTag => {
+                if (eventTagMap.get(eventTag.keyword) !== undefined) {
+                    eventTagMap.set(eventTag.keyword, {frequency: eventTagMap.get(eventTag.keyword).frequency + 1, weight: eventTag.weight})
+                } else {
+                    eventTagMap.set(eventTag.keyword, {frequency: 1, weight: eventTag.weight})
+                }
+            })
 
-        res.status(200).json({
-            date: rawData[0]._id,
-            eventTagFrequency: eventTagArray
-        })
+            //convert map to array and sort keywords alphabetically
+            let eventTagArray = Array.from(eventTagMap)
+            eventTagArray = eventTagArray.sort((a, b) => a[0].localeCompare(b[0]))
+
+            res.status(200).json({
+                date: rawData[0]._id,
+                eventTagFrequency: eventTagArray
+            })
+        }
 
     } catch (error) {
         console.log(error.message)
