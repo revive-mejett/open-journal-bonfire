@@ -111,7 +111,11 @@ const JournalEntriesPage = () => {
             {!isFetching ?
                 <section className="entries-container">
                     {entryData &&
-                        entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>)
+                        <>
+                            {
+                                entryData.length !== 0 ? entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>) : <h2>No bonfiregoers has written a journal entry yet!</h2>
+                            }
+                        </>
                     }
                 </section>
                 :
