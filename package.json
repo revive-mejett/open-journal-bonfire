@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "concurrently \"cd server && npm i && npm start\" \"cd client && npm i && npm start\"",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm i && npm run build",
     "render-build": "npm i && npm run build"
   }
 }
