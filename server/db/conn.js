@@ -22,7 +22,7 @@ class Database {
      */
     async connectToDb() {
         console.log("Connecting to MongoDB")
-        await mongoose.connect(process.env.ATLAS_URI)
+        await mongoose.connect(process.env.ATLAS_URI) 
         console.log("Connected to MongoDB")
     }
 

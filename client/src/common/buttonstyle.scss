@@ -4,11 +4,11 @@
 
 @mixin button-style {
     padding: 0.5em;
-    background-color: $color-accent;
+    background-color: $color-dark;
     box-shadow: 2px 2px 1px 1px $color-button-shadow;
     font-family: "Josefin Sans";
     color: $color-font;
-    border: none;
+    border: 2px solid $color-accent;
     width: fit-content;
 
     &:hover {
