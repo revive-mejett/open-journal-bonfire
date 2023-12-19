@@ -1,11 +1,13 @@
 @import "../common/variables.scss";
 @import "../common/paperpage.scss";
+@import "../common/eventtag.scss";
 
 .journal-entry-detail-main {
     width: 50vw;
     margin-top: 2em;
     margin-bottom: 2em;
     height: fit-content;
+    @include event-tag;
 
     .journal-entry-page {
         @include journalpagelayout;
@@ -21,42 +23,17 @@
             .event-tag-container {
                 display: flex;
                 flex-flow: row wrap;
-                background-color: $color-accent;
+                background-color: $color-dark;
                 padding: 0 0.75em;
                 align-content: flex-start;
                 
             }
-        }
-        
-
-        .event-tag {
-            background-color: $color-paper;
-            padding: 0.5em;
-            margin: 1em 0.5em;
-            height: fit-content;
-            box-shadow: 5px 5px $color-button-shadow;
         }
 
         .event-tag-body {
             vertical-align: bottom;
         }
 
-
-        // colour styles for positve, neutral and negative type of event tags
-        .positive {
-            background-color: $color-positive-4;
-        }
-
-        .negative {
-            background-color: $color-negative-4;
-        }
-
-        .neutral {
-            background-color: $color-neutral;
-        }
-
     }
-
-
 
 }

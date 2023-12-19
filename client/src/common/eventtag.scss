@@ -1,0 +1,31 @@
+@import "./variables.scss";
+
+@mixin event-tag {
+
+    .event-tag {
+        background-color: $color-paper;
+        padding: 0.25em;
+        margin: 0.2em 0.5em;
+        height: fit-content;
+        box-shadow: 2px 2px $color-button-shadow;
+        font-family: "Josefin Sans";
+        font-weight: 400;
+        color: $color-font;
+    }
+
+    // colour styles for positve, neutral and negative type of event tags
+    .positive {
+        border: $color-positive-4 2px solid;
+        background-color: $color-positive;
+    }
+
+    .negative {
+        border: $color-negative-4 2px solid;
+        background-color: $color-negative;
+    }
+
+    .neutral {
+        border: $color-neutral 2px solid;
+        background-color: $color-dark;
+    }
+}
