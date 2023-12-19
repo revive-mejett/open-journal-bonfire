@@ -31,19 +31,21 @@ This is a list of profanity words that if used, will auto-mark the entry as "Exp
 Use of these words are marked as "redhot words", another level of "hot word" and will be used for a statistic metric.
 */
 const redHotWords = [
-    //shit
-    /s\s*h\s*[il1|\u0131\u00CF\u00ED\u00EC]+\s*t/g,
-    //fuck
+    //s*t
+    /[$s]\s*h\s*[il1|\u0131\u00CF\u00ED\u00EC]+\s*t/g,
+    //f*k
     /f\s*u\s*c\s*k/g,
-    //bitch
-    /b\s*i\s*t\s*c\s*h/g,
-    //asshole
+    /f\s*u\s*kk*/g,
+    /f\s*u\s*h*/g,
+    //b*ch
+    /b\s*[il1|\u0131\u00CF\u00ED\u00EC]\s*t\s*c\s*h/g,
+    //as*
     /\ba\s*[$s]\s*[$s](h\s*o\s*l\s*e?)?(h\s*e\s*a\s*d)?(\s*s)?\b/g,
     /a[$s][$s]hole/g,
     //gay
-    /g\s*a\s*y/g,
+    /g\s*a\s*y+/g,
     //wtf
-    /w\s*t\s*f/g,
+    /w\s*t\s*f+/g,
     //lmao
     /l\s*m\s*a\s*o/g,
     //lmfao
@@ -61,7 +63,23 @@ HOWEVER, ALL of the entry AND title will be replaced by underscores or fire emoj
 */
 const blacklistedWords = [
     //N*(6)
-    /n[il|\u0131\u00CF\u00ED\u00EC]+gg+er/g
+    /n\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*g\s*g+e\s*r/g,
+    /n\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*g\s*g+a/g,
+    /n\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*b\s*b+a/g,
+    //Fa* (6)
+    /f\s*a\s*g\s*g+o\s*t/g,
+    /\bf\s*a\s*g+\b/g,
+    //k* (3)
+    /k\s*y\s*s/g,
+    //N* (4)
+    /n\s*a\s*z\s*i/g,
+    //S* (3)
+    /[$s]ex+/g,
+    //behind the doors, not allowed
+    /b[1l][0o]wj[0o]b/g,
+    /three+some/g,
+    /3some/g,
+    /c\s*u\s*n\s*[t7]/g
 ]
 
 const replacementCharacter = "🔥"
