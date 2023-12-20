@@ -1,4 +1,4 @@
-# open-journal-bonfire
+# Open Journal Bonfire
 A free space for everyone to write and freely share their days what they want. No trees harmed!
 
 <img src="client\src\assets\images\bonfire_site_icon.png" width="250px" height="250px">
@@ -13,6 +13,9 @@ Open Journal Bonfire is a web application allowing guests to create and/or view 
 3. `✏️Creating anonymous journal entries`: Guests can write and share their days about. If they had a great day, they can share all the positive moments they had. In the other hand, if one's having a rainy day, one can dish out their "not so great" moments and put it out there to express oneselves. You can also select keyword event tags in addition, positive, neutral or negative, though it is optional, max 10. (See #4)
 4. `🌪️Word filter`: Writing entries and viewing them are subject to a word filter where certain words are filtered out. This bring the term "heated" entries where entries contain such words. Some words will be too heat to be displayed for anyone and cause the journal entry to be "unreadable".
 5. `🔥📈Bonfire statistics:` View some statistics of the past 500 or so journal entries (number is not confirmed). These entries are then collected to form statistics which will serve as the "bonfire". The most recent entries will be thrown into the bonfire and analyzed into statistics. (See #10)
+
+## Stack:
+MERN stack
 
 ## Languages/Technologies used:
 - HTML
