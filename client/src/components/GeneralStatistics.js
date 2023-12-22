@@ -116,15 +116,21 @@ const GeneralStatistics = () => {
                             </div>
                             <div className="stat-item neutral">
                                 <h3>
-                                    Number of entries containing "hot words"
+                                    Number of eye-glaring entries
                                 </h3>
-                                <p>0*</p>
+                                <p>{data.numberEyeGlaring}</p>
                             </div>
                             <div className="stat-item neutral">
                                 <h3>
-                                    Number of explicit entries
+                                    Number of eye-unsafe entries
                                 </h3>
-                                <p>0*</p>
+                                <p>{data.numberEyeUnsafe}</p>
+                            </div>
+                            <div className="stat-item neutral">
+                                <h3>
+                                    Number of unreadable entries
+                                </h3>
+                                <p>{data.numberUnreadable}</p>
                             </div>
                         </div>
                     </div>

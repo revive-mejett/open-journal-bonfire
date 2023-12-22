@@ -104,7 +104,7 @@ class Database {
 
     async getEyeGlaringEntryCount() {
         try {
-            let explicitEntries = await JournalEntry.aggregate([
+            let eyeGlaringCount = await JournalEntry.aggregate([
                 {
                     $match: {
                         numberHotWords: { $gt: 0 }
@@ -117,7 +117,7 @@ class Database {
                     }
                 }
             ])
-            return explicitEntries
+            return eyeGlaringCount[0]
         } catch (error) {
             return []
         }
@@ -125,7 +125,7 @@ class Database {
 
     async getExplicitEntryCount() {
         try {
-            let explicitEntries = await JournalEntry.aggregate([
+            let explicitEntryCount = await JournalEntry.aggregate([
                 {
                     $match: {
                         isExplicit: { $eq: true }
@@ -138,7 +138,7 @@ class Database {
                     }
                 }
             ])
-            return explicitEntries
+            return explicitEntryCount[0]
         } catch (error) {
             return []
         }
@@ -146,7 +146,7 @@ class Database {
 
     async getTooExplicitEntryCount() {
         try {
-            let explicitEntries = await JournalEntry.aggregate([
+            let tooExpensiveEntryCount = await JournalEntry.aggregate([
                 {
                     $match: {
                         isTooExplicit: { $eq: true }
@@ -159,7 +159,7 @@ class Database {
                     }
                 }
             ])
-            return explicitEntries
+            return tooExpensiveEntryCount[0]
         } catch (error) {
             return []
         }
