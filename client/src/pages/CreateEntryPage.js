@@ -65,8 +65,6 @@ const CreateEntryPage = () => {
         const numberRedHotWords = countRedHotWords(values.title) + countRedHotWords(values.entryContent)
         const numberBlacklistedWords = countBlacklistedWords(values.title) + countBlacklistedWords(values.entryContent)
 
-        console.log(numberBlacklistedWords)
-        
         const numberEventTags = values.goodEventsList.length + values.neutralEventsList.length + values.worseEventsList.length
         const sumPositiveEventMagnitude = values.goodEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
         const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
@@ -74,8 +72,8 @@ const CreateEntryPage = () => {
 
 
         let data = {
-            title: values.title,
-            entryContent: values.entryContent,
+            title: numberBlacklistedWords === 0 ? values.title : "[unreadable entry]",
+            entryContent: numberBlacklistedWords === 0 ? values.entryContent : "[this entry is unreadable]",
             greatEvents: values.goodEventsList,
             neutralEvents: values.neutralEventsList,
             badEvents: values.worseEventsList,
@@ -83,7 +81,7 @@ const CreateEntryPage = () => {
             numberHotWords: numberHotWords,
             numberRedHotWords: numberRedHotWords,
             numberBlacklistedWords: numberBlacklistedWords,
-            isExplicit: (numberRedHotWords + numberBlacklistedWords) > 0,
+            isExplicit: numberRedHotWords > 0,
             isTooExplicit: numberBlacklistedWords > 0,
             averageKeywordMagnitude: averageKeywordMagnitude
         }

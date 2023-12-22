@@ -189,7 +189,7 @@ router.get("/stats/general", async (req, res) => {
             let numberEyeGlaring = await db.getEyeGlaringEntryCount()
             let numberEyeUnsafe = await db.getExplicitEntryCount()
             let numberUnreadable = await db.getTooExplicitEntryCount()
-            numberEyeGlaring = numberEyeGlaring ? numberEyeGlaring.count : 0
+            numberEyeGlaring = numberEyeGlaring && numberEyeUnsafe && numberUnreadable ? numberEyeGlaring.count +  numberEyeUnsafe.count + numberUnreadable.count : 0
             numberEyeUnsafe = numberEyeUnsafe ? numberEyeUnsafe.count : 0
             numberUnreadable = numberUnreadable ? numberUnreadable.count : 0
             res.status(200).json({
