@@ -24,8 +24,6 @@ class Database {
         console.log("Connecting to MongoDB")
         await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
-        let test = await this.getExplicitEntries()
-        console.log(test)
     }
 
     /**
@@ -104,7 +102,7 @@ class Database {
         return entries
     }
 
-    async getEyeGlaringEntries() {
+    async getEyeGlaringEntryCount() {
         try {
             let explicitEntries = await JournalEntry.aggregate([
                 {
@@ -125,7 +123,7 @@ class Database {
         }
     }
 
-    async getExplicitEntries() {
+    async getExplicitEntryCount() {
         try {
             let explicitEntries = await JournalEntry.aggregate([
                 {
@@ -146,7 +144,7 @@ class Database {
         }
     }
 
-    async getTooExplicitEntries() {
+    async getTooExplicitEntryCount() {
         try {
             let explicitEntries = await JournalEntry.aggregate([
                 {
