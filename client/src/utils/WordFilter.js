@@ -4,7 +4,8 @@ This is a list of words that are allowed and can be used without any restriction
 Using them is allowed, however, it will be marked as a "hot word" which is planned to be used for statistics.
 */
 const hotWords = [
-    /hotword1/g,
+    //Testing purposes
+    /loremipsumhotword/g,
     /damn/g,
     /stupid/g,
     /crap/g,
@@ -31,6 +32,8 @@ This is a list of profanity words that if used, will auto-mark the entry as "Exp
 Use of these words are marked as "redhot words", another level of "hot word" and will be used for a statistic metric.
 */
 const redHotWords = [
+    //Testing purposes
+    /loremipsumredhot/g,
     //s*t
     /[$s]\s*h\s*[il1|\u0131\u00CF\u00ED\u00EC]+\s*t/g,
     //f*k
@@ -62,6 +65,8 @@ HOWEVER, ALL of the entry AND title will be replaced by underscores or fire emoj
 
 */
 const blacklistedWords = [
+    //Testing purposes
+    /loremipsumblacklisted/g,
     //N*(6)
     /n\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*g\s*g+e\s*r/g,
     /n\s*[il|\u0131\u00CF\u00ED\u00EC]+\s*g\s*g+a/g,
@@ -156,7 +161,7 @@ function countRedHotWords(sentence) {
 function countBlacklistedWords(sentence) {
     let blacklistList = []
 
-    blacklistList.forEach(blacklistRegex => {
+    blacklistedWords.forEach(blacklistRegex => {
         const found = sentence.match(blacklistRegex)
         
         if (found) {

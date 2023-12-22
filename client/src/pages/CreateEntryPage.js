@@ -65,6 +65,8 @@ const CreateEntryPage = () => {
         const numberRedHotWords = countRedHotWords(values.title) + countRedHotWords(values.entryContent)
         const numberBlacklistedWords = countBlacklistedWords(values.title) + countBlacklistedWords(values.entryContent)
 
+        console.log(numberBlacklistedWords)
+        
         const numberEventTags = values.goodEventsList.length + values.neutralEventsList.length + values.worseEventsList.length
         const sumPositiveEventMagnitude = values.goodEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
         const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
@@ -81,10 +83,11 @@ const CreateEntryPage = () => {
             numberHotWords: numberHotWords,
             numberRedHotWords: numberRedHotWords,
             numberBlacklistedWords: numberBlacklistedWords,
-            isExplicit: numberRedHotWords > 0,
+            isExplicit: (numberRedHotWords + numberBlacklistedWords) > 0,
             isTooExplicit: numberBlacklistedWords > 0,
             averageKeywordMagnitude: averageKeywordMagnitude
         }
+
 
         data.greatEvents = data.greatEvents.map(event => deleteUnusedEventProperties(event))
         data.neutralEvents = data.neutralEvents.map(event => deleteUnusedEventProperties(event))

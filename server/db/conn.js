@@ -22,8 +22,10 @@ class Database {
      */
     async connectToDb() {
         console.log("Connecting to MongoDB")
-        await mongoose.connect(process.env.ATLAS_URI) 
+        await mongoose.connect(process.env.ATLAS_URI)
         console.log("Connected to MongoDB")
+        let test = await this.getExplicitEntries()
+        console.log(test)
     }
 
     /**
@@ -55,6 +57,12 @@ class Database {
             neutralEvents: entry.neutralEvents,
             badEvents: entry.badEvents,
             selfRating: entry.selfRating,
+            numberHotWords: entry.numberHotWords,
+            numberRedHotWords: entry.numberRedHotWords,
+            numberBlacklistedWords: entry.numberBlacklistedWords,
+            isExplicit: entry.isExplicit,
+            isTooExplicit: entry.isTooExplicit,
+            averageKeywordMagnitude: entry.averageKeywordMagnitude
         });
 
         // insert into mongodb
@@ -95,6 +103,70 @@ class Database {
         }).sort(sortOrder)
         return entries
     }
+
+    async getEyeGlaringEntries() {
+        try {
+            let explicitEntries = await JournalEntry.aggregate([
+                {
+                    $match: {
+                        numberHotWords: { $gt: 0 }
+                    }
+                },
+                {
+                    $group: {
+                        _id: new Date(),
+                        count: { $sum: 1 }
+                    }
+                }
+            ])
+            return explicitEntries
+        } catch (error) {
+            return []
+        }
+    }
+
+    async getExplicitEntries() {
+        try {
+            let explicitEntries = await JournalEntry.aggregate([
+                {
+                    $match: {
+                        isExplicit: { $eq: true }
+                    }
+                },
+                {
+                    $group: {
+                        _id: new Date(),
+                        count: { $sum: 1 }
+                    }
+                }
+            ])
+            return explicitEntries
+        } catch (error) {
+            return []
+        }
+    }
+
+    async getTooExplicitEntries() {
+        try {
+            let explicitEntries = await JournalEntry.aggregate([
+                {
+                    $match: {
+                        isTooExplicit: { $eq: true }
+                    }
+                },
+                {
+                    $group: {
+                        _id: new Date(),
+                        count: { $sum: 1 }
+                    }
+                }
+            ])
+            return explicitEntries
+        } catch (error) {
+            return []
+        }
+    }
+
 
     //get a specific journal entry by its id
     async getJournalEntryById(id) {
@@ -213,7 +285,7 @@ class Database {
             filterCondition = { $gt: 0 }
             break;
         }
-        
+
         entryCount = await JournalEntry.aggregate([
             {
                 $match: {
