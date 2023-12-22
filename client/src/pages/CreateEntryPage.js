@@ -72,8 +72,8 @@ const CreateEntryPage = () => {
 
 
         let data = {
-            title: values.title,
-            entryContent: values.entryContent,
+            title: numberBlacklistedWords === 0 ? values.title : "[unreadable entry]",
+            entryContent: numberBlacklistedWords === 0 ? values.entryContent : "[this entry is unreadable]",
             greatEvents: values.goodEventsList,
             neutralEvents: values.neutralEventsList,
             badEvents: values.worseEventsList,
@@ -85,6 +85,7 @@ const CreateEntryPage = () => {
             isTooExplicit: numberBlacklistedWords > 0,
             averageKeywordMagnitude: averageKeywordMagnitude
         }
+
 
         data.greatEvents = data.greatEvents.map(event => deleteUnusedEventProperties(event))
         data.neutralEvents = data.neutralEvents.map(event => deleteUnusedEventProperties(event))

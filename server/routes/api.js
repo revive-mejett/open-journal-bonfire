@@ -163,7 +163,10 @@ router.get("/stats/general", async (req, res) => {
                 percentagePositive: 0,
                 percentageNeutral: 0,
                 percentageNegative: 0,
-                averageWordCount: 0
+                averageWordCount: 0,
+                numberEyeGlaring: 0,
+                numberEyeUnsafe: 0,
+                numberUnreadable: 0
             })
         } else {
             let positiveSelfRatedCount = await db.getSelfRatedCountByType(1)
@@ -183,6 +186,12 @@ router.get("/stats/general", async (req, res) => {
             let averageWordCount = await db.getAverageWordCount()
             averageWordCount = averageWordCount[0].averageWordCount
 
+            let numberEyeGlaring = await db.getEyeGlaringEntryCount()
+            let numberEyeUnsafe = await db.getExplicitEntryCount()
+            let numberUnreadable = await db.getTooExplicitEntryCount()
+            numberEyeGlaring = numberEyeGlaring && numberEyeUnsafe && numberUnreadable ? numberEyeGlaring.count +  numberEyeUnsafe.count + numberUnreadable.count : 0
+            numberEyeUnsafe = numberEyeUnsafe ? numberEyeUnsafe.count : 0
+            numberUnreadable = numberUnreadable ? numberUnreadable.count : 0
             res.status(200).json({
                 totalEntries: totalEntries,
                 positiveSelfRatedCount : positiveSelfRatedCount,
@@ -191,7 +200,10 @@ router.get("/stats/general", async (req, res) => {
                 percentagePositive: percentagePositive,
                 percentageNeutral: percentageNeutral,
                 percentageNegative: percentageNegative,
-                averageWordCount: averageWordCount
+                averageWordCount: averageWordCount,
+                numberEyeGlaring: numberEyeGlaring,
+                numberEyeUnsafe: numberEyeUnsafe,
+                numberUnreadable: numberUnreadable
             })
         }
 
