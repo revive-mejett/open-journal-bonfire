@@ -31,7 +31,7 @@ const App = () => {
                     primaryMessage="Whoops. You tried to venture off to a route that leads to nowhere and therefore does not exist!"
                     secondaryMessage="Double check your URL. Perhaps somebody gave you the wrong directions! " />} />
             </Routes>
-            <Footer/>
+            <Footer title="open journal bonfire" slogan="Share the greatest moments. Or dish everything out to the bonfire!"/>
         </>
     );
 };
