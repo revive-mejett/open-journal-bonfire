@@ -40,5 +40,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "overrides": {
+    "typescript": "^5.3.3"
   }
 }
