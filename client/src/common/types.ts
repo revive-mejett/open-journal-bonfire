@@ -12,3 +12,5 @@ export type JournalEntry = {
     neutralEvents: EventTag[],
     badEvents: EventTag[]
 }
+
+export type EventTagType =  "positive" | "neutral" | "negative"
