@@ -2,26 +2,13 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import "./JournalEntryCard.scss"
 import { filterRedhotWords } from "../utils/WordFilter"
-import React from "react"
+import { JournalEntry } from "../common/types"
 
-type EventTag = {
-    keyword: string
-}
 
 type Props = {
-    entry: {
-        _id: string
-        title: string,
-        entryContent: string,
-        dateCreated: string,
-        selfRating: number,
-        greatEvents: EventTag[],
-        neutralEvents: EventTag[],
-        badEvents: EventTag[]
-    },
+    entry : JournalEntry,
     norotate: boolean
 }
-
 
 
 const JournalEntryCard = ({ entry, norotate } : Props) => {
