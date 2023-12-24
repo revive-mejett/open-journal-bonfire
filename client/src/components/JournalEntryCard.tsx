@@ -5,9 +5,9 @@ import { filterRedhotWords } from "../utils/WordFilter"
 import { JournalEntry } from "../common/types"
 
 
-type Props = {
+interface Props {
     entry : JournalEntry,
-    norotate: boolean
+    norotate?: boolean
 }
 
 
