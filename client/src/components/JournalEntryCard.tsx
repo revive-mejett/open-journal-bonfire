@@ -2,11 +2,19 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import "./JournalEntryCard.scss"
 import { filterRedhotWords } from "../utils/WordFilter"
+import { JournalEntry } from "../common/types"
 
-const JournalEntryCard = ({ entry, norotate }) => {
+
+interface Props {
+    entry : JournalEntry,
+    norotate?: boolean
+}
+
+
+const JournalEntryCard = ({ entry, norotate } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
-    let cardRef = useRef(null)
+    let cardRef = useRef<HTMLDivElement>(null)
     let date
 
     useEffect(() => {
@@ -17,7 +25,7 @@ const JournalEntryCard = ({ entry, norotate }) => {
         }
         let randomRotation = Math.ceil(Math.random() * 30) - 15
 
-        if (!norotate) {
+        if (!norotate && cardRef.current != null) {
             cardRef.current.style.rotate = `${randomRotation}deg`
         }
         

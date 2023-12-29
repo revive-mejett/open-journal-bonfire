@@ -1,32 +1,47 @@
 import { useEffect, useState } from "react"
 import "./GeneralStatistics.scss"
 import Loading from "./visuals/Loading"
+import { EventTagType } from "../common/types"
+
+interface GeneralStatisticsData {
+    totalEntries: number,
+    positiveSelfRatedCount: number,
+    neutralSelfRatedCount: number,
+    negativeSelfRatedCount: number,
+    percentagePositive : number,
+    percentageNeutral: number,
+    percentageNegative: number,
+    averageWordCount: number,
+    numberEyeGlaring: number,
+    numberEyeUnsafe: number,
+    numberUnreadable: number,
+}
 
 const GeneralStatistics = () => {
 
-    const [data, setData] = useState(undefined)
+    const [data, setData] = useState<GeneralStatisticsData | undefined>(undefined)
 
-    const determineColorClass = (percentage, isNeutral, type) => {
-        if (isNeutral) {
-            return "neutral"
+    const determineColorClass = (percentage : number, type : EventTagType) => {
+        if (type === "neutral") {
+            return type
         }
         let colourClass = ""
 
         switch (true) {
             case (percentage > 70):
-                colourClass = type >= 1 ? "positive-5" : "negative-5"
+                colourClass = type === "positive" ? "positive-5" : "negative-5"
                 break;
             case (percentage > 60):
-                colourClass = type >= 1 ? "positive-4" : "negative-4"
+                colourClass = type >= "positive" ? "positive-4" : "negative-4"
                 break;
             case (percentage > 40):
-                colourClass = type >= 1 ? "positive-3" : "negative-3"
+                colourClass = type >= "positive" ? "positive-3" : "negative-3"
                 break;
             case (percentage > 30):
-                colourClass = type >= 1 ? "positive-2" : "negative-2"
+                colourClass = type >= "positive" ? "positive-2" : "negative-2"
                 break;
             case (percentage > 0):
-                colourClass = type >= 1 ? "positive" : "negative"
+                colourClass = type >= "positive" ? "positive" : "negative"
                 break;
             default:
                 colourClass = "neutral"
@@ -42,7 +57,7 @@ const GeneralStatistics = () => {
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
-                    let data = await response.json()
+                    let data : GeneralStatisticsData = await response.json() as GeneralStatisticsData
                     setData(data)
                 }
             } catch (error) {
@@ -53,8 +68,6 @@ const GeneralStatistics = () => {
             fetchData()
         }
     })
-
-    console.log(data);
 
     return (
         <>
@@ -88,19 +101,19 @@ const GeneralStatistics = () => {
                                 </h3>
                                 <p>{data.negativeSelfRatedCount}</p>
                             </div>
-                            <div className={"stat-item " + determineColorClass(data.percentagePositive, false, 1)}>
+                            <div className={"stat-item " + determineColorClass(data.percentagePositive, "positive")}>
                                 <h3>
                                     Percentage of positive self-rated
                                 </h3>
                                 <p>{data.percentagePositive}%</p>
                             </div>
-                            <div className={"stat-item " + determineColorClass(data.percentageNeutral, true)}>
+                            <div className={"stat-item " + determineColorClass(data.percentageNeutral, "neutral")}>
                                 <h3>
                                     Percentage of neutral self-rated
                                 </h3>
                                 <p>{data.percentageNeutral}%</p>
                             </div>
-                            <div className={"stat-item " + determineColorClass(data.percentageNegative, false, -1)}>
+                            <div className={"stat-item " + determineColorClass(data.percentageNegative, "negative")}>
                                 <h3>
                                     Percentage of negative self-rated
                                 </h3>
