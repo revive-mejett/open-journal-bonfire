@@ -4,35 +4,34 @@ import "./EventKeywordPicker.scss"
 import { EventTag } from "../../common/types"
 
 interface FormValues {
-
+    eventBank: EventTag[]
+    setFieldValue: (field : string, value : any) => void
 }
 
-interface Props {
+interface Props extends FormValues {
     helperText: string,
     helperListHeading : string,
     isDisabled: boolean,
     eventType: string,
-    eventBank: EventTag[],
     tagFilter: string,
     formikEventBankName: string,
     formikSelectedListName: string
-    setFieldValue: (field : String, value : any)
 }
 
 const EventKeywordPicker = (props : Props) => {
 
-    const [selectedEvents, setSelectedEvents] = useState([])
+    const [selectedEvents, setSelectedEvents] = useState<EventTag[]>([])
     const [eventBank, setEventBank] = useState(props.eventBank)
 
     let eventType = props.eventType
     let filteredEventBank = eventBank.filter(event => event.keyword.includes(props.tagFilter))
-    console.log(selectedEvents)
+
     return (
         <div className="event-tag-picker-subform">
             <h3>{props.helperText}</h3>
 
             <div className="event-tag-container unselected-event-tags">
-                {filteredEventBank.map((event, index) => {
+                {filteredEventBank.map((event : EventTag, index : number) => {
                     return (
                         <label key={index} className={"event-tag " + eventType}>
                             {event.keyword}<Field type="checkbox" name={props.formikEventBankName}
@@ -41,7 +40,7 @@ const EventKeywordPicker = (props : Props) => {
                                 value={event.keyword}
                                 onMouseEnter={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = true}
                                 onMouseLeave={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = false}
-                                onChange={(e) => {
+                                onChange={(e : React.ChangeEvent<HTMLInputElement>) => {
                                     selectedEvents.push(event)
                                     let updatedEventBank = [...eventBank]
                                     updatedEventBank = updatedEventBank.filter(goodEvent => goodEvent.keyword !== e.target.value)
@@ -59,15 +58,15 @@ const EventKeywordPicker = (props : Props) => {
 
             <h4>{props.helperListHeading}</h4>
             <div className="event-tag-container selected-event-tags">
-                {selectedEvents.map((event, index) => {
+                {selectedEvents.map((event : EventTag, index : number) => {
                     return (
                         <label key={index} className={"event-tag " + eventType}>
                             {event.keyword}<Field type="checkbox" name={props.formikSelectedListName}
                                 checked={true}
                                 value={event.keyword}
-                                onMouseEnter={(e) => e.target.checked = false}
-                                onMouseLeave={(e) => e.target.checked = true}
-                                onChange={(e) => {
+                                onMouseEnter={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = false}
+                                onMouseLeave={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = true}
+                                onChange={(e : React.ChangeEvent<HTMLInputElement>) => {
                                     eventBank.push(event)
                                     let updatedSelectedEvents = [...selectedEvents]
                                     updatedSelectedEvents = updatedSelectedEvents.filter(goodEvent => goodEvent.keyword !== e.target.value)
