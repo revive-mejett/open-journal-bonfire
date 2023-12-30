@@ -6,10 +6,25 @@ import "./KeywordCloud.scss"
 
 const positiveColorText = colorMap.get(10)
 
+interface EventTagWeightData {
+    frequency : number,
+    weight : number
+}
+
+type EventTagFrequencyItem = [
+    string,
+    EventTagWeightData
+]
+
+interface KeywordFrequencyData {
+    date : string,
+    eventTagFrequency : EventTagFrequencyItem[]
+}
+
 const KeywordCloud = () => {
 
 
-    const [data, setData] = useState(undefined)
+    const [data, setData] = useState<KeywordFrequencyData | undefined>(undefined)
 
     useEffect(() => {
 
@@ -36,8 +51,9 @@ const KeywordCloud = () => {
                         children: []
                     }
                     ]
-
+                    console.log(data)
                     data.eventTagFrequency.forEach(eventTag => {
+                        console.log(eventTag)
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral
                         //index of processedData contains event tags of a type (index 0 = positive, index 1 = neutral, index 2 = negative)
@@ -78,9 +94,19 @@ const KeywordCloud = () => {
         }
     }, [data])
 
-    console.log(data);
+    
+    interface KeywordCloudProps {
+        x : number,
+        y : number,
+        width : number,
+        height : number,
+        depth : number,
+        name : string
+        color : string,
+        opaqueColor : string
+    }
 
-    const CustomKeywordCloud = (props) => {
+    const CustomKeywordCloud = (props : KeywordCloudProps) => {
         //may work with index and payload in the future
         const { x, y, width, height, depth, name, color, opaqueColor } = props;
         return (

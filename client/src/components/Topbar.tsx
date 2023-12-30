@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
 import "./Topbar.scss"
 import BonfireIcon from "../assets/images/bonfire_site_icon.png"
+
+
 const Topbar = () => {
     return (
         <nav className="topbar">
-
             <Link to="/">
                 <img src={BonfireIcon} alt="Icon of a bonfire with paper flying"></img>
             </Link>
             <h1>open journal bonfire</h1>
-
             <ul>
                 <li>
                     <Link to="/entries/browse">View All</Link>
