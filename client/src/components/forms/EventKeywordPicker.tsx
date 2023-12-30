@@ -1,15 +1,32 @@
 import { Field } from "formik"
 import { useState } from "react"
 import "./EventKeywordPicker.scss"
+import { EventTag } from "../../common/types"
 
-const EventKeywordPicker = (props) => {
+interface FormValues {
+
+}
+
+interface Props {
+    helperText: string,
+    helperListHeading : string,
+    isDisabled: boolean,
+    eventType: string,
+    eventBank: EventTag[],
+    tagFilter: string,
+    formikEventBankName: string,
+    formikSelectedListName: string
+    setFieldValue: (field : String, value : any)
+}
+
+const EventKeywordPicker = (props : Props) => {
 
     const [selectedEvents, setSelectedEvents] = useState([])
     const [eventBank, setEventBank] = useState(props.eventBank)
 
     let eventType = props.eventType
     let filteredEventBank = eventBank.filter(event => event.keyword.includes(props.tagFilter))
-
+    console.log(selectedEvents)
     return (
         <div className="event-tag-picker-subform">
             <h3>{props.helperText}</h3>
@@ -22,8 +39,8 @@ const EventKeywordPicker = (props) => {
                                 checked={false}
                                 disabled={props.isDisabled}
                                 value={event.keyword}
-                                onMouseEnter={(e) => e.target.checked = true}
-                                onMouseLeave={(e) => e.target.checked = false}
+                                onMouseEnter={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = true}
+                                onMouseLeave={(e : React.MouseEvent<HTMLInputElement>) => e.currentTarget.checked = false}
                                 onChange={(e) => {
                                     selectedEvents.push(event)
                                     let updatedEventBank = [...eventBank]
