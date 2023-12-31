@@ -1,4 +1,4 @@
-const colorMap = new Map([
+const colorMap : Map<number, string> = new Map([
     [-10, "rgb(105, 212, 255)"],
     [-9, "rgb(105, 212, 255)"],
     [-8, "rgb(22, 141, 238)"],
@@ -22,7 +22,7 @@ const colorMap = new Map([
     [10, "rgb(255,217,0)"],
 ])
 
-const transparentColorMap = new Map([
+const transparentColorMap : Map<number, string> = new Map([
     [-10, "rgba(105, 212, 255, 0.3)"],
     [-9, "rgba(105, 212, 255, 0.3)"],
     [-8, "rgba(22, 141, 238, 0.3)"],

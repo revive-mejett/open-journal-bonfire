@@ -6,10 +6,48 @@ import "./KeywordCloud.scss"
 
 const positiveColorText = colorMap.get(10)
 
+interface EventTagWeightData {
+    frequency : number,
+    weight : number
+}
+
+type EventTagFrequencyItem = [
+    string,
+    EventTagWeightData
+]
+
+
+interface  GraphDataItem {
+    name: string,
+    color: string | undefined,
+    opaqueColor: string | undefined
+    size: number
+}
+
+type GraphData = [
+    {
+    name: string | undefined,
+    color: string | undefined,
+    children: GraphDataItem[]
+    },
+    {
+        name: string | undefined,
+        color: string | undefined,
+        children: GraphDataItem[]
+    },
+    {
+        name: string | undefined,
+        color: string | undefined,
+        children: GraphDataItem[]
+    },
+]
+
+
+
 const KeywordCloud = () => {
 
 
-    const [data, setData] = useState(undefined)
+    const [data, setData] = useState<GraphData | undefined>(undefined)
 
     useEffect(() => {
 
@@ -19,8 +57,8 @@ const KeywordCloud = () => {
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
-                    let data = await response.json()
-                    let processedData = [{
+                    let responseData = await response.json()
+                    let processedData :  GraphData = [{
                         name: "Great",
                         color: transparentColorMap.get(9),
                         children: []
@@ -36,8 +74,9 @@ const KeywordCloud = () => {
                         children: []
                     }
                     ]
-
-                    data.eventTagFrequency.forEach(eventTag => {
+                    console.log(responseData)
+                    responseData.eventTagFrequency.forEach((eventTag : EventTagFrequencyItem) => {
+                        console.log(eventTag)
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral
                         //index of processedData contains event tags of a type (index 0 = positive, index 1 = neutral, index 2 = negative)
@@ -78,9 +117,19 @@ const KeywordCloud = () => {
         }
     }, [data])
 
-    console.log(data);
+    
+    interface KeywordCloudProps {
+        x : number,
+        y : number,
+        width : number,
+        height : number,
+        depth : number,
+        name : string
+        color : string,
+        opaqueColor : string
+    }
 
-    const CustomKeywordCloud = (props) => {
+    const CustomKeywordCloud = (props : KeywordCloudProps) => {
         //may work with index and payload in the future
         const { x, y, width, height, depth, name, color, opaqueColor } = props;
         return (
@@ -138,7 +187,7 @@ const KeywordCloud = () => {
                     {
                         (data[0].children.length !== 0 || data[1].children.length !== 0 || data[2].children.length !== 0) ?
                         <ResponsiveContainer width="100%" height={1200}>
-                            <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
+                            <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud x={0} y={0} width={0} height={0} depth={0} name={""} color={""} opaqueColor={""}></CustomKeywordCloud>}>
                             </Treemap>
                         </ResponsiveContainer>
                         :
