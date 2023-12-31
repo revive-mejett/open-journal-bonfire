@@ -29,7 +29,6 @@ const SelfRatingDistribution = () => {
                 } else {
                     let data = await response.json()
                     data = data.sort((a : DataItem, b : DataItem) => a.rating - b.rating)
-                    console.log(data)
                     setData(data)
 
                     
