@@ -21,10 +21,40 @@ interface KeywordFrequencyData {
     eventTagFrequency : EventTagFrequencyItem[]
 }
 
+interface  GraphDataItem {
+    name: string,
+    color: string,
+    opaqueColor: string
+    size: number
+}
+
+type GraphData = [
+    {
+    name: string,
+    color: string,
+    opaqueColor: string
+    children: GraphDataItem[]
+    },
+    {
+        name: string,
+        color: string,
+        opaqueColor: string
+        children: GraphDataItem[]
+    },
+    {
+        name: string,
+        color: string,
+        opaqueColor: string
+        children: GraphDataItem[]
+    },
+]
+
+
+
 const KeywordCloud = () => {
 
 
-    const [data, setData] = useState<KeywordFrequencyData | undefined>(undefined)
+    const [data, setData] = useState<GraphData | undefined>(undefined)
 
     useEffect(() => {
 
@@ -34,7 +64,7 @@ const KeywordCloud = () => {
                 if (!response.ok) {
                     console.log("response not ok")
                 } else {
-                    let data = await response.json()
+                    let responseData = await response.json()
                     let processedData = [{
                         name: "Great",
                         color: transparentColorMap.get(9),
@@ -51,8 +81,8 @@ const KeywordCloud = () => {
                         children: []
                     }
                     ]
-                    console.log(data)
-                    data.eventTagFrequency.forEach(eventTag => {
+                    console.log(responseData)
+                    responseData.eventTagFrequency.forEach((eventTag : EventTagFrequencyItem) => {
                         console.log(eventTag)
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral

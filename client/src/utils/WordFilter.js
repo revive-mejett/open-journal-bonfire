@@ -39,7 +39,8 @@ const redHotWords = [
     //f*k
     /f\s*u\s*c\s*k/g,
     /f\s*u\s*kk*/g,
-    /f\s*u\s*h*/g,
+    /\bf\s*u\s*h+\b/g,
+    /\bf\s*u\s*h*\b/g,
     //b*ch
     /b\s*[il1|\u0131\u00CF\u00ED\u00EC]\s*t\s*c\s*h/g,
     //as*
