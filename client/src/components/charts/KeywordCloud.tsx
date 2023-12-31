@@ -74,9 +74,7 @@ const KeywordCloud = () => {
                         children: []
                     }
                     ]
-                    console.log(responseData)
                     responseData.eventTagFrequency.forEach((eventTag : EventTagFrequencyItem) => {
-                        console.log(eventTag)
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral
                         //index of processedData contains event tags of a type (index 0 = positive, index 1 = neutral, index 2 = negative)
