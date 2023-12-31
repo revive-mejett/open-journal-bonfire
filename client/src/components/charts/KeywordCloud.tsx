@@ -16,35 +16,28 @@ type EventTagFrequencyItem = [
     EventTagWeightData
 ]
 
-interface KeywordFrequencyData {
-    date : string,
-    eventTagFrequency : EventTagFrequencyItem[]
-}
 
 interface  GraphDataItem {
     name: string,
-    color: string,
-    opaqueColor: string
+    color: string | undefined,
+    opaqueColor: string | undefined
     size: number
 }
 
 type GraphData = [
     {
-    name: string,
-    color: string,
-    opaqueColor: string
+    name: string | undefined,
+    color: string | undefined,
     children: GraphDataItem[]
     },
     {
-        name: string,
-        color: string,
-        opaqueColor: string
+        name: string | undefined,
+        color: string | undefined,
         children: GraphDataItem[]
     },
     {
-        name: string,
-        color: string,
-        opaqueColor: string
+        name: string | undefined,
+        color: string | undefined,
         children: GraphDataItem[]
     },
 ]
@@ -65,7 +58,7 @@ const KeywordCloud = () => {
                     console.log("response not ok")
                 } else {
                     let responseData = await response.json()
-                    let processedData = [{
+                    let processedData :  GraphData = [{
                         name: "Great",
                         color: transparentColorMap.get(9),
                         children: []
@@ -194,7 +187,7 @@ const KeywordCloud = () => {
                     {
                         (data[0].children.length !== 0 || data[1].children.length !== 0 || data[2].children.length !== 0) ?
                         <ResponsiveContainer width="100%" height={1200}>
-                            <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud></CustomKeywordCloud>}>
+                            <Treemap width={200} height={500} data={data} dataKey={"size"} content={<CustomKeywordCloud x={0} y={0} width={0} height={0} depth={0} name={""} color={""} opaqueColor={""}></CustomKeywordCloud>}>
                             </Treemap>
                         </ResponsiveContainer>
                         :
