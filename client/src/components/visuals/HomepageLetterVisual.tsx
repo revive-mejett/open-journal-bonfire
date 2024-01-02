@@ -1,8 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 
-const HomepageLetterVisual = (props) => {
 
-    const samplePaperText = useRef(null)
+interface Props {
+    sampleTitle: string,
+    sampleEntryContent: string,
+    date: Date
+    refreshVisual : () => void
+}
+
+const HomepageLetterVisual = (props : Props) => {
+
+    const samplePaperText = useRef<HTMLDivElement>(null)
     const [isAnimating, setIsAnimating] = useState(false)
 
     useEffect(() => {
