@@ -8,7 +8,7 @@ interface Props {
     refreshVisual : () => void
 }
 
-const HomepageLetterVisual = (props : Props) => {
+const HomepageLetterVisual : React.FC<Props> = (props : Props) => {
 
     const samplePaperText = useRef<HTMLDivElement>(null)
     const [isAnimating, setIsAnimating] = useState(false)

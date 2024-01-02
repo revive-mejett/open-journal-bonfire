@@ -25,7 +25,7 @@ function generateLeaves() : React.JSX.Element[] {
     return leaves
 }
 
-const Background = () => {
+const Background : React.FC = () => {
 
     const [leaves, setLeaves] = useState<React.JSX.Element[] | []>([])
     

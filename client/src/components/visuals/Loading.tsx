@@ -1,6 +1,7 @@
 import "./Loading.scss"
 
-const Loading = () => {
+
+const Loading : React.FC = () => {
 
     return (
         <div className="loading-visual">
