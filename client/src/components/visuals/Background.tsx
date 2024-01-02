@@ -2,14 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import AutumnLeaf from "../../assets/images/autumn_leaf.png";
 import './Background.scss';
 
-const generateLeaves = () => {
+function generateLeaves() : React.JSX.Element[] {
 
     let randomRotation = Math.floor(Math.random() * 360)
     let sizeMultiplier = Math.floor(Math.random() + 0.5)
     const width = 45 * sizeMultiplier
     const height = 60 * sizeMultiplier
 
-    const leaves = Array.from({ length: 5 }, (_, i) => {
+    const leaves : React.JSX.Element[] = Array.from({ length: 5 }, (_, i) => {
 
         let styles = {
             transform: `rotate(${randomRotation}deg)`,
@@ -27,7 +27,7 @@ const generateLeaves = () => {
 
 const Background = () => {
 
-    const [leaves, setLeaves] = useState([])
+    const [leaves, setLeaves] = useState<React.JSX.Element[] | []>([])
     
 
     const mappedLeaves = useMemo(() => generateLeaves(), [])
