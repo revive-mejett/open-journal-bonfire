@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Loading from "../visuals/Loading";
 import "./KeywordCloud.scss"
 
-const positiveColorText = colorMap.get(10)
+const positiveColorText : string | undefined = colorMap.get(10)
 
 interface EventTagWeightData {
     frequency : number,
@@ -44,7 +44,7 @@ type GraphData = [
 
 
 
-const KeywordCloud = () => {
+const KeywordCloud : React.FC = () => {
 
 
     const [data, setData] = useState<GraphData | undefined>(undefined)
