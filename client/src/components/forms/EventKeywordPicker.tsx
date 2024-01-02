@@ -18,7 +18,7 @@ interface Props extends FormValues {
     formikSelectedListName: string
 }
 
-const EventKeywordPicker = (props : Props) => {
+const EventKeywordPicker : React.FC<Props> = (props : Props) => {
 
     const [selectedEvents, setSelectedEvents] = useState<EventTag[]>([])
     const [eventBank, setEventBank] = useState(props.eventBank)

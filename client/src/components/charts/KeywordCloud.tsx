@@ -127,7 +127,7 @@ const KeywordCloud : React.FC = () => {
         opaqueColor : string
     }
 
-    const CustomKeywordCloud = (props : KeywordCloudProps) => {
+    const CustomKeywordCloud : React.FC<KeywordCloudProps> = (props : KeywordCloudProps) => {
         //may work with index and payload in the future
         const { x, y, width, height, depth, name, color, opaqueColor } = props;
         return (
