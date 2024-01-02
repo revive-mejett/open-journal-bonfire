@@ -15,7 +15,7 @@ interface DataItem {
 type GraphData = DataItem[]
 
 
-const SelfRatingDistribution = () => {
+const SelfRatingDistribution : React.FC = () => {
 
     const [data, setData] = useState<GraphData | undefined>(undefined)
 

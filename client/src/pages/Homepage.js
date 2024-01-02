@@ -10,7 +10,7 @@ const Homepage = () => {
     const samplePreviewEntries = [{
         sampleTitle: "Passed my science test!",
         sampleDate: new Date("2023-1-17"),
-        sampleText: "Today I had an amazing day! I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
+        sampleText: "Today I had an amazing day! \u2656 I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
     },
     {
         sampleTitle: "city lockdown and hurt my thumb",

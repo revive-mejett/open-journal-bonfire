@@ -3,7 +3,7 @@ import "./Topbar.scss"
 import BonfireIcon from "../assets/images/bonfire_site_icon.png"
 
 
-const Topbar = () => {
+const Topbar : React.FC = () => {
     return (
         <nav className="topbar">
             <Link to="/">

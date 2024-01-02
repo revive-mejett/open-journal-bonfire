@@ -17,7 +17,7 @@ interface GeneralStatisticsData {
     numberUnreadable: number,
 }
 
-const GeneralStatistics = () => {
+const GeneralStatistics : React.FC = () => {
 
     const [data, setData] = useState<GeneralStatisticsData | undefined>(undefined)
 

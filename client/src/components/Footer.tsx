@@ -6,7 +6,7 @@ type Props = {
     slogan : string
 }
 
-const Footer = ({title, slogan} : Props) => {
+const Footer : React.FC<Props> = ({title, slogan} : Props) => {
     return (
         <footer>
             <div className="footer-content">

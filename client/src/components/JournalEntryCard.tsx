@@ -11,7 +11,7 @@ interface Props {
 }
 
 
-const JournalEntryCard = ({ entry, norotate } : Props) => {
+const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
     let cardRef = useRef<HTMLDivElement>(null)
