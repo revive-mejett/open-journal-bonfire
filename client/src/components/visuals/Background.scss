@@ -7,7 +7,7 @@
     left: 0;
     top: 0;
     position: fixed;
-
+    overflow: hidden;
 
     .leaf {
         position: absolute;
@@ -58,5 +58,11 @@
         left: 110%;
         transform: skew(45deg, 45deg);
         opacity: 0%;
+    }
+}
+
+@media (max-width: 992px) {
+    .background {
+        display: none;
     }
 }

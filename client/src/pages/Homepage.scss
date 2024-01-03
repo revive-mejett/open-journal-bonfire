@@ -150,8 +150,8 @@ $particle-size-final: 10px;
 
     .creation-feature-presentation {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: max-content max-content max-content;
+        grid-template-columns: 0.7fr 0.3fr;
+        grid-template-rows: max-content 600px max-content;
 
         h2 {
             grid-row: 1;
@@ -226,22 +226,24 @@ $particle-size-final: 10px;
     }
 }
 
+@media (max-width: 1200px) {
+    /* Styles for large devices */
+    .homepage-main {
+        width: 80vw;
+        background-color: goldenrod;
+    }
+}
+
+// width less than this will have alternative grid
 
 @media (max-width: 992px) {
     .homepage-main {
         width: 100vw;
-    }
-}
-
-@media (max-width: 992px) {
-    .homepage-main {
         .presentation-section {
-            width: 90%;
             padding: 1em;
             margin: auto;
         }
-        .introduction-heading {
-            
+        .introduction-heading {        
             grid-template-columns: 1fr;
             grid-template-rows: 200px 10vh 50vh;
 
@@ -260,10 +262,49 @@ $particle-size-final: 10px;
                 grid-column: 1;
             }
         }
+
+        .creation-feature-presentation {
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content max-content 1000px max-content;
+            h2 {
+                grid-row: 1;
+                grid-column: 1;
+            }
+    
+            p {
+                grid-row: 2;
+                grid-column: 1;
+            }
+    
+            .presentation-visual {
+                grid-row: 3;
+                grid-column: 1;
+                height: 100%;
+                width: 100%;
+            }
+
+            .link-container {
+                grid-row: 4;
+                grid-column: 1;
+                margin: auto;
+            }
+        }
     }
 }
 
+@media (max-width: 768px) {
 
+}
+
+@media (max-width: 576px) {
+    /* Styles for large devices */
+    .homepage-main {
+        width: 100vw;
+        background-color: blue;
+    }
+}
+
+  
 @keyframes flyingpaper {
     0% {
         transform: skew(-45deg, -45deg);
