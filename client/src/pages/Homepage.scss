@@ -28,7 +28,7 @@ $particle-size-final: 10px;
         display: grid;
 
         grid-template-columns: 0.4fr 0.6fr;
-        grid-template-rows: 30vh 30vh;
+        grid-template-rows: 30vh 50vh;
 
         h1 {
             grid-row: 1;
@@ -48,17 +48,18 @@ $particle-size-final: 10px;
             grid-row-end: -1;
             grid-column-start: 2;
             grid-column-end: 2;
-            // background-color: black; //temp
+            overflow: hidden;
             position: relative;
+            min-height: 750px;
 
             .wood-art {
-                width: 40%;
-                height: 8%;
+                width: 300px;
+                height: 60px;
                 position: absolute;
                 transform: translate(-50%, -50%);
                 background-color: $color-neutral;
                 left: 50%;
-                top: 90%;
+                top: 85%;
 
                 &.wood-1 {
                     rotate: 10deg;
@@ -110,7 +111,7 @@ $particle-size-final: 10px;
 
                 @keyframes flame {
                     0% {
-                        top: 90%;
+                        top: 80%;
                         transform: translate(-50%, -50%);
                         background-color: $color-positive-5;
                         box-shadow: 1px 1px 1px 1px $color-positive-4;
@@ -151,7 +152,8 @@ $particle-size-final: 10px;
     .creation-feature-presentation {
         display: grid;
         grid-template-columns: 0.7fr 0.3fr;
-        grid-template-rows: max-content 600px max-content;
+        grid-template-rows: max-content max-content max-content;
+        margin: 2em;
 
         h2 {
             grid-row: 1;
