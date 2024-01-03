@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-
+import "./HomepageLetterVisual.scss"
 
 interface Props {
     sampleTitle: string,
