@@ -43,3 +43,39 @@
         }
     }
 }
+
+@media (min-width: 1201px) {
+    .journal-entry-detail-main {
+        width: 50vw;
+    }
+}
+
+@media (min-width: 577px) {
+
+}
+
+@media (max-width: 1200px) {
+    .journal-entry-detail-main {
+        width: 80vw;
+    }
+}
+
+
+// width less than this will have alternative grid
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
+    /* Styles for small devices */
+    .journal-entry-detail-main {
+        width: 100vw;
+    }
+
+    h1 {
+        display: none;
+    }
+}
+
