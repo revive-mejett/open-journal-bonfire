@@ -6,7 +6,6 @@ $particle-size: 120px;
 $particle-size-final: 10px;
 
 .homepage-main {
-    width: 70vw;
     margin-top: 2em;
     margin-bottom: 2em;
 
@@ -50,7 +49,7 @@ $particle-size-final: 10px;
             grid-column-end: 2;
             overflow: hidden;
             position: relative;
-            min-height: 750px;
+            min-height: 500px;
 
             .wood-art {
                 width: 300px;
@@ -82,7 +81,7 @@ $particle-size-final: 10px;
                 @for $i from 0 to 2 {
                     &:nth-child(#{$i + 1}) {
                         transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
-                        bottom: (random($limit: 40) * 1% + 10%);
+                        bottom: (random($limit: 70) * 1% + 10%);
                         animation: flyingpaper random($limit: 5) * 4s ease-in-out infinite;
                         animation-delay: calc($i * 4s / 5);
                     }
@@ -211,7 +210,25 @@ $particle-size-final: 10px;
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: space-around;
+            }
+        }
+    }
 
+    .link-container {
+        @include link-container;
+    }
+}
+
+@media (min-width: 1201px) {
+    .homepage-main {
+        width: 80vw;
+    }
+}
+
+@media (min-width: 577px) {
+    .homepage-main {
+        .sample-entries-background {
+            &>.sample-entries-container {
                 .journal-entry-card {
                     transform: skewX(10deg);
                 }
@@ -222,22 +239,16 @@ $particle-size-final: 10px;
             }
         }
     }
-
-    .link-container {
-        @include link-container;
-    }
 }
 
 @media (max-width: 1200px) {
-    /* Styles for large devices */
     .homepage-main {
-        width: 80vw;
-        background-color: goldenrod;
+        width: 90vw;
     }
 }
 
-// width less than this will have alternative grid
 
+// width less than this will have alternative grid
 @media (max-width: 992px) {
     .homepage-main {
         width: 100vw;
@@ -247,7 +258,7 @@ $particle-size-final: 10px;
         }
         .introduction-heading {        
             grid-template-columns: 1fr;
-            grid-template-rows: 200px 10vh 50vh;
+            grid-template-rows: 200px 200px 600px;
 
             h1 {
                 grid-row: 1;
@@ -267,7 +278,7 @@ $particle-size-final: 10px;
 
         .creation-feature-presentation {
             grid-template-columns: 1fr;
-            grid-template-rows: max-content max-content 1000px max-content;
+            grid-template-rows: max-content max-content 600px max-content;
             h2 {
                 grid-row: 1;
                 grid-column: 1;
@@ -295,14 +306,23 @@ $particle-size-final: 10px;
 }
 
 @media (max-width: 768px) {
-
+    .sample-entries-background {
+        &>.sample-entries-container {
+            .journal-entry-card {
+                transform: none;
+            }
+    
+            .journal-entry-card-link {
+                transform: none;
+            }
+        }
+    }
 }
 
 @media (max-width: 576px) {
     /* Styles for large devices */
     .homepage-main {
         width: 100vw;
-        background-color: blue;
     }
 }
 
