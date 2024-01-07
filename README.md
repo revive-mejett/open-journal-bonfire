@@ -28,6 +28,7 @@ MERN stack
 
 ## Libraries used:
 - Yup (form validation)
+- Mongoose
 - Formik
 - Recharts 📈
 - Eslint
@@ -36,7 +37,7 @@ MERN stack
 - Responsive web design
 - New metrics for statistics
 - Integration of TypeScript
-- Feature to add additional event tags of their own
+- Feature to add additional event tags of their own with ranking of popular event tags
 - Oldest entries being discarded
 
 ## Screenshots
