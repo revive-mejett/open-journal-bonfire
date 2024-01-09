@@ -11,28 +11,30 @@
     .journal-entry-page {
         @include journalpagelayout;
 
-        width: 60vw;
+        width: 700px;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 100px 600px 200px;
         align-items: stretch;
 
+        .entry-body {
+            overflow: auto;
+        }
+
         .event-tag-body {
-            align-self: end;
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            width: 100%;
             .event-tag-container {
                 display: flex;
                 flex-flow: row wrap;
                 background-color: $color-dark;
                 padding: 0 0.75em;
                 align-content: flex-start;
-                
+                width: 100%;
             }
         }
-
-        .event-tag-body {
-            vertical-align: bottom;
-        }
-
     }
 
 }
@@ -59,11 +61,19 @@
 }
 
 @media (max-width: 768px) {
+    
 }
 
 @media (max-width: 576px) {
     /* Styles for small devices */
     .journal-entry-detail-main {
         width: 100vw;
+        .journal-entry-page {
+            grid-template-rows: 100px 260px 100px;
+            width: 350px;
+            height: calc(350px / 0.75);
+
+            font-size: 70%;
+        }
     }
 }
