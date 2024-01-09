@@ -56,8 +56,16 @@
 }
 
 
-// width less than this will have alternative grid
 @media (max-width: 992px) {
+    .journal-entry-detail-main {
+        width: 90vw;
+        .journal-entry-page {
+            grid-template-rows: 100px 450px 100px;
+            width: 500px;
+            height: calc(500px / 0.75);
+            font-size: 80%;
+        }
+    }
 }
 
 @media (max-width: 768px) {
@@ -72,7 +80,6 @@
             grid-template-rows: 100px 260px 100px;
             width: 350px;
             height: calc(350px / 0.75);
-
             font-size: 70%;
         }
     }
