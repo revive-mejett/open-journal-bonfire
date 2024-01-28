@@ -45,7 +45,6 @@
     .subform-flex-item {
         margin: 0.5em;
         width: 33%;
-
     }
 
     .self-rating-form {
@@ -119,7 +118,7 @@
             margin: 1em 0;
             label {
                 display: block;
-                text-align: left;
+                text-align: center;
                 margin-bottom: 0;
             }
     
@@ -129,9 +128,30 @@
                 margin: 0;
                 border-width: 1px 0;
             }
+
+            .entry-title-field,
+            .filter-tags-field {
+                width: 100%;
+            }
+
+            select {
+                width: 100%;
+            }
         }
 
+        .event-tags-subforms-container {
+            flex-direction: column;
+        }
 
+        .subform-flex-item {
+            width: 100%;
+            margin: 0;
+        }
+
+        .create-entry-submit-button {
+            width: 95%;
+            margin: 1em 0 5em 0;
+        }
     }
 }
 
