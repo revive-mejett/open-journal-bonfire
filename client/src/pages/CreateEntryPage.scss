@@ -2,18 +2,20 @@
 
 .create-entry-page-main {
     text-align: center;
-    
+
 
     .form-section {
         text-align: left;
         margin: 0.5em 0;
+
         label {
             display: block;
             text-align: left;
             margin-bottom: 0;
         }
 
-        .entry-title-field, .filter-tags-field {
+        .entry-title-field,
+        .filter-tags-field {
             @include input-field;
             width: 50%;
         }
@@ -24,7 +26,7 @@
             width: 100%;
             height: 500px;
             margin: 0;
-            padding: 0.25em;
+            padding: 0;
         }
     }
 
@@ -43,21 +45,22 @@
     .subform-flex-item {
         margin: 0.5em;
         width: 33%;
-        
     }
 
     .self-rating-form {
         select {
             @include input-field;
         }
+
         margin: auto;
         text-align: center;
+
         label {
             font-size: 150%;
             text-align: center;
         }
 
-        
+
     }
 
     .create-entry-submit-button {
@@ -73,3 +76,83 @@
     }
 }
 
+
+@media (min-width: 1201px) {}
+
+@media (min-width: 769px) {
+    .form-section {
+        text-align: left;
+        margin: 1em 0;
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0;
+        }
+
+        .entry-title-field,
+        .filter-tags-field {
+            @include input-field;
+            width: 50%;
+        }
+
+        .entry-content-textarea {
+            @include input-field;
+            height: 500px;
+        }
+    }
+}
+
+@media (max-width: 1200px) {}
+
+
+// width less than this will have alternative grid
+@media (max-width: 992px) {}
+
+@media (max-width: 768px) {
+    .create-entry-page-main {
+        width: 100vw;
+
+        .form-section {
+            text-align: left;
+            margin: 1em 0;
+            label {
+                display: block;
+                text-align: center;
+                margin-bottom: 0;
+            }
+    
+            .entry-content-textarea {
+                width: 100vw;
+                padding: 0.5em 0;
+                margin: 0;
+                border-width: 1px 0;
+            }
+
+            .entry-title-field,
+            .filter-tags-field {
+                width: 100%;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
+
+        .event-tags-subforms-container {
+            flex-direction: column;
+        }
+
+        .subform-flex-item {
+            width: 100%;
+            margin: 0;
+        }
+
+        .create-entry-submit-button {
+            width: 95%;
+            margin: 1em 0 5em 0;
+        }
+    }
+}
+
+@media (max-width: 576px) {}
