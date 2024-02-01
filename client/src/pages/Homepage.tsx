@@ -4,10 +4,12 @@ import "./Homepage.scss"
 import { Link } from "react-router-dom"
 import HomepageLetterVisual from "../components/visuals/HomepageLetterVisual"
 import Background from "../components/visuals/Background"
+import { JournalEntry } from "../common/types"
 
-const Homepage = () => {
 
-    const samplePreviewEntries = [{
+const Homepage : React.FC = () => {
+
+    const samplePreviewEntries : {sampleTitle: string, sampleDate: Date, sampleText: string}[] = [{
         sampleTitle: "Passed my science test!",
         sampleDate: new Date("2023-1-17"),
         sampleText: "Today I had an amazing day! \u2656 I passed my science test covering the reproductive system with an A+! I studied so hard for it and it paid off. I bought a nice ice cream to celebrate it."
@@ -29,8 +31,8 @@ const Homepage = () => {
     },
     ]
     
-    const [previewEntriesIndex, setPreviewWrite] = useState(0)
-    const [sampleEntries, setEntryData] = useState(0)
+    const [previewEntriesIndex, setPreviewWrite] = useState<number>(0)
+    const [sampleEntries, setEntryData] = useState<JournalEntry[] | undefined>(undefined)
 
     const refreshPreviewVisual = () => {
         if (previewEntriesIndex === samplePreviewEntries.length - 1) {
@@ -43,9 +45,9 @@ const Homepage = () => {
 
     const numberSampleEntries = 3
 
-    const particles = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
+    const particles : JSX.Element[] = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
 
-    const paperPieces = Array.from({ length: 5 }, (_, i) => {
+    const paperPieces : JSX.Element[] = Array.from({ length: 5 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
         const paperHeight = 50
@@ -101,7 +103,7 @@ const Homepage = () => {
                     Take a pencil (your keyboard) and a piece of paper (your screen). Write your day..
                 </h2>
                 <p>Did you pass your science test? Share it! Got a new car? Jot what model and colour you got! Got an unfortunate bruise? Ouch. Explain how did you get that little bruise. Share all your amazing experience you have had today! Or dump it all! Write freely and anonymously!</p>
-                <HomepageLetterVisual sampleTitle={samplePreviewEntries[previewEntriesIndex].sampleTitle} sampleEntryContent={samplePreviewEntries[previewEntriesIndex].sampleText} date={samplePreviewEntries[previewEntriesIndex].sampleDate} refreshVisual={refreshPreviewVisual}> </HomepageLetterVisual>
+                <HomepageLetterVisual sampleTitle={samplePreviewEntries[previewEntriesIndex].sampleTitle} sampleEntryContent={samplePreviewEntries[previewEntriesIndex].sampleText} date={samplePreviewEntries[previewEntriesIndex].sampleDate} refreshVisual={refreshPreviewVisual}/>
                 <div className="link-container">
                     <Link to="/entries/new" className="link-button">Create now</Link>
                 </div>
