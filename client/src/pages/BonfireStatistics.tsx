@@ -4,7 +4,7 @@ import GeneralStatistics from '../components/GeneralStatistics';
 
 
 
-const BonfireStatistics = () => {
+const BonfireStatistics : React.FC = () => {
 
 
     return (
