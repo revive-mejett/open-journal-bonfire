@@ -4,21 +4,22 @@ import "./JournalEntryDetail.scss"
 import Background from "../components/visuals/Background"
 import Loading from "../components/visuals/Loading"
 import { filterRedhotWords } from "../utils/WordFilter"
+import { JournalEntry } from "../common/types"
 
-const JournalEntryDetail = () => {
+const JournalEntryDetail : React.FC = () => {
 
     const location = useLocation()
     const navigate = useNavigate()
 
-    const [journalEntryData, setJournalEntryData] = useState(undefined)
-    const [isFetching, setIsFetching] = useState(true)
+    const [journalEntryData, setJournalEntryData] = useState<JournalEntry | undefined>(undefined)
+    const [isFetching, setIsFetching] = useState<Boolean>(true)
 
-    let dateCreated = useRef()
+    let dateCreated = useRef<Date | null>(null)
 
     useEffect(() => {
         let baseUrl = "/api/journalentries/"
 
-        let urlParams = new URLSearchParams(location.search)
+        let urlParams : URLSearchParams = new URLSearchParams(location.search)
         let searchId = urlParams.get("id")
 
         const fetchEntry = async () => {
@@ -64,7 +65,7 @@ const JournalEntryDetail = () => {
                 journalEntryData && !isFetching ?
                 <section className="journal-entry-page">
                     
-                    {dateCreated &&
+                    {dateCreated.current !== null &&
                         <div className="date-display">
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { weekday: "long" })}</h2>
