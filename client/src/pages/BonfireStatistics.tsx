@@ -2,11 +2,7 @@ import SelfRatingDistribution from '../components/charts/SelfRatingDistribution'
 import KeywordCloud from '../components/charts/KeywordCloud';
 import GeneralStatistics from '../components/GeneralStatistics';
 
-
-
 const BonfireStatistics : React.FC = () => {
-
-
     return (
         <main className="bonfire-stats-page-main">
             <h1>Bonfire statistics page</h1>
