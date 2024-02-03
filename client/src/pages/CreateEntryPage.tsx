@@ -7,10 +7,43 @@ import { useEffect, useState } from "react"
 import Background from "../components/visuals/Background"
 import * as Yup from "yup"
 import { countBlacklistedWords, countHotWords, countRedHotWords } from "../utils/WordFilter"
+import { EventTag } from "../common/types"
+
+
+interface RawFrequentKeywordData {
+    title: any,
+    entryContent: any,
+    greatEvents: EventTag[],
+    neutralEvents: EventTag[],
+    badEvents: EventTag[],
+    selfRating: any,
+    numberHotWords: number,
+    numberRedHotWords: number,
+    numberBlacklistedWords: number,
+    isExplicit: boolean,
+    isTooExplicit: boolean,
+    averageKeywordMagnitude: number,
+}
+
+interface CreateEntryFormData {
+    title : string,
+    entryContent: string,
+    goodEventsList: EventTag[],
+    neutralEventsList: EventTag[],
+    worseEventsList: EventTag[],
+    selfRating: number,
+}
+
+interface FrequentKeywordData {
+    positiveTags: EventTag[],
+    neutralTags: EventTag[],
+    negativeTags: EventTag[]
+}
+
 
 const CreateEntryPage = () => {
 
-    const [frequentKeywordData, setFrequentKeywordData] = useState(undefined)
+    const [frequentKeywordData, setFrequentKeywordData] = useState<FrequentKeywordData | undefined>(undefined)
 
     const journalEntrySchema = Yup.object().shape({
         title: Yup.string()
@@ -39,6 +72,7 @@ const CreateEntryPage = () => {
                     console.error("response not ok")
                 } else {
                     let data = await response.json()
+                    console.log(data)
                     setFrequentKeywordData(data)
                 }
             }
@@ -49,7 +83,7 @@ const CreateEntryPage = () => {
 
     const navigate = useNavigate()
 
-    const deleteUnusedEventProperties = (event) => {
+    const deleteUnusedEventProperties = (event : EventTag) => {
         return {
             keyword: event.keyword,
             weight: event.weight,
@@ -59,19 +93,19 @@ const CreateEntryPage = () => {
 
 
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values : CreateEntryFormData) => {
 
         const numberHotWords = countHotWords(values.title) + countHotWords(values.entryContent)
         const numberRedHotWords = countRedHotWords(values.title) + countRedHotWords(values.entryContent)
         const numberBlacklistedWords = countBlacklistedWords(values.title) + countBlacklistedWords(values.entryContent)
 
         const numberEventTags = values.goodEventsList.length + values.neutralEventsList.length + values.worseEventsList.length
-        const sumPositiveEventMagnitude = values.goodEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
-        const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + curr.magnitude, 0)
+        const sumPositiveEventMagnitude = values.goodEventsList.reduce((prev, curr) => prev + (curr.magnitude ? curr.magnitude : 0), 0)
+        const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + (curr.magnitude ? curr.magnitude : 0), 0)
         const averageKeywordMagnitude = Math.round((sumPositiveEventMagnitude + sumNegativeMagnitude)/numberEventTags * 10) / 10
 
 
-        let data = {
+        let data : RawFrequentKeywordData = {
             title: numberBlacklistedWords === 0 ? values.title : "[unreadable entry]",
             entryContent: numberBlacklistedWords === 0 ? values.entryContent : "[this entry is unreadable]",
             greatEvents: values.goodEventsList,
@@ -113,7 +147,6 @@ const CreateEntryPage = () => {
         } else {
             console.error(responseData.error)
         }
-
     }
 
     return (
