@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Bar, BarChart, Label, Cell, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, Label, Cell, XAxis, YAxis, ResponsiveContainer } from "recharts"
 import Loading from "../visuals/Loading"
 
 import { colorMap } from "../../assets/constants"
@@ -47,6 +47,7 @@ const SelfRatingDistribution : React.FC = () => {
         <>
             {
                 data ?
+                <ResponsiveContainer width="100%" height={400}>
                     <BarChart width={1000} height={600} data={data} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
                         <Bar dataKey="numberEntries" fill="white" label={{ position: "top" }}>
                             {data.map((selfRating, index) => {
@@ -64,6 +65,8 @@ const SelfRatingDistribution : React.FC = () => {
                             <Label value={"Number of entries"} position={"center"} offset={-30} angle={90} fill={borderColor}></Label>
                         </YAxis>
                     </BarChart>
+                </ResponsiveContainer>
+
                     :
                     <Loading/>
             }
