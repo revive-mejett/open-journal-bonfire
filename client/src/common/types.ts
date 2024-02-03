@@ -1,5 +1,8 @@
 export type EventTag = {
-    keyword: string
+    keyword: string,
+    magnitude?: number,
+    weight?: number,
+    lastUsed?: Boolean,
 }
 
 export type JournalEntry = {

@@ -4,29 +4,37 @@ import "./JournalEntriesPage.scss"
 import "../common/forms.scss"
 import "./Homepage.scss"
 import { Field, Formik } from "formik"
-import { useLocation, useNavigate } from "react-router-dom"
+import { NavigateFunction, useLocation, useNavigate } from "react-router-dom"
 import Background from "../components/visuals/Background"
 import Loading from "../components/visuals/Loading"
+import { JournalEntry } from "../common/types"
 
+interface CreatEntryFormValues {
+    titleFilterMatch: string,
+    entryContentMatch: string,
+    minSelfRating: number,
+    maxSelfRating: number,
+    sortOrder: string
+}
 
-const JournalEntriesPage = () => {
+const JournalEntriesPage : React.FC = () => {
 
-    const [entryData, setEntryData] = useState(undefined)
-    const [isFetching, setIsFetching] = useState(true)
+    const [entryData, setEntryData] = useState<JournalEntry[] | undefined>(undefined)
+    const [isFetching, setIsFetching] = useState<Boolean>(true)
 
     const navigate = useNavigate()
     const location = useLocation()
 
-    const handleSubmit = values => {
+    const handleSubmit = (values : CreatEntryFormValues) => {
 
-        const url = new URL(window.location)
+        const url : URL = new URL(window.location.href)
 
         url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
-        url.searchParams.set("minSelfRating", values.minSelfRating)
-        url.searchParams.set("maxSelfRating", values.maxSelfRating)
+        url.searchParams.set("minSelfRating", values.minSelfRating.toString())
+        url.searchParams.set("maxSelfRating", values.maxSelfRating.toString())
         url.searchParams.set("sortOrder", values.sortOrder)
-        navigate({ to: "/entries/browse", search: url.search })
+        navigate("/entries/browse" + url.search)
         window.location.reload()
     }
 

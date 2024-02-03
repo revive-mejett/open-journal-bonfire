@@ -1,4 +1,11 @@
-const NotFound = (props) => {
+
+interface Props {
+    primaryMessage: string,
+    secondaryMessage: string
+}
+
+
+const NotFound : React.FC<Props> = (props : Props) => {
     return (
         <main className="error-404-page-main">
             <p className="number-404">404</p>
