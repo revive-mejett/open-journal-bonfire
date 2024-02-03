@@ -5,7 +5,13 @@
 .jounal-entries-page-main {
     overflow-x: clip;
     height: max-content;
-    
+
+    #button-filter-toggle {
+        @include button-style;
+        display: none;
+        margin: 0.5em 0 0.5em 0.5em;
+    }
+
     .filters-container {
         background-color: $color-pane-2;
         margin: auto;
@@ -94,7 +100,7 @@
         justify-content: space-around;
         position: relative;
 
-        & > .journal-entry-card:nth-child(n) {
+        &>.journal-entry-card:nth-child(n) {
             visibility: hidden;
             rotate: (random($limit: 30) * 1deg) - 15deg;
             animation: spread 1.5s forwards;
@@ -104,7 +110,7 @@
             from {
                 opacity: 0%;
                 transform: translateX(-150vw);
-            } 
+            }
 
             to {
                 transform: translateX(0%);
@@ -117,8 +123,41 @@
             rotate: 0deg;
         }
     }
-
-
 }
 
+@media (min-width: 1201px) {}
 
+@media (min-width: 769px) {}
+
+@media (max-width: 1200px) {}
+
+
+//smaller screens
+@media (max-width: 992px) {
+    .jounal-entries-page-main {
+        width: 100%;
+        .filters-container {
+            width: 100%;
+            margin: 0;
+        }
+
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .jounal-entries-page-main {
+        width: 100%;
+        .filters-container {
+            display: none;
+        }
+
+        #button-filter-toggle {
+            display: block;
+        }
+
+        .filter-toggled {
+            display: block;
+        }
+    }
+}
