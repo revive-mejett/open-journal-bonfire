@@ -72,7 +72,6 @@ const CreateEntryPage = () => {
                     console.error("response not ok")
                 } else {
                     let data = await response.json()
-                    console.log(data)
                     setFrequentKeywordData(data)
                 }
             }
