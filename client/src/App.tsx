@@ -11,12 +11,12 @@ import NotFound from "./pages/NotFound";
 import BonfireStatistics from "./pages/BonfireStatistics";
 import Footer from "./components/Footer";
 
-const App = () => {
+const App : React.FC = () => {
     return (
         <>
             <Topbar />
             <Routes>
-                <Route exact path="/" element={<Homepage />} />
+                <Route path="/" element={<Homepage />} />
                 <Route path="/entries/browse" element={<JournalEntriesPage />} />
                 <Route path="/entries/new" element={<CreateEntryPage />} />
                 <Route path="/entries/viewing" element={<JournalEntryDetail />} />
