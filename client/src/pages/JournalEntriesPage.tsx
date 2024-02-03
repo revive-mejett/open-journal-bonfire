@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import JournalEntryCard from "../components/JournalEntryCard"
 import "./JournalEntriesPage.scss"
 import "../common/forms.scss"
@@ -21,6 +21,8 @@ const JournalEntriesPage : React.FC = () => {
 
     const [entryData, setEntryData] = useState<JournalEntry[] | undefined>(undefined)
     const [isFetching, setIsFetching] = useState<Boolean>(true)
+
+    const filtersContainer = useRef<HTMLElement | null>(null)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -63,10 +65,21 @@ const JournalEntriesPage : React.FC = () => {
         }
     }, [entryData, location.search])
 
+    const handleToggleButtonClick = () => {
+        const filtersPane = filtersContainer.current
+        if (filtersPane?.classList.contains("filter-toggled")) {
+            filtersPane.classList.remove("filter-toggled")
+        } else {
+            filtersPane?.classList.add("filter-toggled")
+        }
+    }
+
     return (
         <main className="jounal-entries-page-main">
             <Background />
-            <section className="filters-container">
+            <button type="button" id="button-filter-toggle" onClick={handleToggleButtonClick}>Toggle filters</button>
+            <section className="filters-container" ref={filtersContainer}>
+                
                 <Formik
                     initialValues={{ titleFilterMatch: "", entryContentMatch: "", minSelfRating: -10, maxSelfRating: 10, sortOrder: "newest" }}
                     onSubmit={handleSubmit}
