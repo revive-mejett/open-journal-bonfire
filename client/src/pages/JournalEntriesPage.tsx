@@ -67,7 +67,6 @@ const JournalEntriesPage : React.FC = () => {
 
     const handleToggleButtonClick = () => {
         const filtersPane = filtersContainer.current
-        console.log(filtersPane?.classList)
         if (filtersPane?.classList.contains("filter-toggled")) {
             filtersPane.classList.remove("filter-toggled")
         } else {

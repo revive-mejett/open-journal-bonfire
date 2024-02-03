@@ -15,7 +15,6 @@
     .filters-container {
         background-color: $color-pane-2;
         margin: auto;
-        min-width: 600px;
         width: 70%;
         min-height: 100px;
 
@@ -141,6 +140,23 @@
         width: 100%;
         .filters-container {
             display: none;
+
+            .entry-filter-sort-form {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                padding-bottom: 0.5em;
+                input, select {
+                    width: 100%;
+                }
+
+                .button-container {
+                    button {
+                        width: fit-content;
+                        margin: 0;
+                    }
+                }
+            }
         }
 
         #button-filter-toggle {
