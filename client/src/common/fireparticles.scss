@@ -1,0 +1,72 @@
+
+@mixin fire-particle {
+    //particle styles
+    
+    $particle-size: 10px;
+    $particle-size-final: 20px;
+    height: $particle-size;
+    width: $particle-size;
+    position: absolute;
+    visibility: visible;
+    border-radius: 50%;
+    z-index: -2;
+    pointer-events: none;
+
+
+    //flame ember animation, spawn particles in the borders only
+    @for $i from 0 to 50 {
+        &:nth-child(#{$i + 1}) {
+
+            $spawnSideways: (math.random(2) - 1);
+            $left: 0%;
+            $bottom: 0%;
+            
+
+            @if $spawnSideways == 0 {
+                $bottom: (math.random($limit: 100) * 1%);
+                $left: (math.random($limit: 2) - 1) * 100%;
+            } @else {
+                $left: (math.random($limit: 100) * 1%);
+                $bottom: (math.random($limit: 2) - 1) * 100%;
+            }
+            left: $left;
+            bottom: $bottom;
+            transform: translate(-50%, -50%);
+            animation: emberflame 2s ease-out infinite;
+            animation-delay: calc($i * 1s / 2);
+
+            @keyframes emberflame {
+                0% {
+                    background-color: $color-positive-5;
+                    box-shadow: 1px 1px 1px 1px $color-positive-3;
+                    opacity: 0%;
+                }
+    
+                10% {
+                    background-color: $color-positive-5;
+                    box-shadow: 0px 0px 10px 10px $color-positive-3;
+                    opacity: 100%;
+                    width: $particle-size-final;
+                    height: $particle-size-final;
+                }
+
+                30% {
+                    box-shadow: 1px 1px 20px 20px $color-positive-3;
+                }
+    
+                70% {
+                    opacity: 20%;
+                }
+    
+                100% {
+                    opacity: 0%;
+                    
+                    width: $particle-size;
+                    height: $particle-size;
+                    transform: translateY(-100px);
+                }
+            }
+        }
+    }
+
+}
