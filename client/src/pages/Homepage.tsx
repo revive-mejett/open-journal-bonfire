@@ -63,6 +63,18 @@ const Homepage : React.FC = () => {
         return newPaperDiv
     })
 
+    const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
+        if (entry.isTooExplicit) {
+            return 3
+        } else if (entry.isExplicit) {
+            return 2
+        } else if (entry.numberHotWords >= 1) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     useEffect(() => {
         const fetchSampleEntries = async () => {
             try {
@@ -120,7 +132,7 @@ const Homepage : React.FC = () => {
                         <>
                             <div className="sample-entries-container">
                                 {sampleEntries &&
-                                    sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry} norotate={true}></JournalEntryCard>)
+                                    sampleEntries.map((entry, i) => <JournalEntryCard key={i} entry={entry} norotate={true} readSafeRisk={determineReadSafeRisk(entry)}></JournalEntryCard>)
                                 }
                             </div>
                             <div className="link-container">

@@ -8,14 +8,25 @@ import { JournalEntry } from "../common/types"
 interface Props {
     entry : JournalEntry,
     norotate?: boolean
+    readSafeRisk: 0 | 1 | 2 | 3
 }
 
+const readSafeRiskClassMap = new Map(
+    [
+        [1, "eye-glaring"],
+        [2, "eye-unsafe"],
+        [3, "unreadable"]
+    ]
+)
 
-const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
+const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
     let cardRef = useRef<HTMLDivElement>(null)
     let date
+
+
+    const flameParticles : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle" key={i}></div>)
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
@@ -28,9 +39,13 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
         if (!norotate && cardRef.current != null) {
             cardRef.current.style.rotate = `${randomRotation}deg`
         }
+
+        cardRef.current?.classList.add(readSafeRiskClassMap.get(readSafeRisk) || "eye-safe")
+        
+
         
         
-    }, [entry.entryContent, norotate])
+    }, [entry.entryContent, norotate, readSafeRisk])
     
     date = new Date(entry.dateCreated)
     
