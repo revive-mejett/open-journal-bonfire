@@ -42,9 +42,6 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
 
         cardRef.current?.classList.add(readSafeRiskClassMap.get(readSafeRisk) || "eye-safe")
         
-
-        
-        
     }, [entry.entryContent, norotate, readSafeRisk])
     
     date = new Date(entry.dateCreated)
