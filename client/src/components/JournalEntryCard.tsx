@@ -28,7 +28,7 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
 
     const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
     const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
-    const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle" key={i}></div>)
+    const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
@@ -50,9 +50,9 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
     date = new Date(entry.dateCreated)
     
     return (
-        <div className="journal-entry-card" ref={cardRef}>
-            
+        <div className={`journal-entry-card`} ref={cardRef}>   
             <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
+                <div className="burn-background"></div>
                 {readSafeRisk === 1 && emberParticlesSmaller} 
                 {readSafeRisk === 2 && emberParticles} 
                 {readSafeRisk === 3 && emberParticleslargest} 
@@ -68,6 +68,7 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
                     {entry.badEvents.length > 0 && <p className="event-tag negative">{entry.badEvents[0].keyword}</p>}
                 </div>
             </Link>
+            
         </div>
 
     )
