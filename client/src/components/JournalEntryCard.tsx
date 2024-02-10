@@ -26,7 +26,9 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
     let date
 
 
-    const emberParticles : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle" key={i}></div>)
+    const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
+    const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
+    const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle" key={i}></div>)
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
@@ -49,8 +51,11 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : 
     
     return (
         <div className="journal-entry-card" ref={cardRef}>
-            {readSafeRisk >= 2 && emberParticles} 
+            
             <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
+                {readSafeRisk === 1 && emberParticlesSmaller} 
+                {readSafeRisk === 2 && emberParticles} 
+                {readSafeRisk === 3 && emberParticleslargest} 
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
                 }

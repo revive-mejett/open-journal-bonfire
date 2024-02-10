@@ -70,7 +70,11 @@
     }
 
     .ember-particle {
-        @include fire-particle;
+        @include ember-particle;
+    }
+
+    .ember-particle-smaller {
+        @include ember-particle-smaller;
     }
 
     // colour styles for positve, neutral and negative type of event tags
