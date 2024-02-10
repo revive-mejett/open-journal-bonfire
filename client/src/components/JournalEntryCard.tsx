@@ -8,14 +8,27 @@ import { JournalEntry } from "../common/types"
 interface Props {
     entry : JournalEntry,
     norotate?: boolean
+    readSafeRisk: 0 | 1 | 2 | 3
 }
 
+const readSafeRiskClassMap = new Map(
+    [
+        [1, "eye-glaring"],
+        [2, "eye-unsafe"],
+        [3, "unreadable"]
+    ]
+)
 
-const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
+const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
     let cardRef = useRef<HTMLDivElement>(null)
     let date
+
+
+    const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
+    const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
+    const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {
@@ -28,15 +41,21 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
         if (!norotate && cardRef.current != null) {
             cardRef.current.style.rotate = `${randomRotation}deg`
         }
+
+        cardRef.current?.classList.add(readSafeRiskClassMap.get(readSafeRisk) || "eye-safe")
+
         
-        
-    }, [entry.entryContent, norotate])
+    }, [entry.entryContent, norotate, readSafeRisk])
     
     date = new Date(entry.dateCreated)
     
     return (
-        <div className="journal-entry-card" ref={cardRef}>
+        <div className={`journal-entry-card`} ref={cardRef}>   
             <Link to={{ pathname: "/entries/viewing", search: "?id=" + entry._id }} className="journal-entry-card-link">
+                <div className="burn-background"></div>
+                {readSafeRisk === 1 && emberParticlesSmaller} 
+                {readSafeRisk === 2 && emberParticles} 
+                {readSafeRisk === 3 && emberParticleslargest} 
                 {date &&
                 <h2>{date.toLocaleString("default", {month: "long", day: "numeric", year: "numeric"})}</h2>
                 }
@@ -49,6 +68,7 @@ const JournalEntryCard : React.FC<Props> = ({ entry, norotate } : Props) => {
                     {entry.badEvents.length > 0 && <p className="event-tag negative">{entry.badEvents[0].keyword}</p>}
                 </div>
             </Link>
+            
         </div>
 
     )

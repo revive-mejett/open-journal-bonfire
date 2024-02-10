@@ -17,5 +17,4 @@ app.use(express.static(BUILD_DIR))
 // Redirect to index.html for the react router to handle
 app.get('*', (req, res) => res.sendFile(path.resolve(BUILD_DIR, 'index.html')));
 
-
 export default app;

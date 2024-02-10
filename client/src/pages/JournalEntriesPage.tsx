@@ -74,6 +74,18 @@ const JournalEntriesPage : React.FC = () => {
         }
     }
 
+    const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
+        if (entry.isTooExplicit) {
+            return 3
+        } else if (entry.isExplicit) {
+            return 2
+        } else if (entry.numberHotWords >= 1) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     return (
         <main className="jounal-entries-page-main">
             <Background />
@@ -134,7 +146,7 @@ const JournalEntriesPage : React.FC = () => {
                     {entryData &&
                         <>
                             {
-                                entryData.length !== 0 ? entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry}></JournalEntryCard>) : <h2>No bonfiregoers has written a journal entry yet!</h2>
+                                entryData.length !== 0 ? entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry} readSafeRisk={determineReadSafeRisk(entry)}></JournalEntryCard>) : <h2>No bonfiregoers has written a journal entry yet!</h2>
                             }
                         </>
                     }

@@ -1,0 +1,202 @@
+
+@mixin ember-particle-smaller {
+    //particle styles
+    
+    $particle-size: 5px;
+    $particle-size-final: 10px;
+    height: $particle-size;
+    width: $particle-size;
+    position: absolute;
+    visibility: visible;
+    border-radius: 50%;
+    z-index: 3;
+    pointer-events: none;
+
+
+    //flame ember animation, spawn particles in the borders only
+    @for $i from 0 to 50 {
+        &:nth-child(#{$i + 1}) {
+            $spawnSideways: (math.random(2) - 1);
+            $bottom: 0%;
+            $left: (math.random($limit: 100) * 1%);
+            left: $left;
+            bottom: $bottom;
+            transform: translate(-50%, -50%);
+            animation: emberparticlesmaller 2s ease-out infinite;
+            animation-delay: calc($i * 2s / 5);
+
+            @keyframes emberparticlesmaller {
+                0% {
+                    background-color: $color-positive-5;
+                    box-shadow: 1px 1px 1px 1px $color-positive-5;
+                    opacity: 0%;
+                }
+    
+                10% {
+                    background-color: $color-positive-5;
+                    box-shadow: 0px 0px 5px 5px $color-positive-5;
+                    opacity: 100%;
+                    width: $particle-size-final;
+                    height: $particle-size-final;
+                }
+
+                30% {
+                    box-shadow: 1px 1px 5px 5px $color-positive-5;
+                }
+    
+                70% {
+                    opacity: 20%;
+                }
+    
+                100% {
+                    opacity: 0%;
+                    
+                    width: $particle-size;
+                    height: $particle-size;
+                    transform: translateY(-100px);
+                    background-color: $color-neutral;
+                }
+            }
+        }
+    }
+}
+
+
+
+@mixin ember-particle {
+    //particle styles
+    
+    $particle-size: 10px;
+    $particle-size-final: 20px;
+    height: $particle-size;
+    width: $particle-size;
+    position: absolute;
+    visibility: visible;
+    border-radius: 50%;
+    z-index: 3;
+    pointer-events: none;
+
+
+    //flame ember animation, spawn particles in the borders only
+    @for $i from 0 to 50 {
+        &:nth-child(#{$i + 1}) {
+            $spawnSideways: (math.random(2) - 1);
+            $left: 0%;
+            $bottom: 0%;
+            @if $spawnSideways == 0 {
+                $bottom: (math.random($limit: 100) * 1%);
+                $left: (math.random($limit: 2) - 1) * 100%;
+            } @else {
+                $left: (math.random($limit: 100) * 1%);
+                $bottom: (math.random($limit: 2) - 1) * 100%;
+            }
+            left: $left;
+            bottom: $bottom;
+            transform: translate(-50%, -50%);
+            animation: emberparticleanimation 2s ease-out infinite;
+            animation-delay: calc($i * 2s / 11);
+
+            @keyframes emberparticleanimation {
+                0% {
+                    background-color: $color-positive-4;
+                    box-shadow: 1px 1px 1px 1px $color-positive-4;
+                    opacity: 0%;
+                }
+    
+                10% {
+                    background-color: $color-positive-5;
+                    box-shadow: 0px 0px 10px 10px $color-positive-4;
+                    opacity: 100%;
+                    width: $particle-size-final;
+                    height: $particle-size-final;
+                }
+
+                30% {
+                    box-shadow: 1px 1px 20px 20px $color-positive-4;
+                }
+    
+                70% {
+                    opacity: 20%;
+                }
+    
+                100% {
+                    opacity: 0%;
+                    
+                    width: $particle-size;
+                    height: $particle-size;
+                    transform: translateY(-100px);
+                    background-color: $color-neutral;
+                }
+            }
+        }
+    }
+}
+
+@mixin ember-particle-larger {
+    //particle styles
+    
+    $particle-size: 10px;
+    $particle-size-final: 80px;
+    height: $particle-size;
+    width: $particle-size;
+    position: absolute;
+    visibility: visible;
+    border-radius: 50%;
+    z-index: 10;
+    pointer-events: none;
+
+
+    //flame ember animation, spawn particles in the borders only
+    @for $i from 0 to 50 {
+        &:nth-child(#{$i + 1}) {
+            $spawnSideways: (math.random(2) - 1);
+            $left: 0%;
+            $bottom: 0%;
+            @if $spawnSideways == 0 {
+                $bottom: (math.random($limit: 100) * 1%);
+                $left: (math.random($limit: 2) - 1) * 100%;
+            } @else {
+                $left: (math.random($limit: 100) * 1%);
+                $bottom: (math.random($limit: 2) - 1) * 100%;
+            }
+            left: $left;
+            bottom: $bottom;
+            transform: translate(-50%, -50%);
+            animation: emberparticlelarger 2s ease-out infinite;
+            animation-delay: calc($i * 2s / 20);
+
+            @keyframes emberparticlelarger {
+                0% {
+                    background-color: $color-positive;
+                    box-shadow: 1px 1px 1px 1px $color-positive;
+                    opacity: 0%;
+                }
+    
+                10% {
+                    background-color: $color-positive-3;
+                    box-shadow: 0px 0px 10px 10px $color-positive-2;
+                    opacity: 100%;
+                    width: $particle-size-final;
+                    height: $particle-size-final;
+                }
+
+                30% {
+                    box-shadow: 1px 1px 20px 20px $color-positive;
+                }
+    
+                70% {
+                    opacity: 20%;
+                }
+    
+                100% {
+                    opacity: 0%;
+                    
+                    width: $particle-size;
+                    height: $particle-size;
+                    transform: translateY(-200px);
+                    background-color: $color-neutral;
+                }
+            }
+        }
+    }
+}

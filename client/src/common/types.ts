@@ -13,7 +13,12 @@ export type JournalEntry = {
     selfRating: number,
     greatEvents: EventTag[],
     neutralEvents: EventTag[],
-    badEvents: EventTag[]
+    badEvents: EventTag[],
+    numberHotWords: number,
+    numberRedHotWords: number,
+    numberBlacklistedHotWords: number,
+    isExplicit: Boolean,
+    isTooExplicit: Boolean
 }
 
 export type EventTagType =  "positive" | "neutral" | "negative"
