@@ -6,6 +6,31 @@ import Loading from "../components/visuals/Loading"
 import { filterRedhotWords } from "../utils/WordFilter"
 import { JournalEntry } from "../common/types"
 
+
+const readSafeRiskClassMap = new Map(
+    [
+        [1, "eye-glaring"],
+        [2, "eye-unsafe"],
+        [3, "unreadable"]
+    ]
+)
+
+const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
+    if (entry.isTooExplicit) {
+        return 3
+    } else if (entry.isExplicit) {
+        return 2
+    } else if (entry.numberHotWords >= 1) {
+        return 1
+    } else {
+        return 0
+    }
+}
+
+const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
+const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
+const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
+
 const JournalEntryDetail : React.FC = () => {
 
     const location = useLocation()
@@ -15,6 +40,7 @@ const JournalEntryDetail : React.FC = () => {
     const [isFetching, setIsFetching] = useState<Boolean>(true)
 
     let dateCreated = useRef<Date | null>(null)
+    let pageRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         let baseUrl = "/api/journalentries/"
@@ -38,7 +64,6 @@ const JournalEntryDetail : React.FC = () => {
                 }
                 let response = await fetch(fetchUrl)
 
-
                 if (response.ok) {
                     data = await response.json()
                     setJournalEntryData(data)
@@ -58,13 +83,23 @@ const JournalEntryDetail : React.FC = () => {
 
     }, [location.search, journalEntryData, navigate])
 
+    useEffect(() => {
+        if (journalEntryData) {
+            let readSafeRisk = determineReadSafeRisk(journalEntryData)
+            pageRef.current?.classList.add(readSafeRiskClassMap.get(readSafeRisk) || "eye-safe")
+        }
+    })
+
     return (
         <main className="journal-entry-detail-main">
             <Background/>
             {
                 journalEntryData && !isFetching ?
-                <section className="journal-entry-page">
-                    
+                <section className="journal-entry-page" ref={pageRef}>
+                    <div className="burn-background"></div>
+                    {determineReadSafeRisk(journalEntryData) === 1 && emberParticlesSmaller} 
+                    {determineReadSafeRisk(journalEntryData) === 2 && emberParticles} 
+                    {determineReadSafeRisk(journalEntryData) === 3 && emberParticleslargest} 
                     {dateCreated.current !== null &&
                         <div className="date-display">
                             <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
