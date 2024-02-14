@@ -1,6 +1,8 @@
+@use "sass:math";
 @import "../common/variables.scss";
 @import "../common/paperpage.scss";
 @import "../common/eventtag.scss";
+@import "../common/fireparticles.scss";
 
 .journal-entry-detail-main {
     margin-top: 2em;
@@ -16,6 +18,15 @@
         grid-template-columns: 1fr;
         grid-template-rows: 100px 600px 200px;
         align-items: stretch;
+        position: relative;
+
+
+        .burn-background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 10;
+        }
 
         .entry-body {
             overflow: auto;
@@ -37,6 +48,18 @@
         }
     }
 
+
+    .ember-particle {
+        @include ember-particle;
+    }
+
+    .ember-particle-smaller {
+        @include ember-particle-smaller;
+    }
+
+    .ember-particle-larger {
+        @include ember-particle-larger;
+    }
 }
 
 @media (min-width: 1201px) {

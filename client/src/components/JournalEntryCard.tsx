@@ -19,16 +19,16 @@ const readSafeRiskClassMap = new Map(
     ]
 )
 
+const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
+const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
+const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
+
 const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)
     let cardRef = useRef<HTMLDivElement>(null)
     let date
 
-
-    const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
-    const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
-    const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
 
     useEffect(() => {
         if (entry.entryContent !== undefined) {

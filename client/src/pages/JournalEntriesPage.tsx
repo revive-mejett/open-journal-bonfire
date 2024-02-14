@@ -17,6 +17,18 @@ interface CreatEntryFormValues {
     sortOrder: string
 }
 
+const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
+    if (entry.isTooExplicit) {
+        return 3
+    } else if (entry.isExplicit) {
+        return 2
+    } else if (entry.numberHotWords >= 1) {
+        return 1
+    } else {
+        return 0
+    }
+}
+
 const JournalEntriesPage : React.FC = () => {
 
     const [entryData, setEntryData] = useState<JournalEntry[] | undefined>(undefined)
@@ -74,17 +86,7 @@ const JournalEntriesPage : React.FC = () => {
         }
     }
 
-    const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
-        if (entry.isTooExplicit) {
-            return 3
-        } else if (entry.isExplicit) {
-            return 2
-        } else if (entry.numberHotWords >= 1) {
-            return 1
-        } else {
-            return 0
-        }
-    }
+
 
     return (
         <main className="jounal-entries-page-main">
