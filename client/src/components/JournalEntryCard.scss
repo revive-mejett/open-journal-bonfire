@@ -20,12 +20,16 @@
     display: flex;
     flex-direction: column;
 
-    .burn-background {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 10;
+    .journal-entry-card-link {
+        position: relative;
+        .burn-background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 10;
+        }
     }
+
 
     h2, h3, .label-outcome {
         text-align: center;
