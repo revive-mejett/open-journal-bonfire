@@ -210,6 +210,10 @@ $particle-size-final: 10px;
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: space-around;
+
+                .journal-entry-card-link {
+                    position: relative;
+                }
             }
         }
     }
