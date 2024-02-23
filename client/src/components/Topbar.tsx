@@ -2,7 +2,9 @@ import { Link } from "react-router-dom"
 import "./Topbar.scss"
 import BonfireIcon from "../assets/images/bonfire_site_icon.png"
 
-
+/** Topbar component containing logo and nav links
+ * 
+ */
 const Topbar : React.FC = () => {
     return (
         <nav className="topbar">

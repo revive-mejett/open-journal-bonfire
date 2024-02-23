@@ -41,10 +41,14 @@ interface FrequentKeywordData {
 }
 
 
+/**
+ * Page that displays the form for anonymous users to create their own entries.
+ */
 const CreateEntryPage = () => {
 
     const [frequentKeywordData, setFrequentKeywordData] = useState<FrequentKeywordData | undefined>(undefined)
 
+    // validate entries based on certain criteria
     const journalEntrySchema = Yup.object().shape({
         title: Yup.string()
             .max(50, "Title is too long"),
@@ -78,10 +82,12 @@ const CreateEntryPage = () => {
         })();
     })
 
+    //possible self-rating values (-10 = worst, 10 = best, 0 = neutral)
     const selfRatingValues = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     const navigate = useNavigate()
 
+    //only return the needed event properties
     const deleteUnusedEventProperties = (event : EventTag) => {
         return {
             keyword: event.keyword,
@@ -90,8 +96,7 @@ const CreateEntryPage = () => {
         }
     }
 
-
-
+    // handler function when the entry creation form is submitted, sends the POST request
     const handleSubmit = async (values : CreateEntryFormData) => {
 
         const numberHotWords = countHotWords(values.title) + countHotWords(values.entryContent)
@@ -103,7 +108,7 @@ const CreateEntryPage = () => {
         const sumNegativeMagnitude = values.worseEventsList.reduce((prev, curr) => prev + (curr.magnitude ? curr.magnitude : 0), 0)
         const averageKeywordMagnitude = Math.round((sumPositiveEventMagnitude + sumNegativeMagnitude)/numberEventTags * 10) / 10
 
-
+        //the data to be sent to the POST req.
         let data : RawFrequentKeywordData = {
             title: numberBlacklistedWords === 0 ? values.title : "[unreadable entry]",
             entryContent: numberBlacklistedWords === 0 ? values.entryContent : "[this entry is unreadable]",

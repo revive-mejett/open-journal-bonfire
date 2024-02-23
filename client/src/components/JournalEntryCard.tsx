@@ -11,6 +11,7 @@ interface Props {
     readSafeRisk: 0 | 1 | 2 | 3
 }
 
+// map risk safe level to the corresponding css class
 const readSafeRiskClassMap = new Map(
     [
         [1, "eye-glaring"],
@@ -19,10 +20,17 @@ const readSafeRiskClassMap = new Map(
     ]
 )
 
+//array of divs used as particles to style eye-glaring, explicit, unreadable entries
 const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
 const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
 const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
 
+
+/** React component that displays a card representing an anonymous journal entry to be seen in the entry viewing page. Has a title, date, highlighted event tags and a teaser of the
+ * entry content
+ * 
+ * @returns 
+ */
 const JournalEntryCard : React.FC<Props> = ({ entry, norotate, readSafeRisk } : Props) => {
 
     const [teaserDescription, setTeaserDescription] = useState(entry.entryContent)

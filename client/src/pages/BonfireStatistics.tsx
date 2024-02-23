@@ -3,6 +3,10 @@ import KeywordCloud from '../components/charts/KeywordCloud';
 import GeneralStatistics from '../components/GeneralStatistics';
 import "./BonfireStatistics.scss"
 
+/** 
+ * Page that contains visualized data of journal entries. Shows graphs and other metrics using the data of anonymously submitted entries
+ * 
+ */
 const BonfireStatistics : React.FC = () => {
     return (
         <main className="bonfire-stats-page-main">

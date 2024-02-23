@@ -7,8 +7,13 @@ import Background from "../components/visuals/Background"
 import { JournalEntry } from "../common/types"
 
 
+/** Home page that presents the features of the bonfire app (overview, viewing entries, creating entries, stats bonfire data vis. feature)
+ * 
+ * @returns 
+ */
 const Homepage : React.FC = () => {
 
+    // sample entries that are used in the typing animation
     const samplePreviewEntries : {sampleTitle: string, sampleDate: Date, sampleText: string}[] = [{
         sampleTitle: "Passed my science test!",
         sampleDate: new Date("2023-1-17"),
@@ -43,10 +48,11 @@ const Homepage : React.FC = () => {
         
     }
 
+
     const numberSampleEntries = 3
 
+    // particle elements for the entry fire preview
     const particles : JSX.Element[] = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
-
     const paperPieces : JSX.Element[] = Array.from({ length: 5 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
@@ -63,6 +69,7 @@ const Homepage : React.FC = () => {
         return newPaperDiv
     })
 
+    // determines the red safe risk level
     const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
         if (entry.isTooExplicit) {
             return 3
