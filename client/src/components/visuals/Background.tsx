@@ -2,6 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import AutumnLeaf from "../../assets/images/autumn_leaf.png";
 import './Background.scss';
 
+
+/**
+ * 
+ * generates divs as leaves for the background
+ */
 function generateLeaves() : React.JSX.Element[] {
 
     let randomRotation = Math.floor(Math.random() * 360)
@@ -25,6 +30,9 @@ function generateLeaves() : React.JSX.Element[] {
     return leaves
 }
 
+/**
+ * background component which will have leaves slide over the screen
+ */
 const Background : React.FC = () => {
 
     const [leaves, setLeaves] = useState<React.JSX.Element[] | []>([])

@@ -8,6 +8,7 @@ import { JournalEntry } from "../common/types"
 interface Props {
     entry : JournalEntry,
     norotate?: boolean
+    // read safe risk where 0 has little profanity and 3 has unacceptable profanity
     readSafeRisk: 0 | 1 | 2 | 3
 }
 

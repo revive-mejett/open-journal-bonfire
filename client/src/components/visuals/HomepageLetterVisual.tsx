@@ -8,6 +8,9 @@ interface Props {
     refreshVisual : () => void
 }
 
+/**
+ * component which will have an animated typing of a journal entry as a preview visual
+ */
 const HomepageLetterVisual : React.FC<Props> = (props : Props) => {
 
     const samplePaperText = useRef<HTMLDivElement>(null)
