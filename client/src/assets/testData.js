@@ -1,3 +1,4 @@
+//test data for positive event tags
 const positiveTags = [
     {
         keyword: "Had a nice dinner",
@@ -201,6 +202,7 @@ const positiveTags = [
     }
 ]
 
+//test data for neutral event tags
 const neutralTags = [
     {
         keyword: "nothing too special",
@@ -314,6 +316,7 @@ const neutralTags = [
     },
 ]
 
+//test data for negative event tags
 const worseEvents = [
     {
         keyword: "failed a test in school",

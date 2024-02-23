@@ -6,7 +6,7 @@ import Loading from "../components/visuals/Loading"
 import { filterRedhotWords } from "../utils/WordFilter"
 import { JournalEntry } from "../common/types"
 
-
+// map risk safe level to the corresponding css class
 const readSafeRiskClassMap = new Map(
     [
         [1, "eye-glaring"],
@@ -15,6 +15,7 @@ const readSafeRiskClassMap = new Map(
     ]
 )
 
+//determines the read safe risk level based on explicit word data
 const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
     if (entry.isTooExplicit) {
         return 3
@@ -27,10 +28,14 @@ const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
     }
 }
 
+//array of divs used as particles to style eye-glaring, explicit, unreadable entries
 const emberParticlesSmaller : JSX.Element[] = Array.from({ length: 5 }, (_, i) => <div className="ember-particle-smaller" key={i}></div>)
 const emberParticles : JSX.Element[] = Array.from({ length: 11 }, (_, i) => <div className="ember-particle" key={i}></div>)
 const emberParticleslargest : JSX.Element[] = Array.from({ length: 20 }, (_, i) => <div className="ember-particle-larger" key={i}></div>)
 
+/**
+ * react component which displays a detailed paper of the journal entry containing the entire entry content and all event tags
+ */
 const JournalEntryDetail : React.FC = () => {
 
     const location = useLocation()
@@ -83,6 +88,7 @@ const JournalEntryDetail : React.FC = () => {
 
     }, [location.search, journalEntryData, navigate])
 
+    //add the appropriate css class to style entries depending on the level of explicit
     useEffect(() => {
         if (journalEntryData) {
             let readSafeRisk = determineReadSafeRisk(journalEntryData)

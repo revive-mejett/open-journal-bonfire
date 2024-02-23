@@ -17,10 +17,17 @@ interface GeneralStatisticsData {
     numberUnreadable: number,
 }
 
+/** Pane that contains general stat metrics such as percentage of positive entries base on self-rating, number of explicit entries, etc.
+ * 
+ * @returns 
+ */
 const GeneralStatistics : React.FC = () => {
 
     const [data, setData] = useState<GeneralStatisticsData | undefined>(undefined)
 
+    /** determine the colour of the div based on the data being positive or not and the value
+     * 
+     */
     const determineColorClass = (percentage : number, type : EventTagType) => {
         if (type === "neutral") {
             return type

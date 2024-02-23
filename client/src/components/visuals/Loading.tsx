@@ -1,6 +1,8 @@
 import "./Loading.scss"
 
-
+/**
+ * Loading component
+ */
 const Loading : React.FC = () => {
 
     return (

@@ -4,7 +4,11 @@ interface Props {
     secondaryMessage: string
 }
 
-
+/**
+ * Not Found webpage component.Can be used for different http error codes
+ * @param props 
+ * @returns 
+ */
 const NotFound : React.FC<Props> = (props : Props) => {
     return (
         <main className="error-404-page-main">

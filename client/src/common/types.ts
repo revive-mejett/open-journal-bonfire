@@ -1,3 +1,7 @@
+
+/**
+ * represents a keyword tag linked to a journal entry
+ */
 export type EventTag = {
     keyword: string,
     magnitude?: number,
@@ -5,6 +9,9 @@ export type EventTag = {
     lastUsed?: Boolean,
 }
 
+/**
+ * represents a journal entry
+ */
 export type JournalEntry = {
     _id?: string
     title: string,
@@ -21,4 +28,7 @@ export type JournalEntry = {
     isTooExplicit: Boolean
 }
 
+/**
+ * event tag types can be positive, neutral or negative
+ */
 export type EventTagType =  "positive" | "neutral" | "negative"
