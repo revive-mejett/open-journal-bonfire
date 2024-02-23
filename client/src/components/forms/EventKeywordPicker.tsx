@@ -8,6 +8,7 @@ interface FormValues {
     setFieldValue: (field : string, value : any) => void
 }
 
+//
 interface Props extends FormValues {
     helperText: string,
     helperListHeading : string,
@@ -18,6 +19,10 @@ interface Props extends FormValues {
     formikSelectedListName: string
 }
 
+/**
+ * re-usable component that provides the event tag picker UI where people can pick event tags from a bank of tags, remove selected tags.
+ * can be used for different catergories (positive, negative, neutral)
+ */
 const EventKeywordPicker : React.FC<Props> = (props : Props) => {
 
     const [selectedEvents, setSelectedEvents] = useState<EventTag[]>([])

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Loading from "../visuals/Loading";
 import "./KeywordCloud.scss"
 
-const positiveColorText : string | undefined = colorMap.get(10)
+const textColor : string | undefined = "white"
 
 interface EventTagWeightData {
     frequency : number,
@@ -16,7 +16,7 @@ type EventTagFrequencyItem = [
     EventTagWeightData
 ]
 
-
+// type that references a data item (a bubble in the chart)
 interface  GraphDataItem {
     name: string,
     color: string | undefined,
@@ -24,6 +24,7 @@ interface  GraphDataItem {
     size: number
 }
 
+// type that represents the structure of the data to be passed to the keyword cloud
 type GraphData = [
     {
     name: string | undefined,
@@ -43,7 +44,10 @@ type GraphData = [
 ]
 
 
-
+/**Keyword cloud that displays the most used event tags, where the more a word is used the bigger the bubble
+ * 
+ * @returns 
+ */
 const KeywordCloud : React.FC = () => {
 
 
@@ -74,6 +78,8 @@ const KeywordCloud : React.FC = () => {
                         children: []
                     }
                     ]
+
+                    //process the data
                     responseData.eventTagFrequency.forEach((eventTag : EventTagFrequencyItem) => {
                         //using the weights of the event tag will determine where the event tag data item is stored
                         //positive weight = positive, negative weight = negative, 0 weight = neutral
@@ -127,6 +133,7 @@ const KeywordCloud : React.FC = () => {
         opaqueColor : string
     }
 
+    // custom keyword cloud which renders svg circles
     const CustomKeywordCloud : React.FC<KeywordCloudProps> = (props : KeywordCloudProps) => {
         //may work with index and payload in the future
         const { x, y, width, height, depth, name, color, opaqueColor } = props;
@@ -149,7 +156,7 @@ const KeywordCloud : React.FC = () => {
                             height={height}
                             textAnchor="middle"
                             alignmentBaseline='middle'
-                            fill={positiveColorText}
+                            fill={textColor}
                             fontSize={width / 10}
                         >
                             {name}

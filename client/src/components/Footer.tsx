@@ -6,6 +6,11 @@ type Props = {
     slogan : string
 }
 
+/** Footer component
+ * 
+ * @param param0 
+ * @returns 
+ */
 const Footer : React.FC<Props> = ({title, slogan} : Props) => {
     return (
         <footer>
