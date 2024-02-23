@@ -1,3 +1,4 @@
+//maps self-rating to colour
 const colorMap : Map<number, string> = new Map([
     [-10, "rgb(105, 212, 255)"],
     [-9, "rgb(105, 212, 255)"],
@@ -21,7 +22,7 @@ const colorMap : Map<number, string> = new Map([
     [9, "rgb(255,217,0)"],
     [10, "rgb(255,217,0)"],
 ])
-
+//maps self-rating to transparent colour
 const transparentColorMap : Map<number, string> = new Map([
     [-10, "rgba(105, 212, 255, 0.3)"],
     [-9, "rgba(105, 212, 255, 0.3)"],
