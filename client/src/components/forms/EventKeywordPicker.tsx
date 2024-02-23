@@ -8,7 +8,7 @@ interface FormValues {
     setFieldValue: (field : string, value : any) => void
 }
 
-//
+// prop type to be passed to the component, expects helper text for the specific categeory of this particular event tag picker
 interface Props extends FormValues {
     helperText: string,
     helperListHeading : string,

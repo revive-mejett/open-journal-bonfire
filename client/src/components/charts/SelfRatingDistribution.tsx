@@ -7,14 +7,18 @@ import { colorMap } from "../../assets/constants"
 const borderColor = "#d0a1ff"
 const fontColor = "#64FFDD"
 
+//represents a bar of the graph
 interface DataItem {
     rating : number,
     numberEntries : number
 }
 
+// the graph data type containing a list of data items or bars
 type GraphData = DataItem[]
 
-
+/**
+ * react component that contains a bar chart containing number of entries per self-rating amount
+ */
 const SelfRatingDistribution : React.FC = () => {
 
     const [data, setData] = useState<GraphData | undefined>(undefined)

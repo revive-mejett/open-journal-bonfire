@@ -17,6 +17,7 @@ interface CreatEntryFormValues {
     sortOrder: string
 }
 
+//determines the read safe risk level based on explicit word data
 const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
     if (entry.isTooExplicit) {
         return 3

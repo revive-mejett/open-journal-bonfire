@@ -44,8 +44,8 @@ type GraphData = [
 ]
 
 
-/**Keyword cloud that displays the most used event tags, where the more a word is used the bigger the bubble
- * 
+/**
+ * Keyword cloud that displays the most used event tags, where the more a word is used the bigger the bubble
  * @returns 
  */
 const KeywordCloud : React.FC = () => {
