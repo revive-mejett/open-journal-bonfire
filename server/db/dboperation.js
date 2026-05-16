@@ -4,6 +4,16 @@ import FrequentEventTag from "../models/EventTag.js";
 
 let instance = null;
 
+/** Positive integer cap on journal entries; extra docs are deleted oldest-first. */
+function resolveJournalEntryMax() {
+    const raw = process.env.JOURNAL_ENTRY_MAX;
+    const n = raw !== undefined ? Number(raw) : 20;
+    if (!Number.isFinite(n) || n < 1) {
+        return 20;
+    }
+    return Math.floor(n);
+}
+
 class Database {
 
     /**
@@ -14,6 +24,36 @@ class Database {
             instance = this;
         }
         return instance;
+    }
+
+    /**
+     * If there are more than maxEntries journal rows, delete the oldest until count is maxEntries.
+     * Oldest is determined by dateCreated, then _id for stable ordering.
+     */
+    async trimOldestJournalEntriesIfOverLimit(maxEntries) {
+        if (!Number.isFinite(maxEntries) || maxEntries < 1) {
+            const remainingCount = await JournalEntry.countDocuments();
+            return { deletedCount: 0, remainingCount };
+        }
+
+        const total = await JournalEntry.countDocuments();
+        const excess = total - maxEntries;
+        if (excess <= 0) {
+            return { deletedCount: 0, remainingCount: total };
+        }
+
+        const oldest = await JournalEntry.find({})
+            .sort({ dateCreated: 1, _id: 1 })
+            .limit(excess)
+            .select("_id")
+            .lean();
+
+        const ids = oldest.map((d) => d._id);
+        const result = await JournalEntry.deleteMany({ _id: { $in: ids } });
+        return {
+            deletedCount: result.deletedCount,
+            remainingCount: total - result.deletedCount
+        };
     }
 
     async createEntry(entry) {
@@ -48,6 +88,7 @@ class Database {
 
         // insert into mongodb
         let newEntryDocument = await newEntry.save();
+        await this.trimOldestJournalEntriesIfOverLimit(resolveJournalEntryMax());
         return newEntryDocument;
     }
 
