@@ -79,6 +79,7 @@ const JournalEntryDetail : React.FC = () => {
         entryPageMeasureRef.current.style.width = `${bodyWidth}px`
         titleMeasureRef.current.style.display = ""
 
+        // calculate the fit buffer px for the content
         const lineHeightPx = parseFloat(
             window.getComputedStyle(contentMeasureRef.current).lineHeight
         )
@@ -86,12 +87,14 @@ const JournalEntryDetail : React.FC = () => {
             ? Math.ceil(lineHeightPx * 0.5) + 4
             : 20
 
+        // function to measure the height of the content
         const measureHeight = (slice: string, pageIndex: number) => {
             titleMeasureRef.current!.style.display = pageIndex === 0 ? "" : "none"
             contentMeasureRef.current!.textContent = slice
             return entryPageMeasureRef.current!.scrollHeight
         }
 
+        // split the content into pages
         const pages = splitTextIntoPages(
             filteredContent,
             measureHeight,
@@ -136,6 +139,7 @@ const JournalEntryDetail : React.FC = () => {
     }, [location.search, journalEntryData, navigate])
 
     useLayoutEffect(() => {
+        // don't recalculate pages if the entry data is not loaded or if the entry is still being fetched
         if (!journalEntryData || isFetching) {
             return
         }
@@ -143,10 +147,12 @@ const JournalEntryDetail : React.FC = () => {
     }, [journalEntryData, isFetching, recalculatePages])
 
     useEffect(() => {
+        // recalculate pages when the entry body is resized
         if (!journalEntryData || !entryBodyRef.current) {
             return
         }
 
+        // recalculate pages when the entry body is resized
         const observer = new ResizeObserver(() => {
             recalculatePages()
         })
@@ -154,26 +160,31 @@ const JournalEntryDetail : React.FC = () => {
         return () => observer.disconnect()
     }, [journalEntryData, recalculatePages])
 
+    // handle the animation end of the page flip
     const handleFlipAnimationEnd = (event: React.AnimationEvent<HTMLElement>) => {
         if (event.target !== event.currentTarget) {
             return
         }
 
         if (flipPhase === "out-next" || flipPhase === "out-prev") {
+            // set the current page to the pending page if it exists
             if (pendingPage !== null) {
                 setCurrentPage(pendingPage)
             }
+            // set the flip phase to the next or previous in phase (the next page is flipped in, the previous page is flipped out)
             setFlipPhase(flipPhase === "out-next" ? "in-next" : "in-prev")
             return
         }
-
+        // set the flip phase to idle if the page flip is complete
         if (flipPhase === "in-next" || flipPhase === "in-prev") {
             setFlipPhase("idle")
             setPendingPage(null)
         }
     }
 
+    // start the page turn animation when the user clicks the previous or next page button
     const startPageTurn = (targetPage: number, direction: "next" | "prev") => {
+        // don't start the page turn animation if the page flip is not idle or if the target page is the current page
         if (flipPhase !== "idle" || targetPage === currentPage) {
             return
         }
@@ -185,6 +196,7 @@ const JournalEntryDetail : React.FC = () => {
         setFlipPhase(direction === "next" ? "out-next" : "out-prev")
     }
 
+    // handler functions for the previous and next page buttons
     const goToPreviousPage = () => startPageTurn(currentPage - 1, "prev")
     const goToNextPage = () => startPageTurn(currentPage + 1, "next")
 
