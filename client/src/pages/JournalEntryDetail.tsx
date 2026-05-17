@@ -1,10 +1,16 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import "./JournalEntryDetail.scss"
 import Background from "../components/visuals/Background"
 import Loading from "../components/visuals/Loading"
 import { filterRedhotWords } from "../utils/WordFilter"
+import { splitTextIntoPages } from "../utils/splitEntryContent"
 import { JournalEntry } from "../common/types"
+
+const FLIP_OUT_MS = 450
+const FLIP_IN_MS = 450
+
+type FlipPhase = "idle" | "out-next" | "in-next" | "out-prev" | "in-prev"
 
 // map risk safe level to the corresponding css class
 const readSafeRiskClassMap = new Map(
@@ -43,9 +49,62 @@ const JournalEntryDetail : React.FC = () => {
 
     const [journalEntryData, setJournalEntryData] = useState<JournalEntry | undefined>(undefined)
     const [isFetching, setIsFetching] = useState<Boolean>(true)
+    const [contentPages, setContentPages] = useState<string[]>([""])
+    const [currentPage, setCurrentPage] = useState(0)
+    const [flipPhase, setFlipPhase] = useState<FlipPhase>("idle")
+    const [pendingPage, setPendingPage] = useState<number | null>(null)
 
-    let dateCreated = useRef<Date | null>(null)
-    let pageRef = useRef<HTMLDivElement>(null)
+    const dateCreated = useRef<Date | null>(null)
+    const pageRef = useRef<HTMLElement>(null)
+    const entryBodyRef = useRef<HTMLDivElement>(null)
+    const entryPageMeasureRef = useRef<HTMLDivElement>(null)
+    const titleMeasureRef = useRef<HTMLHeadingElement>(null)
+    const contentMeasureRef = useRef<HTMLParagraphElement>(null)
+
+    const recalculatePages = useCallback(() => {
+        if (
+            !journalEntryData
+            || !entryBodyRef.current
+            || !entryPageMeasureRef.current
+            || !contentMeasureRef.current
+            || !titleMeasureRef.current
+        ) {
+            return
+        }
+
+        const filteredContent = filterRedhotWords(journalEntryData.entryContent)
+        const bodyHeight = entryBodyRef.current.clientHeight
+        const bodyWidth = entryBodyRef.current.clientWidth
+
+        entryPageMeasureRef.current.style.width = `${bodyWidth}px`
+        titleMeasureRef.current.style.display = ""
+
+        // calculate the fit buffer px for the content
+        const lineHeightPx = parseFloat(
+            window.getComputedStyle(contentMeasureRef.current).lineHeight
+        )
+        const fitBufferPx = Number.isFinite(lineHeightPx)
+            ? Math.ceil(lineHeightPx * 0.5) + 4
+            : 20
+
+        // function to measure the height of the content
+        const measureHeight = (slice: string, pageIndex: number) => {
+            titleMeasureRef.current!.style.display = pageIndex === 0 ? "" : "none"
+            contentMeasureRef.current!.textContent = slice
+            return entryPageMeasureRef.current!.scrollHeight
+        }
+
+        // split the content into pages
+        const pages = splitTextIntoPages(
+            filteredContent,
+            measureHeight,
+            () => bodyHeight,
+            fitBufferPx
+        )
+
+        setContentPages(pages)
+        setCurrentPage((prev) => Math.min(prev, Math.max(pages.length - 1, 0)))
+    }, [journalEntryData])
 
     useEffect(() => {
         let baseUrl = "/api/journalentries/"
@@ -54,13 +113,8 @@ const JournalEntryDetail : React.FC = () => {
         let searchId = urlParams.get("id")
 
         const fetchEntry = async () => {
-            let data
-            let fetchUrl
-
-            //fetch journal entry data if the data has not been fetched yet.
             if (!journalEntryData) {
-
-                //call the appropriate api route if user wants to fetch a random journal entry or fetch a specific if of the journal entry
+                let fetchUrl
                 if (searchId === "random") {
                     setIsFetching(true)
                     fetchUrl = "/api/journalentries/random"
@@ -70,17 +124,13 @@ const JournalEntryDetail : React.FC = () => {
                 let response = await fetch(fetchUrl)
 
                 if (response.ok) {
-                    data = await response.json()
+                    const data = await response.json()
                     setJournalEntryData(data)
                     setIsFetching(false)
                     dateCreated.current = new Date(data.dateCreated)
-                    
-                } else {
-                    
-                    if (response.status === 404) {
-                        navigate("/entries/error")
-                    }
-                    
+                    setCurrentPage(0)
+                } else if (response.status === 404) {
+                    navigate("/entries/error")
                 }
             }
         };
@@ -88,44 +138,166 @@ const JournalEntryDetail : React.FC = () => {
 
     }, [location.search, journalEntryData, navigate])
 
-    //add the appropriate css class to style entries depending on the level of explicit
-    useEffect(() => {
-        if (journalEntryData) {
-            let readSafeRisk = determineReadSafeRisk(journalEntryData)
-            pageRef.current?.classList.add(readSafeRiskClassMap.get(readSafeRisk) || "eye-safe")
+    useLayoutEffect(() => {
+        // don't recalculate pages if the entry data is not loaded or if the entry is still being fetched
+        if (!journalEntryData || isFetching) {
+            return
         }
-    })
+        recalculatePages()
+    }, [journalEntryData, isFetching, recalculatePages])
+
+    useEffect(() => {
+        // recalculate pages when the entry body is resized
+        if (!journalEntryData || !entryBodyRef.current) {
+            return
+        }
+
+        // recalculate pages when the entry body is resized
+        const observer = new ResizeObserver(() => {
+            recalculatePages()
+        })
+        observer.observe(entryBodyRef.current)
+        return () => observer.disconnect()
+    }, [journalEntryData, recalculatePages])
+
+    // handle the animation end of the page flip
+    const handleFlipAnimationEnd = (event: React.AnimationEvent<HTMLElement>) => {
+        if (event.target !== event.currentTarget) {
+            return
+        }
+
+        if (flipPhase === "out-next" || flipPhase === "out-prev") {
+            // set the current page to the pending page if it exists
+            if (pendingPage !== null) {
+                setCurrentPage(pendingPage)
+            }
+            // set the flip phase to the next or previous in phase (the next page is flipped in, the previous page is flipped out)
+            setFlipPhase(flipPhase === "out-next" ? "in-next" : "in-prev")
+            return
+        }
+        // set the flip phase to idle if the page flip is complete
+        if (flipPhase === "in-next" || flipPhase === "in-prev") {
+            setFlipPhase("idle")
+            setPendingPage(null)
+        }
+    }
+
+    // start the page turn animation when the user clicks the previous or next page button
+    const startPageTurn = (targetPage: number, direction: "next" | "prev") => {
+        // don't start the page turn animation if the page flip is not idle or if the target page is the current page
+        if (flipPhase !== "idle" || targetPage === currentPage) {
+            return
+        }
+        if (targetPage < 0 || targetPage >= contentPages.length) {
+            return
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" })
+        setPendingPage(targetPage)
+        setFlipPhase(direction === "next" ? "out-next" : "out-prev")
+    }
+
+    // handler functions for the previous and next page buttons
+    const goToPreviousPage = () => startPageTurn(currentPage - 1, "prev")
+    const goToNextPage = () => startPageTurn(currentPage + 1, "next")
+
+    const readSafeRisk = journalEntryData ? determineReadSafeRisk(journalEntryData) : 0
+    const riskClass = readSafeRiskClassMap.get(readSafeRisk) || "eye-safe"
+    const totalPages = contentPages.length
+    const isFirstPage = currentPage === 0
+    const isLastPage = currentPage === totalPages - 1
+    const showPagination = totalPages > 1
+
+    const filteredTitle = journalEntryData
+        ? (journalEntryData.title.trim() !== "" ? filterRedhotWords(journalEntryData.title) : "No title")
+        : ""
 
     return (
         <main className="journal-entry-detail-main">
             <Background/>
             {
                 journalEntryData && !isFetching ?
-                <section className="journal-entry-page" ref={pageRef}>
-                    <div className="burn-background"></div>
-                    {determineReadSafeRisk(journalEntryData) === 1 && emberParticlesSmaller} 
-                    {determineReadSafeRisk(journalEntryData) === 2 && emberParticles} 
-                    {determineReadSafeRisk(journalEntryData) === 3 && emberParticleslargest} 
-                    {dateCreated.current !== null &&
-                        <div className="date-display">
-                            <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
-                            <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { weekday: "long" })}</h2>
-                            <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
-                        </div>
-                    }
-                    <div className="entry-body">
-                        <h3 className="entry-title">{journalEntryData.title.trim() !== "" ? filterRedhotWords(journalEntryData.title) : "No title"}</h3>
-                        <p className="entry-content-text">{filterRedhotWords(journalEntryData.entryContent)}</p>
+                <div className="journal-entry-detail-layout">
+                    <div className="page-flip-viewport">
+                        <section
+                            className={`journal-entry-page ${riskClass} ${flipPhase !== "idle" ? `page-flip-${flipPhase}` : ""}`}
+                            ref={pageRef}
+                            onAnimationEnd={handleFlipAnimationEnd}
+                            style={{
+                                animationDuration: flipPhase.startsWith("out-")
+                                    ? `${FLIP_OUT_MS}ms`
+                                    : flipPhase.startsWith("in-")
+                                        ? `${FLIP_IN_MS}ms`
+                                        : undefined
+                            }}
+                        >
+                            <div className="burn-background"></div>
+                            {readSafeRisk === 1 && emberParticlesSmaller} 
+                            {readSafeRisk === 2 && emberParticles} 
+                            {readSafeRisk === 3 && emberParticleslargest} 
+                            {isFirstPage && dateCreated.current !== null &&
+                                <div className="date-display">
+                                    <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })}</h2>
+                                    <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { weekday: "long" })}</h2>
+                                    <h2 className="entry-date">{dateCreated.current.toLocaleString("default", { hour: "numeric", minute: "numeric" })}</h2>
+                                </div>
+                            }
+                            {!isFirstPage &&
+                                <div className="date-display date-display--continued">
+                                    <h2 className="entry-date entry-date--continued">continued…</h2>
+                                </div>
+                            }
+                            <div className="entry-body" ref={entryBodyRef}>
+                                {isFirstPage &&
+                                    <h3 className="entry-title">{filteredTitle}</h3>
+                                }
+                                <p className="entry-content-text">{contentPages[currentPage]}</p>
+                            </div>
+
+                            <div className="entry-content-measurer" aria-hidden="true">
+                                <div className="entry-body entry-body--measure" ref={entryPageMeasureRef}>
+                                    <h3 className="entry-title" ref={titleMeasureRef}>{filteredTitle}</h3>
+                                    <p className="entry-content-text" ref={contentMeasureRef}></p>
+                                </div>
+                            </div>
+
+                            {isLastPage &&
+                                <div className="event-tag-body">
+                                    <div className="event-tag-container">
+                                        {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event.keyword}</p>)}
+                                        {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event.keyword}</p>)}
+                                        {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event.keyword}</p>)}
+                                    </div>
+                                </div>
+                            }
+                            {!isLastPage && <div className="event-tag-body event-tag-body--placeholder" aria-hidden="true" />}
+                        </section>
                     </div>
 
-                    <div className="event-tag-body">
-                        <div className="event-tag-container">
-                            {journalEntryData.greatEvents.map((event, i) => <p key={i} className="event-tag positive">{event.keyword}</p>)}
-                            {journalEntryData.neutralEvents.map((event, i) => <p key={i} className="event-tag neutral">{event.keyword}</p>)}
-                            {journalEntryData.badEvents.map((event, i) => <p key={i} className="event-tag negative">{event.keyword}</p>)}
-                        </div>
-                    </div>
-                </section>
+                    {showPagination &&
+                        <nav className="page-navigation" aria-label="Journal entry pages">
+                            <button
+                                type="button"
+                                className="page-nav-btn page-nav-btn--prev"
+                                onClick={goToPreviousPage}
+                                disabled={isFirstPage || flipPhase !== "idle"}
+                            >
+                                Previous
+                            </button>
+                            <span className="page-indicator">
+                                Page {currentPage + 1} of {totalPages}
+                            </span>
+                            <button
+                                type="button"
+                                className="page-nav-btn page-nav-btn--next"
+                                onClick={goToNextPage}
+                                disabled={isLastPage || flipPhase !== "idle"}
+                            >
+                                Next
+                            </button>
+                        </nav>
+                    }
+                </div>
                 :
                 <Loading/>
                 }

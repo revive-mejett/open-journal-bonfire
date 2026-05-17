@@ -30,19 +30,28 @@ const determineReadSafeRisk = (entry : JournalEntry) : 0 | 1 | 2 | 3 => {
     }
 }
 
+const ENTRIES_PER_PAGE = 12
+
 const JournalEntriesPage : React.FC = () => {
 
-    const [entryData, setEntryData] = useState<JournalEntry[] | undefined>(undefined)
+    const [entryData, setEntryData] = useState<JournalEntry[]>([])
     const [isFetching, setIsFetching] = useState<Boolean>(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [playSpreadAnimation, setPlaySpreadAnimation] = useState(true)
 
     const filtersContainer = useRef<HTMLElement | null>(null)
 
     const navigate = useNavigate()
     const location = useLocation()
 
+    const totalPages = Math.max(1, Math.ceil(entryData.length / ENTRIES_PER_PAGE))
+    const pageStartIndex = (currentPage - 1) * ENTRIES_PER_PAGE
+    const paginatedEntries = entryData.slice(pageStartIndex, pageStartIndex + ENTRIES_PER_PAGE)
+    const showPagination = entryData.length > ENTRIES_PER_PAGE
+
     const handleSubmit = (values : CreatEntryFormValues) => {
 
-        const url : URL = new URL(window.location.href)
+        const url : URL = new URL(window.location.origin + "/entries/browse")
 
         url.searchParams.set("titleFilterMatch", values.titleFilterMatch)
         url.searchParams.set("entryContentMatch", values.entryContentMatch)
@@ -50,33 +59,47 @@ const JournalEntriesPage : React.FC = () => {
         url.searchParams.set("maxSelfRating", values.maxSelfRating.toString())
         url.searchParams.set("sortOrder", values.sortOrder)
         navigate("/entries/browse" + url.search)
-        window.location.reload()
     }
 
+    const goToPage = (page: number) => {
+        if (page < 1 || page > totalPages || page === currentPage) {
+            return
+        }
+        setPlaySpreadAnimation(false)
+        setCurrentPage(page)
+        window.scrollTo({ top: 0, behavior: "auto" })
+    }
 
     useEffect(() => {
 
         const fetchEntryData = async () => {
+            setIsFetching(true)
             try {
                 let response = await fetch("/api/journalentries" + location.search)
                 if (!response.ok) {
                     console.log("response not ok")
+                    setEntryData([])
                 } else {
                     let data = await response.json()
-                    setEntryData(data)
-
-                    setIsFetching(false)
-
-
+                    setEntryData(Array.isArray(data) ? data : [])
+                    setCurrentPage(1)
+                    setPlaySpreadAnimation(true)
                 }
             } catch (error) {
                 console.error("Error fetching match data --> ", error)
+                setEntryData([])
+            } finally {
+                setIsFetching(false)
             }
         }
-        if (!entryData) {
-            fetchEntryData()
+        fetchEntryData()
+    }, [location.search])
+
+    useEffect(() => {
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages)
         }
-    }, [entryData, location.search])
+    }, [currentPage, totalPages])
 
     const handleToggleButtonClick = () => {
         const filtersPane = filtersContainer.current
@@ -145,15 +168,50 @@ const JournalEntriesPage : React.FC = () => {
             </section>
 
             {!isFetching ?
-                <section className="entries-container">
-                    {entryData &&
-                        <>
-                            {
-                                entryData.length !== 0 ? entryData.map((entry, i) => <JournalEntryCard key={i} entry={entry} readSafeRisk={determineReadSafeRisk(entry)}></JournalEntryCard>) : <h2>No bonfiregoers has written a journal entry yet!</h2>
-                            }
-                        </>
+                <>
+                    <section
+                        className={`entries-container ${playSpreadAnimation ? "entries-container--spread" : "entries-container--static"}`}
+                    >
+                        {
+                            entryData.length !== 0
+                                ? paginatedEntries.map((entry, i) => (
+                                    <JournalEntryCard
+                                        key={entry._id ?? `${pageStartIndex + i}`}
+                                        entry={entry}
+                                        readSafeRisk={determineReadSafeRisk(entry)}
+                                    />
+                                ))
+                                : <h2>No bonfiregoers has written a journal entry yet!</h2>
+                        }
+                    </section>
+
+                    {showPagination &&
+                        <nav className="entries-pagination" aria-label="Browse journal entries pages">
+                            <button
+                                type="button"
+                                className="entries-page-btn entries-page-btn--prev"
+                                onClick={() => goToPage(currentPage - 1)}
+                                disabled={currentPage <= 1}
+                            >
+                                Previous
+                            </button>
+                            <span className="entries-page-indicator">
+                                Page {currentPage} of {totalPages}
+                                <span className="entries-page-count">
+                                    ({entryData.length} entries)
+                                </span>
+                            </span>
+                            <button
+                                type="button"
+                                className="entries-page-btn entries-page-btn--next"
+                                onClick={() => goToPage(currentPage + 1)}
+                                disabled={currentPage >= totalPages}
+                            >
+                                Next
+                            </button>
+                        </nav>
                     }
-                </section>
+                </>
                 :
                 <Loading />
             }
