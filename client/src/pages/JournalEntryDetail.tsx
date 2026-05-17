@@ -192,6 +192,7 @@ const JournalEntryDetail : React.FC = () => {
             return
         }
 
+        window.scrollTo({ top: 0, behavior: "smooth" })
         setPendingPage(targetPage)
         setFlipPhase(direction === "next" ? "out-next" : "out-prev")
     }

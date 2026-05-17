@@ -104,6 +104,59 @@
             rotate: 0deg;
         }
     }
+
+    .entries-pagination {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        width: 100%;
+        margin: 1.5rem auto 2rem;
+        font-family: "Calligraffitti", cursive;
+    }
+
+    .entries-page-btn {
+        font-family: inherit;
+        font-size: 1.1rem;
+        padding: 0.45em 1.1em;
+        border: solid 2px $color-border;
+        border-radius: 4px;
+        background-color: $color-paper;
+        color: $color-font-greyish;
+        cursor: pointer;
+        box-shadow: 2px 2px 0 $color-button-shadow;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 3px 4px 0 $color-button-shadow;
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 1px 1px 0 $color-button-shadow;
+        }
+
+        &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+    }
+
+    .entries-page-indicator {
+        color: $color-font;
+        font-size: 1.15rem;
+        min-width: 10rem;
+        text-align: center;
+    }
+
+    .entries-page-count {
+        display: block;
+        font-size: 0.85rem;
+        opacity: 0.85;
+        margin-top: 0.15em;
+    }
 }
 
 @media (min-width: 1201px) {}
@@ -112,11 +165,16 @@
 
 @media (min-width: 769px) {
     .jounal-entries-page-main {
-        .entries-container {      
-            &>.journal-entry-card:nth-child(n) {
+        .entries-container--spread {
+            & > .journal-entry-card:nth-child(n) {
                 visibility: hidden;
                 animation: spread 1.5s forwards;
             }
+        }
+
+        .entries-container--static > .journal-entry-card {
+            visibility: visible;
+            animation: none;
         }
     }
 }
