@@ -4,8 +4,9 @@
  */
 export function splitTextIntoPages(
     text: string,
-    measureHeight: (slice: string) => number,
-    maxHeightForPage: (pageIndex: number) => number
+    measureHeight: (slice: string, pageIndex: number) => number,
+    maxHeightForPage: (pageIndex: number) => number,
+    fitBufferPx = 0
 ): string[] {
     if (!text) {
         return [""];
@@ -16,7 +17,7 @@ export function splitTextIntoPages(
     let pageIndex = 0;
 
     while (remaining.length > 0) {
-        const maxHeight = maxHeightForPage(pageIndex);
+        const maxHeight = maxHeightForPage(pageIndex) - fitBufferPx;
         if (maxHeight <= 0) {
             pages.push(remaining);
             break;
@@ -28,7 +29,7 @@ export function splitTextIntoPages(
 
         while (low <= high) {
             const mid = Math.floor((low + high) / 2);
-            const height = measureHeight(remaining.slice(0, mid));
+            const height = measureHeight(remaining.slice(0, mid), pageIndex);
             if (height <= maxHeight) {
                 bestFit = mid;
                 low = mid + 1;

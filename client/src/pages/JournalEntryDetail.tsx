@@ -57,35 +57,46 @@ const JournalEntryDetail : React.FC = () => {
     const dateCreated = useRef<Date | null>(null)
     const pageRef = useRef<HTMLElement>(null)
     const entryBodyRef = useRef<HTMLDivElement>(null)
+    const entryPageMeasureRef = useRef<HTMLDivElement>(null)
     const titleMeasureRef = useRef<HTMLHeadingElement>(null)
     const contentMeasureRef = useRef<HTMLParagraphElement>(null)
 
     const recalculatePages = useCallback(() => {
-        if (!journalEntryData || !entryBodyRef.current || !contentMeasureRef.current) {
+        if (
+            !journalEntryData
+            || !entryBodyRef.current
+            || !entryPageMeasureRef.current
+            || !contentMeasureRef.current
+            || !titleMeasureRef.current
+        ) {
             return
         }
 
         const filteredContent = filterRedhotWords(journalEntryData.entryContent)
         const bodyHeight = entryBodyRef.current.clientHeight
-        const titleHeight = titleMeasureRef.current?.offsetHeight ?? 0
-        const titleGap = 12
+        const bodyWidth = entryBodyRef.current.clientWidth
 
-        contentMeasureRef.current.style.width = `${entryBodyRef.current.clientWidth}px`
+        entryPageMeasureRef.current.style.width = `${bodyWidth}px`
+        titleMeasureRef.current.style.display = ""
 
-        const measureHeight = (slice: string) => {
+        const lineHeightPx = parseFloat(
+            window.getComputedStyle(contentMeasureRef.current).lineHeight
+        )
+        const fitBufferPx = Number.isFinite(lineHeightPx)
+            ? Math.ceil(lineHeightPx * 0.5) + 4
+            : 20
+
+        const measureHeight = (slice: string, pageIndex: number) => {
+            titleMeasureRef.current!.style.display = pageIndex === 0 ? "" : "none"
             contentMeasureRef.current!.textContent = slice
-            return contentMeasureRef.current!.scrollHeight
+            return entryPageMeasureRef.current!.scrollHeight
         }
 
         const pages = splitTextIntoPages(
             filteredContent,
             measureHeight,
-            (pageIndex) => {
-                if (pageIndex === 0) {
-                    return bodyHeight - titleHeight - titleGap
-                }
-                return bodyHeight
-            }
+            () => bodyHeight,
+            fitBufferPx
         )
 
         setContentPages(pages)
@@ -231,8 +242,10 @@ const JournalEntryDetail : React.FC = () => {
                             </div>
 
                             <div className="entry-content-measurer" aria-hidden="true">
-                                <h3 className="entry-title" ref={titleMeasureRef}>{filteredTitle}</h3>
-                                <p className="entry-content-text" ref={contentMeasureRef}></p>
+                                <div className="entry-body entry-body--measure" ref={entryPageMeasureRef}>
+                                    <h3 className="entry-title" ref={titleMeasureRef}>{filteredTitle}</h3>
+                                    <p className="entry-content-text" ref={contentMeasureRef}></p>
+                                </div>
                             </div>
 
                             {isLastPage &&

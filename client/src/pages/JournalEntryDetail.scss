@@ -86,13 +86,27 @@
             min-height: 0;
         }
 
+        .entry-content-text {
+            font-family: "Times New Roman", Times, serif;
+            font-weight: 400;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .entry-title {
+            margin-top: 0;
+        }
+
         .entry-content-measurer {
             position: absolute;
             left: -9999px;
             top: 0;
-            width: calc(100% - 1em);
             visibility: hidden;
             pointer-events: none;
+
+            .entry-body--measure {
+                overflow: visible;
+            }
         }
 
         .event-tag-body {
