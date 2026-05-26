@@ -1,15 +1,26 @@
 import MatchEntry from "../models/MatchEntry.js";
 import JournalEntry from "../models/JournalEntry.js";
+import BurnedEntry from "../models/BurnedEntry.js";
 import FrequentEventTag from "../models/EventTag.js";
 
 let instance = null;
 
-/** Positive integer cap on journal entries; extra docs are deleted oldest-first. */
+/** Positive integer cap on live journal entries shown in browse; oldest move to BurnedEntries. */
 function resolveJournalEntryMax() {
     const raw = process.env.JOURNAL_ENTRY_MAX;
     const n = raw !== undefined ? Number(raw) : 20;
     if (!Number.isFinite(n) || n < 1) {
         return 20;
+    }
+    return Math.floor(n);
+}
+
+/** Positive integer cap on burned entries used for statistics visualization. */
+function resolveBurnedEntryMax() {
+    const raw = process.env.BURNED_ENTRY_MAX;
+    const n = raw !== undefined ? Number(raw) : 200;
+    if (!Number.isFinite(n) || n < 1) {
+        return 200;
     }
     return Math.floor(n);
 }
@@ -27,33 +38,76 @@ class Database {
     }
 
     /**
-     * If there are more than maxEntries journal rows, delete the oldest until count is maxEntries.
+     * If there are more than maxEntries live journal rows, move the oldest to BurnedEntries.
      * Oldest is determined by dateCreated, then _id for stable ordering.
      */
-    async trimOldestJournalEntriesIfOverLimit(maxEntries) {
+    async burnOldestJournalEntriesIfOverLimit(maxEntries) {
         if (!Number.isFinite(maxEntries) || maxEntries < 1) {
             const remainingCount = await JournalEntry.countDocuments();
-            return { deletedCount: 0, remainingCount };
+            return { movedCount: 0, remainingCount };
         }
 
         const total = await JournalEntry.countDocuments();
         const excess = total - maxEntries;
         if (excess <= 0) {
-            return { deletedCount: 0, remainingCount: total };
+            return { movedCount: 0, remainingCount: total };
         }
 
         const oldest = await JournalEntry.find({})
+            .sort({ dateCreated: 1, _id: 1 })
+            .limit(excess);
+
+        for (const entry of oldest) {
+            const burnedDoc = entry.toObject();
+            delete burnedDoc.__v;
+            await BurnedEntry.findOneAndUpdate(
+                { _id: entry._id },
+                burnedDoc,
+                { upsert: true, setDefaultsOnInsert: true }
+            );
+        }
+
+        const ids = oldest.map((d) => d._id);
+        await JournalEntry.deleteMany({ _id: { $in: ids } });
+        await this.trimOldestBurnedEntriesIfOverLimit(resolveBurnedEntryMax());
+
+        return {
+            movedCount: oldest.length,
+            remainingCount: total - oldest.length,
+        };
+    }
+
+    /**
+     * BurnedEntries holds archived rows for stats; drop oldest permanently when over maxEntries.
+     */
+    async trimOldestBurnedEntriesIfOverLimit(maxEntries) {
+        if (!Number.isFinite(maxEntries) || maxEntries < 1) {
+            const remainingCount = await BurnedEntry.countDocuments();
+            return { deletedCount: 0, remainingCount };
+        }
+
+        const total = await BurnedEntry.countDocuments();
+        const excess = total - maxEntries;
+        if (excess <= 0) {
+            return { deletedCount: 0, remainingCount: total };
+        }
+
+        const oldest = await BurnedEntry.find({})
             .sort({ dateCreated: 1, _id: 1 })
             .limit(excess)
             .select("_id")
             .lean();
 
         const ids = oldest.map((d) => d._id);
-        const result = await JournalEntry.deleteMany({ _id: { $in: ids } });
+        const result = await BurnedEntry.deleteMany({ _id: { $in: ids } });
         return {
             deletedCount: result.deletedCount,
-            remainingCount: total - result.deletedCount
+            remainingCount: total - result.deletedCount,
         };
+    }
+
+    async getBurnedEntryCount() {
+        return BurnedEntry.countDocuments();
     }
 
     async createEntry(entry) {
@@ -88,7 +142,7 @@ class Database {
 
         // insert into mongodb
         let newEntryDocument = await newEntry.save();
-        await this.trimOldestJournalEntriesIfOverLimit(resolveJournalEntryMax());
+        await this.burnOldestJournalEntriesIfOverLimit(resolveJournalEntryMax());
         return newEntryDocument;
     }
 
@@ -128,7 +182,7 @@ class Database {
 
     async getEyeGlaringEntryCount() {
         try {
-            let eyeGlaringCount = await JournalEntry.aggregate([
+            let eyeGlaringCount = await BurnedEntry.aggregate([
                 {
                     $match: {
                         numberHotWords: { $gt: 0 }
@@ -149,7 +203,7 @@ class Database {
 
     async getExplicitEntryCount() {
         try {
-            let explicitEntryCount = await JournalEntry.aggregate([
+            let explicitEntryCount = await BurnedEntry.aggregate([
                 {
                     $match: {
                         isExplicit: { $eq: true }
@@ -170,7 +224,7 @@ class Database {
 
     async getTooExplicitEntryCount() {
         try {
-            let tooExpensiveEntryCount = await JournalEntry.aggregate([
+            let tooExpensiveEntryCount = await BurnedEntry.aggregate([
                 {
                     $match: {
                         isTooExplicit: { $eq: true }
@@ -251,7 +305,7 @@ class Database {
 
     // statistics operations===
     async getAverageWordCount() {
-        const averageWordCount = await JournalEntry.aggregate([
+        const averageWordCount = await BurnedEntry.aggregate([
             {
                 $project: {
                     entryContentWords: {
@@ -308,7 +362,7 @@ class Database {
             break;
         }
 
-        entryCount = await JournalEntry.aggregate([
+        entryCount = await BurnedEntry.aggregate([
             {
                 $match: {
                     selfRating: filterCondition
@@ -326,7 +380,7 @@ class Database {
     }
 
     async getSelfRatingDistribution() {
-        const collectedSelfRatings = await JournalEntry.aggregate([
+        const collectedSelfRatings = await BurnedEntry.aggregate([
             {
                 $group: {
                     _id: "$selfRating",
@@ -357,7 +411,7 @@ class Database {
 
     // Might cause performance issues; may have to remove it. 
     async getEventTagUsageFrequency() {
-        const eventTagFrequency = await JournalEntry.aggregate([
+        const eventTagFrequency = await BurnedEntry.aggregate([
 
             {
                 //merge all good, neutral and bad events into all event tags for each entry

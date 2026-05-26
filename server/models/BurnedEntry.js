@@ -3,6 +3,6 @@ import { journalEntrySchema } from "./journalEntrySchema.js";
 
 const { model } = mongoose;
 
-const JournalEntry = model("JournalEntry", journalEntrySchema);
+const BurnedEntry = model("BurnedEntry", journalEntrySchema, "BurnedEntries");
 
-export default JournalEntry;
+export default BurnedEntry;

@@ -152,9 +152,9 @@ router.get("/frequent-event-tags", async (req, res) => {
 
 router.get("/stats/general", async (req, res) => {
     try {
-        let allEntries = await db.getAllJournalEntries()
+        const burnedEntryCount = await db.getBurnedEntryCount()
 
-        if (allEntries.length === 0) {
+        if (burnedEntryCount === 0) {
             res.status(200).json({
                 totalEntries: 0,
                 positiveSelfRatedCount : 0,

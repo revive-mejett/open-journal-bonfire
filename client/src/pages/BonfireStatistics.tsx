@@ -10,7 +10,7 @@ import "./BonfireStatistics.scss"
 const BonfireStatistics : React.FC = () => {
     return (
         <main className="bonfire-stats-page-main">
-            <h1>The bonfire - where the entries burn up! This is data from all the entries that would be burnt.</h1>
+            <h1>The bonfire — charts and stats from burned entries (up to 200 archived when the live list is full).</h1>
             <section className="self-rating-count-stats">
                 <h2>Distribution of Self-rating</h2>
                 <div className="chart-container">
