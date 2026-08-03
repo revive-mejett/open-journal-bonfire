@@ -69,7 +69,7 @@ class Database {
 
         const ids = oldest.map((d) => d._id);
         await JournalEntry.deleteMany({ _id: { $in: ids } });
-        await this.trimOldestBurnedEntriesIfOverLimit(resolveBurnedEntryMax());
+        // Burned overflow is trimmed on a midnight UTC schedule, not on each burn.
 
         return {
             movedCount: oldest.length,
@@ -78,9 +78,11 @@ class Database {
     }
 
     /**
-     * BurnedEntries holds archived rows for stats; drop oldest permanently when over maxEntries.
+     * BurnedEntries holds archived rows for stats.
+     * When over maxEntries, permanently delete the oldest excess rows.
+     * Intended to run at midnight UTC (not on each burn).
      */
-    async trimOldestBurnedEntriesIfOverLimit(maxEntries) {
+    async trimOldestBurnedEntriesIfOverLimit(maxEntries = resolveBurnedEntryMax()) {
         if (!Number.isFinite(maxEntries) || maxEntries < 1) {
             const remainingCount = await BurnedEntry.countDocuments();
             return { deletedCount: 0, remainingCount };
