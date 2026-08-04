@@ -12,6 +12,8 @@
     padding-right: 0.5em;
     z-index: 999;
     min-height: 80px;
+    gap: 0.5em;
+
     img {
         width: 80px;
         height: 80px;
@@ -19,19 +21,14 @@
         padding: 0;
     }
 
-    h1 {
-        font-size: 3em;
-        font-family: "Calligraffitti";
-        color: $color-positive-5;
-        margin: 0;
-    }
-
     ul {
         list-style: none;
         display: flex;
         flex-flow: row wrap;
         margin: 0;
+        margin-left: auto;
         padding: 0;
+
         li {
             @include link-container;
             width: fit-content;
@@ -44,14 +41,31 @@
     }
 }
 
+.topbar__title {
+    font-size: 3em;
+    font-family: "Calligraffitti";
+    color: $color-positive-5;
+    margin: 0;
+}
+
+.topbar__label {
+    display: inline;
+}
+
+.topbar__icon {
+    display: none;
+}
+
+.topbar__svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: block;
+}
+
 @media (min-width: 1201px) {
     .journal-entry-detail-main {
         width: 50vw;
     }
-}
-
-@media (min-width: 577px) {
-
 }
 
 @media (max-width: 1200px) {
@@ -60,23 +74,67 @@
     }
 }
 
+/* Compact topbar: icon buttons, hide brand text */
+@media (max-width: 1024px) {
+    .topbar {
+        min-height: 64px;
+        justify-content: space-between;
+    }
 
-// width less than this will have alternative grid
-@media (max-width: 992px) {
-    
-}
+    .topbar img {
+        width: 56px;
+        height: 56px;
+    }
 
-@media (max-width: 768px) {
+    .topbar__title {
+        display: none !important;
+    }
+
+    .topbar__label {
+        display: none !important;
+    }
+
+    .topbar__icon {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .topbar ul {
+        flex-flow: row nowrap;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+
+    .topbar ul li {
+        min-width: 0;
+        margin: 0.25em;
+    }
+
+    .topbar ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65em;
+    }
 }
 
 @media (max-width: 576px) {
-    /* Styles for small devices */
     .journal-entry-detail-main {
         width: 100vw;
     }
 
-    h1 {
-        display: none;
+    .topbar img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .topbar ul li {
+        margin: 0.15em;
+    }
+
+    .topbar__svg {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
-
