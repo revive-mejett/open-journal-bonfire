@@ -45,6 +45,7 @@ MERN stack
 ![Creating entries page](https://github.com/revive-mejett/open-journal-bonfire/assets/90886544/eb557b64-a8f5-4c77-ba81-59a59b1e8fb1)
 ![image](https://github.com/revive-mejett/open-journal-bonfire/assets/90886544/731745e0-32ed-419b-855d-6775691eb206)
 ![image](https://github.com/revive-mejett/open-journal-bonfire/assets/90886544/f12149b2-62b8-44fe-ab70-7ee7b53202b3)
+<img width="1852" height="901" alt="image" src="https://github.com/user-attachments/assets/6407eb5d-f4d7-4bb9-b7e9-c341b92af97f" />
 
 
 
