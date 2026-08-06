@@ -4,7 +4,6 @@ import "../common/forms.scss"
 import "./CreateEntryPage.scss"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import Background from "../components/visuals/Background"
 import * as Yup from "yup"
 import { countBlacklistedWords, countHotWords, countRedHotWords } from "../utils/WordFilter"
 import { EventTag } from "../common/types"
@@ -155,7 +154,6 @@ const CreateEntryPage = () => {
 
     return (
         <main className="create-entry-page-main">
-            <Background/>
             <section>
                 <h2>Create an Anonymous Journal Entry</h2>
                 <Formik

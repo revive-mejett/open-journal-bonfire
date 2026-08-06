@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.scss"
-import "./components/visuals/Background.scss";
 import Topbar from "./components/Topbar";
+import Background from "./components/visuals/Background";
 import JournalEntriesPage from "./pages/JournalEntriesPage";
 import CreateEntryPage from "./pages/CreateEntryPage";
 import JournalEntryDetail from "./pages/JournalEntryDetail";
@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 const App : React.FC = () => {
     return (
         <>
+            <Background />
             <Topbar />
             <Routes>
                 <Route path="/" element={<Homepage />} />

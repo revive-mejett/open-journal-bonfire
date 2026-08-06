@@ -5,7 +5,6 @@ import "../common/forms.scss"
 import "./Homepage.scss"
 import { Field, Formik } from "formik"
 import { useLocation, useNavigate } from "react-router-dom"
-import Background from "../components/visuals/Background"
 import Loading from "../components/visuals/Loading"
 import { JournalEntry } from "../common/types"
 
@@ -114,7 +113,6 @@ const JournalEntriesPage : React.FC = () => {
 
     return (
         <main className="jounal-entries-page-main">
-            <Background />
             <button type="button" id="button-filter-toggle" onClick={handleToggleButtonClick}>Toggle filters</button>
             <section className="filters-container" ref={filtersContainer}>
                 

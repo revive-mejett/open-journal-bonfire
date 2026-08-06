@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import "./JournalEntryDetail.scss"
-import Background from "../components/visuals/Background"
+// Background is mounted once in App.tsx (site-wide), not per page.
 import Loading from "../components/visuals/Loading"
 import { filterRedhotWords } from "../utils/WordFilter"
 import { splitTextIntoPages } from "../utils/splitEntryContent"
@@ -214,7 +214,6 @@ const JournalEntryDetail : React.FC = () => {
 
     return (
         <main className="journal-entry-detail-main">
-            <Background/>
             {
                 journalEntryData && !isFetching ?
                 <div className="journal-entry-detail-layout">
