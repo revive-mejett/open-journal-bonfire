@@ -3,7 +3,6 @@ import JournalEntryCard from "../components/JournalEntryCard"
 import "./Homepage.scss"
 import { Link } from "react-router-dom"
 import HomepageLetterVisual from "../components/visuals/HomepageLetterVisual"
-import Background from "../components/visuals/Background"
 import { JournalEntry } from "../common/types"
 
 
@@ -103,7 +102,6 @@ const Homepage : React.FC = () => {
 
     return (
         <main className="homepage-main">
-            <Background/>
             <header className="presentation-section introduction-heading">
                 <h1>
                     an Open Journal Bonfire! 🔥
