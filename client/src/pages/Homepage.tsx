@@ -50,8 +50,20 @@ const Homepage : React.FC = () => {
 
     const numberSampleEntries = 3
 
+    const sampleFeelings: { text: string; tone: string }[] = [
+        { text: "Had an amazing day!", tone: "orange" },
+        { text: "OMG I JUST GOT A NEW JOB", tone: "yellow" },
+        { text: "I had a nice date", tone: "red" },
+        { text: "Welp.. failed my calculus 3 midterm...", tone: "dark-blue" },
+        { text: "today sucked.. real bad", tone: "blue" },
+        { text: "Got to relax today...", tone: "grey" },
+    ]
+
     // particle elements for the entry fire preview
     const particles : JSX.Element[] = Array.from({ length: 50 }, (_, i) => <div className="particle" key={i}></div>)
+    const statsParticles : JSX.Element[] = Array.from({ length: 50 }, (_, i) => (
+        <div className="particle" key={`stats-particle-${i}`}></div>
+    ))
     const paperPieces : JSX.Element[] = Array.from({ length: 5 }, (_, i) => {
         let randomRotation = Math.floor(Math.random() * 360)
         const paperWidth = 36
@@ -107,7 +119,7 @@ const Homepage : React.FC = () => {
                     an Open Journal Bonfire! 🔥
                 </h1>
                 <p>A free space for everyone to write and freely share their days what they want. No trees harmed!</p>
-                <div className="presentation-visual fire-container-introsection">
+                <div className="presentation-visual css-bonfire fire-container-introsection">
                     {paperPieces}
                     {particles}
                     <div className="wood-art wood-1"></div>
@@ -150,11 +162,32 @@ const Homepage : React.FC = () => {
 
             </section>
 
-            <section>
-                <h2>
-                    The bonfire... (Coming soon!)
-                </h2>
-                <p>Take a view of the bonfire. The past entries will be turned into statistics -- the bonfire.</p>
+            <section className="presentation-section stats-feature-presentation">
+                <div className="stats-feature-copy">
+                    <h2>
+                        The Bonfire — where the flame speaks thousands of voices
+                    </h2>
+                    <p>
+                        The fire represents all entries that have been burned which lets you see statistics.
+                    </p>
+                    <div className="link-container">
+                        <Link to="/bonfire-statistics" className="link-button">See the bonfire</Link>
+                    </div>
+                </div>
+                <div className="presentation-visual css-bonfire fire-container-statssection" aria-hidden="true">
+                    {statsParticles}
+                    {sampleFeelings.map((feeling, i) => (
+                        <span
+                            key={`feeling-${i}`}
+                            className={`feeling-spark feeling-spark--${feeling.tone}`}
+                            style={{ animationDelay: `${i * 1.4}s` }}
+                        >
+                            {feeling.text}
+                        </span>
+                    ))}
+                    <div className="wood-art wood-1"></div>
+                    <div className="wood-art wood-2"></div>
+                </div>
             </section>
         </main>
     )
