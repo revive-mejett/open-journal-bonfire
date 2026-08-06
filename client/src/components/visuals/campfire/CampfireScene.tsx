@@ -5,20 +5,34 @@ import Forest from "./Forest"
 import Campfire from "./Campfire"
 import PicnicTable from "./PicnicTable"
 
+const TABLE_COUNT = 7
+const TABLE_RADIUS = 4.2
+/** Leave a gap toward the camera (+Z) so the fire stays readable */
+const TABLE_GAP_CENTER = Math.PI / 2
+const TABLE_ARC = Math.PI * 2 - 0.9
+
+/** Picnic tables arcing around the fire, benches facing inward */
 const TABLE_PLACEMENTS: {
     position: [number, number, number]
     rotation: [number, number, number]
-}[] = [
-    { position: [3.2, 0, 1.5], rotation: [0, -0.6, 0] },
-    { position: [-3.0, 0, 1.8], rotation: [0, 0.7, 0] },
-    { position: [2.4, 0, -3.0], rotation: [0, 2.4, 0] },
-    { position: [-2.8, 0, -2.6], rotation: [0, -2.2, 0] },
-]
+}[] = Array.from({ length: TABLE_COUNT }, (_, i) => {
+    const angle = TABLE_GAP_CENTER + 0.45 + (i / (TABLE_COUNT - 1)) * TABLE_ARC
+    return {
+        position: [
+            Math.cos(angle) * TABLE_RADIUS,
+            0,
+            Math.sin(angle) * TABLE_RADIUS,
+        ] as [number, number, number],
+        // Orient so the table's ±Z (bench sides) face the fire
+        rotation: [0, -angle - Math.PI / 2, 0] as [number, number, number],
+    }
+})
 
 const CameraRig: React.FC = () => {
     const { camera } = useThree()
     useLayoutEffect(() => {
-        camera.lookAt(0, 0.9, 0)
+        // Eye-level gaze toward the far tree line so sky sits above the canopy
+        camera.lookAt(0, 2.4, -6)
     }, [camera])
     return null
 }
@@ -27,12 +41,14 @@ const CameraRig: React.FC = () => {
 const CampfireScene: React.FC = () => {
     return (
         <>
-            <color attach="background" args={["#190033"]} />
-            <fog attach="fog" args={["#190033", 12, 34]} />
+            <color attach="background" args={["#120828"]} />
+            <fog attach="fog" args={["#120828", 18, 42]} />
             <CameraRig />
 
-            <ambientLight intensity={0.12} color="#4a6a8a" />
-            <hemisphereLight args={["#2a1a40", "#0a0610", 0.35]} />
+            <ambientLight intensity={0.35} color="#6a8aaa" />
+            <hemisphereLight args={["#4a3870", "#1a3a28", 0.7]} />
+            {/* Soft moonlight so the green clearing reads without washing out the fire */}
+            <directionalLight position={[4, 10, 2]} intensity={0.35} color="#8aa8c8" />
 
             <Ground />
             <Forest />

@@ -16,31 +16,34 @@ const Tree: React.FC<TreeProps> = ({ position, scale = 1 }) => {
                 <meshStandardMaterial color="#2a1810" roughness={0.95} />
             </mesh>
             <mesh position={[0, foliageY, 0]}>
-                <coneGeometry args={[0.85 * scale, 2.2 * scale, 7]} />
+                <coneGeometry args={[0.95 * scale, 2.2 * scale, 7]} />
                 <meshStandardMaterial color="#0d1f14" roughness={0.9} />
             </mesh>
             <mesh position={[0, foliageY + 0.7 * scale, 0]}>
-                <coneGeometry args={[0.6 * scale, 1.5 * scale, 7]} />
+                <coneGeometry args={[0.68 * scale, 1.5 * scale, 7]} />
                 <meshStandardMaterial color="#123022" roughness={0.9} />
             </mesh>
         </group>
     )
 }
 
-/** Ring of stylized trees around the clearing */
+/** Dense rings of stylized trees — solid wall so the horizon stays hidden */
 const Forest: React.FC = () => {
     const trees = useMemo(() => {
         const items: { position: [number, number, number]; scale: number; key: string }[] = []
         const rings = [
-            { radius: 12, count: 14, scaleBase: 1.1 },
-            { radius: 16, count: 18, scaleBase: 1.35 },
-            { radius: 20, count: 22, scaleBase: 1.6 },
+            { radius: 11.5, count: 22, scaleBase: 1.2 },
+            { radius: 13.5, count: 26, scaleBase: 1.4 },
+            { radius: 15.5, count: 28, scaleBase: 1.55 },
+            { radius: 17.8, count: 30, scaleBase: 1.7 },
+            { radius: 20.2, count: 32, scaleBase: 1.9 },
+            { radius: 23, count: 34, scaleBase: 2.1 },
         ]
 
         rings.forEach((ring, ringIndex) => {
             for (let i = 0; i < ring.count; i++) {
-                const angle = (i / ring.count) * Math.PI * 2 + ringIndex * 0.2
-                const jitter = ((i * 17 + ringIndex * 9) % 7) * 0.15
+                const angle = (i / ring.count) * Math.PI * 2 + ringIndex * 0.15
+                const jitter = ((i * 17 + ringIndex * 9) % 7) * 0.12
                 const r = ring.radius + jitter
                 const scale = ring.scaleBase + ((i % 5) * 0.08)
                 items.push({

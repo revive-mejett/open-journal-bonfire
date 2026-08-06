@@ -65,16 +65,17 @@ const Campfire: React.FC = () => {
                 )
             })}
 
-            <mesh position={[0, 0.18, 0]} rotation={[0, 0.4, 0.15]}>
+            {/* Logs lie flat (cylinders are Y-up by default → pitch π/2 onto the ground) */}
+            <mesh position={[0, 0.11, 0]} rotation={[Math.PI / 2, 0, Math.PI / 5]}>
                 <cylinderGeometry args={[0.1, 0.12, 1.4, 6]} />
                 <meshStandardMaterial color="#3b2416" roughness={0.95} />
             </mesh>
-            <mesh position={[0, 0.22, 0]} rotation={[0.1, -0.7, -0.2]}>
+            <mesh position={[0.05, 0.2, 0.02]} rotation={[Math.PI / 2, 0.15, -Math.PI / 3]}>
                 <cylinderGeometry args={[0.09, 0.11, 1.3, 6]} />
                 <meshStandardMaterial color="#2e1a10" roughness={0.95} />
             </mesh>
-            <mesh position={[0.1, 0.28, -0.05]} rotation={[-0.2, 1.1, 0.1]}>
-                <cylinderGeometry args={[0.08, 0.1, 1.1, 6]} />
+            <mesh position={[-0.02, 0.3, -0.04]} rotation={[Math.PI / 2 + 0.12, -0.1, Math.PI / 2]}>
+                <cylinderGeometry args={[0.08, 0.1, 1.15, 6]} />
                 <meshStandardMaterial color="#4a2c1a" roughness={0.95} />
             </mesh>
 
@@ -102,9 +103,9 @@ const Campfire: React.FC = () => {
                 ref={lightRef}
                 position={[0, 1.2, 0]}
                 color="#ff9a3c"
-                intensity={2.4}
-                distance={22}
-                decay={2}
+                intensity={3.2}
+                distance={28}
+                decay={1.6}
             />
 
             <points ref={emberRefs} geometry={emberGeometry}>

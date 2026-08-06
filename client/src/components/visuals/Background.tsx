@@ -39,7 +39,7 @@ const Background: React.FC = () => {
         <div className="background" aria-hidden="true">
             <Canvas
                 dpr={[1, 1.5]}
-                camera={{ position: [0, 4.5, 9], fov: 42, near: 0.1, far: 80 }}
+                camera={{ position: [0, 1.85, 10.5], fov: 45, near: 0.1, far: 80 }}
                 gl={{ antialias: true, alpha: false, powerPreference: "low-power" }}
                 style={{ width: "100%", height: "100%" }}
             >
