@@ -60,6 +60,7 @@ const CampfireScene: React.FC = () => {
                     position={table.position}
                     rotation={table.rotation}
                     scale={0.95}
+                    seed={i + 1}
                 />
             ))}
         </>

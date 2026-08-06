@@ -4,11 +4,135 @@ import * as THREE from "three"
 
 const EMBER_COUNT = 40
 
-/** Logs, animated flames, warm light, and rising embers */
+type FlameDef = {
+    seed: number
+    color: number
+    height: number
+    radius: number
+    offset: [number, number, number]
+    emissiveIntensity: number
+    opacity: number
+}
+
+const FLAMES: FlameDef[] = [
+    { seed: 1, color: 0xff6a00, height: 0.95, radius: 0.38, offset: [0.02, 0.42, -0.01], emissiveIntensity: 2.4, opacity: 0.88 },
+    { seed: 2, color: 0xff8c1a, height: 0.85, radius: 0.3, offset: [-0.06, 0.48, 0.04], emissiveIntensity: 2.2, opacity: 0.8 },
+    { seed: 3, color: 0xffb020, height: 0.72, radius: 0.24, offset: [0.05, 0.55, 0.03], emissiveIntensity: 2.0, opacity: 0.72 },
+    { seed: 4, color: 0xffd54a, height: 0.55, radius: 0.16, offset: [-0.02, 0.62, -0.04], emissiveIntensity: 2.6, opacity: 0.65 },
+    { seed: 5, color: 0xff9a30, height: 0.68, radius: 0.2, offset: [0.08, 0.5, -0.06], emissiveIntensity: 1.8, opacity: 0.55 },
+]
+
+/** Deterministic 0–1 noise from seed + index */
+function hash(seed: number, i: number) {
+    const x = Math.sin(seed * 127.1 + i * 311.7) * 43758.5453
+    return x - Math.floor(x)
+}
+
+/**
+ * Low-poly flame: stacked irregular n-gons that taper to a jagged tip.
+ * Looks like flickering fire instead of a clean cone.
+ */
+function createFlameGeometry(seed: number, height: number, baseRadius: number) {
+    const sides = 7
+    const rings = [
+        { y: 0, r: baseRadius * 0.55 },
+        { y: height * 0.18, r: baseRadius },
+        { y: height * 0.42, r: baseRadius * 0.78 },
+        { y: height * 0.68, r: baseRadius * 0.42 },
+        { y: height * 0.88, r: baseRadius * 0.18 },
+    ]
+
+    const positions: number[] = []
+    const indices: number[] = []
+
+    // Bottom center
+    positions.push(0, 0, 0)
+    const bottomCenter = 0
+
+    rings.forEach((ring, ringIndex) => {
+        for (let s = 0; s < sides; s++) {
+            const baseAngle = (s / sides) * Math.PI * 2
+            const angleJitter = (hash(seed, ringIndex * 20 + s) - 0.5) * 0.45
+            const radiusJitter = 0.65 + hash(seed, ringIndex * 20 + s + 40) * 0.7
+            // Outer lobes — some verts push out like flame tongues
+            const lobe = s % 3 === 0 ? 1.15 + hash(seed, s + 90) * 0.35 : 1
+            const r = ring.r * radiusJitter * lobe
+            const yJitter = (hash(seed, ringIndex * 20 + s + 60) - 0.5) * height * 0.04
+            positions.push(
+                Math.cos(baseAngle + angleJitter) * r,
+                ring.y + yJitter,
+                Math.sin(baseAngle + angleJitter) * r
+            )
+        }
+    })
+
+    // Jagged tip (slightly off-center)
+    const tipIndex = 1 + rings.length * sides
+    positions.push(
+        (hash(seed, 200) - 0.5) * baseRadius * 0.15,
+        height,
+        (hash(seed, 201) - 0.5) * baseRadius * 0.15
+    )
+
+    // Cap bottom to first ring
+    for (let s = 0; s < sides; s++) {
+        const a = 1 + s
+        const b = 1 + ((s + 1) % sides)
+        indices.push(bottomCenter, b, a)
+    }
+
+    // Stitch consecutive irregular rings
+    for (let r = 0; r < rings.length - 1; r++) {
+        const ringA = 1 + r * sides
+        const ringB = 1 + (r + 1) * sides
+        for (let s = 0; s < sides; s++) {
+            const a0 = ringA + s
+            const a1 = ringA + ((s + 1) % sides)
+            const b0 = ringB + s
+            const b1 = ringB + ((s + 1) % sides)
+            indices.push(a0, a1, b1)
+            indices.push(a0, b1, b0)
+        }
+    }
+
+    // Tip fan from last ring
+    const lastRing = 1 + (rings.length - 1) * sides
+    for (let s = 0; s < sides; s++) {
+        const a = lastRing + s
+        const b = lastRing + ((s + 1) % sides)
+        indices.push(a, b, tipIndex)
+    }
+
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3))
+    geometry.setIndex(indices)
+    geometry.computeVertexNormals()
+    return geometry
+}
+
+const GLOW_LAYERS = [
+    { radius: 0.7, opacity: 0.28, color: "#ff5a1a", y: 0.65 },
+    { radius: 1.15, opacity: 0.16, color: "#ff3b10", y: 0.7 },
+    { radius: 1.7, opacity: 0.08, color: "#e82200", y: 0.75 },
+]
+
+/** Logs, animated irregular flames, warm light, and rising embers */
 const Campfire: React.FC = () => {
     const flameRefs = useRef<THREE.Mesh[]>([])
+    const glowRefs = useRef<THREE.Mesh[]>([])
     const emberRefs = useRef<THREE.Points>(null)
     const lightRef = useRef<THREE.PointLight>(null)
+    const glowLightRef = useRef<THREE.PointLight>(null)
+
+    const flameGeometries = useMemo(
+        () => FLAMES.map((f) => createFlameGeometry(f.seed, f.height, f.radius)),
+        []
+    )
+
+    const outerGlowGeometry = useMemo(
+        () => createFlameGeometry(11, 1.15, 0.55),
+        []
+    )
 
     const emberGeometry = useMemo(() => {
         const geometry = new THREE.BufferGeometry()
@@ -26,13 +150,28 @@ const Campfire: React.FC = () => {
         const t = clock.getElapsedTime()
         flameRefs.current.forEach((mesh, i) => {
             if (!mesh) return
-            const flicker = 0.85 + Math.sin(t * (8 + i * 2) + i) * 0.15
-            const bob = Math.sin(t * (6 + i) + i * 1.3) * 0.05
-            mesh.scale.setScalar(flicker)
-            mesh.position.y = 0.55 + i * 0.25 + bob
+            const def = FLAMES[i]
+            const flickerX = 0.88 + Math.sin(t * (9 + i * 1.7) + i) * 0.14
+            const flickerY = 0.92 + Math.sin(t * (7 + i * 2.1) + i * 1.4) * 0.18
+            const flickerZ = 0.88 + Math.cos(t * (8 + i * 1.5) + i * 0.7) * 0.14
+            const bob = Math.sin(t * (5.5 + i) + i * 1.3) * 0.04
+            mesh.scale.set(flickerX, flickerY, flickerZ)
+            mesh.position.y = def.offset[1] + bob
+            mesh.rotation.y = Math.sin(t * (1.8 + i * 0.4) + i) * 0.2
+        })
+        const glowPulse = 1 + Math.sin(t * 6.5) * 0.08 + Math.sin(t * 11) * 0.04
+        glowRefs.current.forEach((mesh, i) => {
+            if (!mesh) return
+            const base = GLOW_LAYERS[i]
+            const s = glowPulse * (1 + i * 0.03)
+            mesh.scale.set(s, s * (0.95 + Math.sin(t * 5 + i) * 0.08), s)
+            mesh.position.y = base.y + Math.sin(t * 4 + i) * 0.03
         })
         if (lightRef.current) {
-            lightRef.current.intensity = 2.2 + Math.sin(t * 9) * 0.35 + Math.sin(t * 13) * 0.15
+            lightRef.current.intensity = 3.0 + Math.sin(t * 9) * 0.4 + Math.sin(t * 13) * 0.2
+        }
+        if (glowLightRef.current) {
+            glowLightRef.current.intensity = 1.4 + Math.sin(t * 7) * 0.25
         }
         if (emberRefs.current) {
             const positions = emberRefs.current.geometry.attributes.position as THREE.BufferAttribute
@@ -79,22 +218,57 @@ const Campfire: React.FC = () => {
                 <meshStandardMaterial color="#4a2c1a" roughness={0.95} />
             </mesh>
 
-            {[0xff7300, 0xff9900, 0xffd900].map((color, i) => (
+            {/* Soft orange-red outer bloom */}
+            {GLOW_LAYERS.map((layer, i) => (
                 <mesh
-                    key={`flame-${i}`}
+                    key={`glow-${i}`}
+                    ref={(el) => {
+                        if (el) glowRefs.current[i] = el
+                    }}
+                    position={[0, layer.y, 0]}
+                >
+                    <sphereGeometry args={[layer.radius, 20, 16]} />
+                    <meshBasicMaterial
+                        color={layer.color}
+                        transparent
+                        opacity={layer.opacity}
+                        depthWrite={false}
+                        blending={THREE.AdditiveBlending}
+                        side={THREE.DoubleSide}
+                    />
+                </mesh>
+            ))}
+
+            {/* Irregular orange-red shell around the core flames */}
+            <mesh geometry={outerGlowGeometry} position={[0, 0.4, 0]} scale={[1.35, 1.2, 1.35]}>
+                <meshBasicMaterial
+                    color="#ff2e00"
+                    transparent
+                    opacity={0.22}
+                    depthWrite={false}
+                    blending={THREE.AdditiveBlending}
+                    side={THREE.DoubleSide}
+                />
+            </mesh>
+
+            {FLAMES.map((flame, i) => (
+                <mesh
+                    key={`flame-${flame.seed}`}
                     ref={(el) => {
                         if (el) flameRefs.current[i] = el
                     }}
-                    position={[0, 0.55 + i * 0.25, 0]}
+                    geometry={flameGeometries[i]}
+                    position={flame.offset}
                 >
-                    <coneGeometry args={[0.28 - i * 0.05, 0.7 - i * 0.1, 5]} />
                     <meshStandardMaterial
-                        color={color}
-                        emissive={color}
-                        emissiveIntensity={2.5 - i * 0.4}
+                        color={flame.color}
+                        emissive={flame.color}
+                        emissiveIntensity={flame.emissiveIntensity}
                         transparent
-                        opacity={0.85 - i * 0.15}
+                        opacity={flame.opacity}
                         roughness={1}
+                        side={THREE.DoubleSide}
+                        depthWrite={false}
                     />
                 </mesh>
             ))}
@@ -106,6 +280,14 @@ const Campfire: React.FC = () => {
                 intensity={3.2}
                 distance={28}
                 decay={1.6}
+            />
+            <pointLight
+                ref={glowLightRef}
+                position={[0, 1.0, 0]}
+                color="#ff3a12"
+                intensity={1.5}
+                distance={12}
+                decay={2}
             />
 
             <points ref={emberRefs} geometry={emberGeometry}>
