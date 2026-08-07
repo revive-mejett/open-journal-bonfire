@@ -47,105 +47,69 @@ $particle-size-final: 10px;
             grid-row-end: -1;
             grid-column-start: 2;
             grid-column-end: 2;
-            overflow: hidden;
-            position: relative;
-            min-height: 500px;
+        }
+    }
 
-            .wood-art {
-                width: 300px;
-                height: 60px;
-                position: absolute;
-                transform: translate(-50%, -50%);
-                background-color: $color-neutral;
-                left: 50%;
-                top: 85%;
+    // Shared CSS bonfire (intro + stats tease)
+    .css-bonfire {
+        overflow: hidden;
+        position: relative;
+        min-height: 500px;
 
-                &.wood-1 {
-                    rotate: 10deg;
-                }
+        .wood-art {
+            width: 300px;
+            height: 60px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: $color-neutral;
+            left: 50%;
+            top: 88%;
+            z-index: 1;
 
-                &.wood-2 {
-                    rotate: -10deg;
-                }
+            &.wood-1 {
+                rotate: 10deg;
             }
 
-            .paper-piece {
-                position: absolute;
-                background-color: $color-paper-light;
-                z-index: 1;
-                left: -10%;
-                bottom: (random($limit: 45) * 1%);
-                border: black solid 1px;
-                opacity: 0;
-
-                @for $i from 0 to 2 {
-                    &:nth-child(#{$i + 1}) {
-                        transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
-                        bottom: (random($limit: 70) * 1% + 10%);
-                        animation: flyingpaper random($limit: 5) * 4s ease-in-out infinite;
-                        animation-delay: calc($i * 4s / 5);
-                    }
-                }
-
-
-
+            &.wood-2 {
+                rotate: -10deg;
             }
-
-            .particle {
-                height: $particle-size;
-                width: $particle-size;
-                position: absolute;
-                z-index: 2;
-                border-radius: 50%;
-
-
-                @for $i from 0 to 50 {
-                    &:nth-child(#{$i + 1}) {
-                        left: (random($limit: 100) - 50) * 0.2% + 50%;
-                        top: (random($limit: 70) * 1%);
-                        animation: flame 2s ease-out infinite;
-                        animation-delay: calc($i * 1s / 10);
-                    }
-                }
-
-                @keyframes flame {
-                    0% {
-                        top: 80%;
-                        transform: translate(-50%, -50%);
-                        background-color: $color-positive-5;
-                        box-shadow: 1px 1px 1px 1px $color-positive-4;
-                    }
-
-                    5% {
-                        box-shadow: 1px 1px 30px 30px $color-positive-4;
-                    }
-
-                    30% {
-                        background-color: $color-positive-4;
-                        box-shadow: 0px 0px 10px 10px $color-positive;
-                    }
-
-                    70% {
-                        opacity: 100%;
-                    }
-
-                    100% {
-                        opacity: 0%;
-                        background-color: $color-neutral;
-                        width: $particle-size-final;
-                        height: $particle-size-final;
-                    }
-                }
-
-
-            }
-
-
-
-
         }
 
+        .paper-piece {
+            position: absolute;
+            background-color: $color-paper-light;
+            z-index: 1;
+            left: -10%;
+            bottom: (random($limit: 45) * 1%);
+            border: black solid 1px;
+            opacity: 0;
 
+            @for $i from 0 to 2 {
+                &:nth-child(#{$i + 1}) {
+                    transform: skew(random(75) * -1 * -1deg, random(45) * -1 * -1deg);
+                    bottom: (random($limit: 70) * 1% + 10%);
+                    animation: flyingpaper random($limit: 5) * 4s ease-in-out infinite;
+                    animation-delay: calc($i * 4s / 5);
+                }
+            }
+        }
+
+        .particle {
+            height: $particle-size;
+            width: $particle-size;
+            position: absolute;
+            z-index: 2;
+            border-radius: 50%;
+
+            @for $i from 0 to 50 {
+                &:nth-child(#{$i + 1}) {
+                    left: (random($limit: 100) - 50) * 0.2% + 50%;
+                    top: (random($limit: 70) * 1%);
+                    animation: flame 2s ease-out infinite;
+                    animation-delay: calc($i * 1s / 10);
+                }
+            }
+        }
     }
 
     .creation-feature-presentation {
@@ -213,6 +177,89 @@ $particle-size-final: 10px;
 
                 .journal-entry-card-link {
                     position: relative;
+                }
+            }
+        }
+    }
+
+    .stats-feature-presentation {
+        display: grid;
+        grid-template-columns: 0.45fr 0.55fr;
+        gap: 1.5em;
+        margin: 3em 2em 2em;
+        align-items: center;
+
+        .stats-feature-copy {
+            h2 {
+                margin-bottom: 0.4em;
+                font-size: 300%;
+            }
+
+            p {
+                margin-bottom: 1.2em;
+                font-size: 200%;
+            }
+        }
+
+        .fire-container-statssection {
+            .feeling-spark {
+                position: absolute;
+                left: 50%;
+                bottom: 18%;
+                z-index: 4;
+                max-width: 14rem;
+                padding: 0.35em 0.65em;
+                border-radius: 0.35em;
+                font-size: 0.95rem;
+                font-weight: 600;
+                line-height: 1.25;
+                text-align: center;
+                white-space: normal;
+                pointer-events: none;
+                opacity: 0;
+                transform: translate(-50%, 0);
+                animation: feeling-rise 8.4s ease-out infinite;
+
+                @for $i from 1 through 6 {
+                    &:nth-of-type(#{$i}) {
+                        left: 28% + ($i * 7%);
+                    }
+                }
+
+                &--orange {
+                    color: #ff9a3c;
+                    background: rgba(40, 12, 0, 0.55);
+                    box-shadow: 0 0 18px rgba(255, 115, 0, 0.45);
+                }
+
+                &--yellow {
+                    color: #ffd900;
+                    background: rgba(40, 30, 0, 0.55);
+                    box-shadow: 0 0 18px rgba(255, 217, 0, 0.4);
+                }
+
+                &--red {
+                    color: #ff4d4d;
+                    background: rgba(40, 0, 8, 0.55);
+                    box-shadow: 0 0 18px rgba(255, 50, 50, 0.4);
+                }
+
+                &--dark-blue {
+                    color: #1a4cff;
+                    background: rgba(4, 8, 40, 0.6);
+                    box-shadow: 0 0 18px rgba(20, 50, 200, 0.45);
+                }
+
+                &--blue {
+                    color: #4db8ff;
+                    background: rgba(4, 20, 40, 0.55);
+                    box-shadow: 0 0 18px rgba(70, 170, 255, 0.4);
+                }
+
+                &--grey {
+                    color: #c8c8c8;
+                    background: rgba(20, 20, 24, 0.55);
+                    box-shadow: 0 0 14px rgba(180, 180, 180, 0.3);
                 }
             }
         }
@@ -306,6 +353,20 @@ $particle-size-final: 10px;
                 margin: auto;
             }
         }
+
+        .stats-feature-presentation {
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content 480px;
+
+            .stats-feature-copy {
+                grid-row: 1;
+            }
+
+            .fire-container-statssection {
+                grid-row: 2;
+                min-height: 420px;
+            }
+        }
     }
 }
 
@@ -354,5 +415,61 @@ $particle-size-final: 10px;
         left: 110%;
         transform: skew(45deg, 45deg);
         opacity: 0%;
+    }
+}
+
+@keyframes flame {
+    0% {
+        top: 80%;
+        transform: translate(-50%, -50%);
+        background-color: $color-positive-5;
+        box-shadow: 1px 1px 1px 1px $color-positive-4;
+    }
+
+    5% {
+        box-shadow: 1px 1px 30px 30px $color-positive-4;
+    }
+
+    30% {
+        background-color: $color-positive-4;
+        box-shadow: 0px 0px 10px 10px $color-positive;
+    }
+
+    70% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
+        background-color: $color-neutral;
+        width: $particle-size-final;
+        height: $particle-size-final;
+    }
+}
+
+@keyframes feeling-rise {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 40px) scale(0.9);
+    }
+
+    12% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    55% {
+        opacity: 1;
+        transform: translate(calc(-50% + 18px), -180px) scale(1.02);
+    }
+
+    85% {
+        opacity: 0;
+        transform: translate(calc(-50% - 12px), -320px) scale(0.95);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -340px) scale(0.9);
     }
 }
