@@ -1,6 +1,7 @@
 import express from "express";
 //import { ObjectId } from "mongodb";
 import Database from "../db/dboperation.js";
+import { createEntryRateLimit } from "../middleware/createEntryRateLimit.js";
 
 const router = express.Router();
 //const collectionName = "match-entries"
@@ -84,7 +85,7 @@ router.get("/journalentries/sample/:count", async (req, res) => {
 });
 
 // route that create a new journal entry
-router.post("/journalentries/new", async (req, res) => {
+router.post("/journalentries/new", createEntryRateLimit, async (req, res) => {
 
     try {
         let newEntry = await db.createEntry(req.body)

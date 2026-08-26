@@ -7,6 +7,9 @@ import records from "./routes/api.js";
 
 const app = express();
 
+// Trust one reverse-proxy hop so req.ip is the real client IP when deployed.
+app.set("trust proxy", 1);
+
 // app.use(cors());
 app.use(express.json());
 app.use("/api", records);
