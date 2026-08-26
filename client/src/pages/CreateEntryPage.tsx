@@ -140,6 +140,10 @@ const CreateEntryPage = () => {
         })
 
         if (!response.ok) {
+            if (response.status === 429) {
+                navigate("/entries/rate-limited")
+                return
+            }
             console.error("A server error occured. Please try again later.")
             return
         }

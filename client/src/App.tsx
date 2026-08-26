@@ -24,6 +24,10 @@ const App : React.FC = () => {
                 <Route path="/entries/error" element={<NotFound
                     primaryMessage="It seems that the journal entry page you're looking for is not found. It might already got thrown into the bonfire."
                     secondaryMessage="Entries can't stay hanging here. We need to burn them eventually." />} />
+                <Route path="/entries/rate-limited" element={<NotFound
+                    statusCode={429}
+                    primaryMessage="Hey! You've written many entries at once!"
+                    secondaryMessage="Looks like you will need to fall back in line before you write something again!" />} />
                 
                 <Route path="/bonfire-statistics" element={<BonfireStatistics/>}/>
 
